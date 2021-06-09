@@ -23,7 +23,7 @@ extern "C" {
 
 #define HDPATH_LEN_DEFAULT   5
 #define HDPATH_0_DEFAULT     (0x80000000 | 0x2c)
-#define HDPATH_1_DEFAULT     (0x80000000 | 0x1b2)       // 434 - Kusama
+#define HDPATH_1_DEFAULT     (0x80000000 | 0x1b2)       // 434 - Kusama/Statemine
 #define HDPATH_1_RECOVERY    (0x80000000 | 0x162)       // 354 - Polkadot
 
 #define SK_LEN_25519         64u
@@ -47,24 +47,18 @@ typedef enum {
 #define PK_ADDRESS_TYPE                     COIN_ADDR_TYPE_KUSAMA
 #define SUPPORTED_TX_VERSION_CURRENT        LEDGER_MAJOR_VERSION
 #define SUPPORTED_TX_VERSION_PREVIOUS       (LEDGER_MAJOR_VERSION - 1)
-#define SUPPORTED_SPEC_VERSION              (LEDGER_MINOR_VERSION + 2000)
-#define SUPPORTED_MINIMUM_SPEC_VERSION      2008
+#define SUPPORTED_SPEC_VERSION              (LEDGER_MINOR_VERSION + 0)
+#define SUPPORTED_MINIMUM_SPEC_VERSION      0
 
 #define COIN_AMOUNT_DECIMAL_PLACES          12
 
 #define COIN_GENESIS_HASH                   "b0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe"
-#define COIN_NAME                           "Kusama"
+#define COIN_NAME                           "Statemine"
 #define COIN_TICKER                         "KSM"
 
 #define COIN_SECRET_REQUIRED_CLICKS         10
 
-#if defined(APP_STANDARD)
 #include "coin_standard.h"
-#elif defined(APP_RESTRICTED)
-#include "coin_restricted.h"
-#else
-#error "APP VARIANT IS NOT SUPPORTED"
-#endif
 
 #ifdef __cplusplus
 }

@@ -21,7 +21,7 @@ extern "C" {
 
 #include "parser_common.h"
 #include "stdbool.h"
-#include "substrate_dispatch_V5.h"
+#include "substrate_dispatch_V1.h"
 #include <stddef.h>
 #include <stdint.h>
 
@@ -32,8 +32,8 @@ extern "C" {
     {                                              \
         switch (txVersion) {                       \
                                                    \
-        case 5:                                    \
-            return PD_CALL_##CALL##_V5;            \
+        case 1:                                    \
+            return PD_CALL_##CALL##_V1;            \
                                                    \
         default:                                   \
             return 0;                              \
@@ -54,19 +54,6 @@ parser_error_t _getMethod_ItemValue(
 
 bool _getMethod_ItemIsExpert(uint32_t transactionVersion, uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx);
 bool _getMethod_IsNestingSupported(uint32_t transactionVersion, uint8_t moduleIdx, uint8_t callIdx);
-
-//Special getters
-#if defined(APP_RESTRICTED)
-parser_error_t parser_validate_staking_targets(parser_context_t* c);
-GEN_DEC_GETCALL(STAKING);
-GEN_DEC_GETCALL(STAKING_VALIDATE);
-GEN_DEC_GETCALL(STAKING_SET_PAYEE);
-GEN_DEC_GETCALL(STAKING_CHILL);
-GEN_DEC_GETCALL(STAKING_NOMINATE);
-GEN_DEC_GETCALL(SESSION);
-GEN_DEC_GETCALL(SESSION_SET_KEYS);
-GEN_DEC_GETCALL(SESSION_PURGE_KEYS);
-#endif
 
 #ifdef __cplusplus
 }

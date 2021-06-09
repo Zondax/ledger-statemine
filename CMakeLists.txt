@@ -14,7 +14,7 @@
 #*  limitations under the License.
 #********************************************************************************
 cmake_minimum_required(VERSION 3.0)
-project(ledger-kusama VERSION 0.0.0)
+project(ledger-statemine VERSION 0.0.0)
 enable_testing()
 
 cmake_policy(SET CMP0025 NEW)
@@ -35,6 +35,11 @@ if(ENABLE_FUZZING)
     add_definitions(-DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION=1)
     SET(ENABLE_SANITIZERS ON CACHE BOOL "Sanitizer automatically enabled" FORCE)
     SET(CMAKE_BUILD_TYPE Debug)
+
+    if (DEFINED ENV{FUZZ_LOGGING})
+        add_definitions(-DFUZZING_LOGGING)
+        message(FATAL_ERROR "Fuzz logging enabled")
+    endif()
 
     set(CMAKE_CXX_CLANG_TIDY clang-tidy -checks=-*,bugprone-*,cert-*,clang-analyzer-*,-cert-err58-cpp,misc-*)
 
