@@ -56,7 +56,7 @@ typedef enum {
 #define COIN_NAME                           "Statemine"
 #define COIN_TICKER                         "KSM"
 
-#define COIN_SECRET_REQUIRED_CLICKS         10
+#define COIN_SECRET_REQUIRED_CLICKS         0
 
 #include "coin_standard.h"
 
