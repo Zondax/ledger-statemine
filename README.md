@@ -1,6 +1,6 @@
 # Ledger Statemine app
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![CircleCI](https://circleci.com/gh/Zondax/ledger-statemine.svg?style=shield)](https://circleci.com/gh/Zondax/ledger-kusama)
+[![CircleCI](https://circleci.com/gh/Zondax/ledger-statemine.svg?style=shield)](https://circleci.com/gh/Zondax/ledger-statemine)
 
 ![zondax](docs/zondax.jpg)
 
