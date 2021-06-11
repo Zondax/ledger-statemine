@@ -229,81 +229,81 @@ typedef struct {
 
 #define PD_CALL_UNIQUES_CREATE_V1 0
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_LookupSource_V1_t admin;
 } pd_uniques_create_V1_t;
 
 #define PD_CALL_UNIQUES_FORCE_CREATE_V1 1
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_LookupSource_V1_t owner;
     pd_bool_t free_holding;
 } pd_uniques_force_create_V1_t;
 
 #define PD_CALL_UNIQUES_DESTROY_V1 2
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_DestroyWitness_V1_t witness;
 } pd_uniques_destroy_V1_t;
 
 #define PD_CALL_UNIQUES_MINT_V1 3
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_CompactInstanceId_V1_t instance;
     pd_LookupSource_V1_t owner;
 } pd_uniques_mint_V1_t;
 
 #define PD_CALL_UNIQUES_BURN_V1 4
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_CompactInstanceId_V1_t instance;
     pd_OptionLookupSource_V1_t check_owner;
 } pd_uniques_burn_V1_t;
 
 #define PD_CALL_UNIQUES_TRANSFER_V1 5
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_CompactInstanceId_V1_t instance;
     pd_LookupSource_V1_t dest;
 } pd_uniques_transfer_V1_t;
 
 #define PD_CALL_UNIQUES_REDEPOSIT_V1 6
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_VecInstanceId_V1_t instances;
 } pd_uniques_redeposit_V1_t;
 
 #define PD_CALL_UNIQUES_FREEZE_V1 7
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_CompactInstanceId_V1_t instance;
 } pd_uniques_freeze_V1_t;
 
 #define PD_CALL_UNIQUES_THAW_V1 8
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_CompactInstanceId_V1_t instance;
 } pd_uniques_thaw_V1_t;
 
 #define PD_CALL_UNIQUES_FREEZE_CLASS_V1 9
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
 } pd_uniques_freeze_class_V1_t;
 
 #define PD_CALL_UNIQUES_THAW_CLASS_V1 10
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
 } pd_uniques_thaw_class_V1_t;
 
 #define PD_CALL_UNIQUES_TRANSFER_OWNERSHIP_V1 11
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_LookupSource_V1_t owner;
 } pd_uniques_transfer_ownership_V1_t;
 
 #define PD_CALL_UNIQUES_SET_TEAM_V1 12
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_LookupSource_V1_t issuer;
     pd_LookupSource_V1_t admin;
     pd_LookupSource_V1_t freezer;
@@ -311,21 +311,21 @@ typedef struct {
 
 #define PD_CALL_UNIQUES_APPROVE_TRANSFER_V1 13
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_CompactInstanceId_V1_t instance;
     pd_LookupSource_V1_t delegate;
 } pd_uniques_approve_transfer_V1_t;
 
 #define PD_CALL_UNIQUES_CANCEL_APPROVAL_V1 14
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_CompactInstanceId_V1_t instance;
     pd_OptionLookupSource_V1_t maybe_check_delegate;
 } pd_uniques_cancel_approval_V1_t;
 
 #define PD_CALL_UNIQUES_FORCE_ASSET_STATUS_V1 15
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_LookupSource_V1_t owner;
     pd_LookupSource_V1_t issuer;
     pd_LookupSource_V1_t admin;
@@ -336,7 +336,7 @@ typedef struct {
 
 #define PD_CALL_UNIQUES_SET_ATTRIBUTE_V1 16
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_OptionInstanceId_V1_t maybe_instance;
     pd_Bytes_t key;
     pd_Bytes_t value;
@@ -344,14 +344,14 @@ typedef struct {
 
 #define PD_CALL_UNIQUES_CLEAR_ATTRIBUTE_V1 17
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_OptionInstanceId_V1_t maybe_instance;
     pd_Bytes_t key;
 } pd_uniques_clear_attribute_V1_t;
 
 #define PD_CALL_UNIQUES_SET_METADATA_V1 18
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_CompactInstanceId_V1_t instance;
     pd_Bytes_t data;
     pd_bool_t is_frozen;
@@ -359,20 +359,20 @@ typedef struct {
 
 #define PD_CALL_UNIQUES_CLEAR_METADATA_V1 19
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_CompactInstanceId_V1_t instance;
 } pd_uniques_clear_metadata_V1_t;
 
 #define PD_CALL_UNIQUES_SET_CLASS_METADATA_V1 20
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
     pd_Bytes_t data;
     pd_bool_t is_frozen;
 } pd_uniques_set_class_metadata_V1_t;
 
 #define PD_CALL_UNIQUES_CLEAR_CLASS_METADATA_V1 21
 typedef struct {
-    pd_CompactClassId_V1_t class;
+    pd_CompactClassId_V1_t class_;
 } pd_uniques_clear_class_metadata_V1_t;
 
 #endif

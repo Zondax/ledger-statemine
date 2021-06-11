@@ -417,6 +417,7 @@ static const char* STR_IT_instances = "Instances";
 static const char* STR_IT_maybe_check_delegate = "Maybe check delegate";
 static const char* STR_IT_maybe_instance = "Maybe instance";
 static const char* STR_IT_key = "Key";
+static const char* STR_IT_class_ = "Class";
 
 #ifdef __cplusplus
 }

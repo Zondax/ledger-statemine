@@ -624,7 +624,7 @@ __Z_INLINE parser_error_t _readMethod_assets_transfer_approved_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_create_V1(
     parser_context_t* c, pd_uniques_create_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readLookupSource_V1(c, &m->admin))
     return parser_ok;
 }
@@ -632,7 +632,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_create_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_force_create_V1(
     parser_context_t* c, pd_uniques_force_create_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readLookupSource_V1(c, &m->owner))
     CHECK_ERROR(_readbool(c, &m->free_holding))
     return parser_ok;
@@ -641,7 +641,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_force_create_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_destroy_V1(
     parser_context_t* c, pd_uniques_destroy_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readDestroyWitness_V1(c, &m->witness))
     return parser_ok;
 }
@@ -649,7 +649,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_destroy_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_mint_V1(
     parser_context_t* c, pd_uniques_mint_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readCompactInstanceId_V1(c, &m->instance))
     CHECK_ERROR(_readLookupSource_V1(c, &m->owner))
     return parser_ok;
@@ -658,7 +658,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_mint_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_burn_V1(
     parser_context_t* c, pd_uniques_burn_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readCompactInstanceId_V1(c, &m->instance))
     CHECK_ERROR(_readOptionLookupSource_V1(c, &m->check_owner))
     return parser_ok;
@@ -667,7 +667,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_burn_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_transfer_V1(
     parser_context_t* c, pd_uniques_transfer_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readCompactInstanceId_V1(c, &m->instance))
     CHECK_ERROR(_readLookupSource_V1(c, &m->dest))
     return parser_ok;
@@ -676,7 +676,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_transfer_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_redeposit_V1(
     parser_context_t* c, pd_uniques_redeposit_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readVecInstanceId_V1(c, &m->instances))
     return parser_ok;
 }
@@ -684,7 +684,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_redeposit_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_freeze_V1(
     parser_context_t* c, pd_uniques_freeze_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readCompactInstanceId_V1(c, &m->instance))
     return parser_ok;
 }
@@ -692,7 +692,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_freeze_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_thaw_V1(
     parser_context_t* c, pd_uniques_thaw_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readCompactInstanceId_V1(c, &m->instance))
     return parser_ok;
 }
@@ -700,21 +700,21 @@ __Z_INLINE parser_error_t _readMethod_uniques_thaw_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_freeze_class_V1(
     parser_context_t* c, pd_uniques_freeze_class_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_thaw_class_V1(
     parser_context_t* c, pd_uniques_thaw_class_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_transfer_ownership_V1(
     parser_context_t* c, pd_uniques_transfer_ownership_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readLookupSource_V1(c, &m->owner))
     return parser_ok;
 }
@@ -722,7 +722,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_transfer_ownership_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_set_team_V1(
     parser_context_t* c, pd_uniques_set_team_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readLookupSource_V1(c, &m->issuer))
     CHECK_ERROR(_readLookupSource_V1(c, &m->admin))
     CHECK_ERROR(_readLookupSource_V1(c, &m->freezer))
@@ -732,7 +732,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_set_team_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_approve_transfer_V1(
     parser_context_t* c, pd_uniques_approve_transfer_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readCompactInstanceId_V1(c, &m->instance))
     CHECK_ERROR(_readLookupSource_V1(c, &m->delegate))
     return parser_ok;
@@ -741,7 +741,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_approve_transfer_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_cancel_approval_V1(
     parser_context_t* c, pd_uniques_cancel_approval_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readCompactInstanceId_V1(c, &m->instance))
     CHECK_ERROR(_readOptionLookupSource_V1(c, &m->maybe_check_delegate))
     return parser_ok;
@@ -750,7 +750,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_cancel_approval_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_force_asset_status_V1(
     parser_context_t* c, pd_uniques_force_asset_status_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readLookupSource_V1(c, &m->owner))
     CHECK_ERROR(_readLookupSource_V1(c, &m->issuer))
     CHECK_ERROR(_readLookupSource_V1(c, &m->admin))
@@ -763,7 +763,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_force_asset_status_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_set_attribute_V1(
     parser_context_t* c, pd_uniques_set_attribute_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readOptionInstanceId_V1(c, &m->maybe_instance))
     CHECK_ERROR(_readBytes(c, &m->key))
     CHECK_ERROR(_readBytes(c, &m->value))
@@ -773,7 +773,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_set_attribute_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_clear_attribute_V1(
     parser_context_t* c, pd_uniques_clear_attribute_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readOptionInstanceId_V1(c, &m->maybe_instance))
     CHECK_ERROR(_readBytes(c, &m->key))
     return parser_ok;
@@ -782,7 +782,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_clear_attribute_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_set_metadata_V1(
     parser_context_t* c, pd_uniques_set_metadata_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readCompactInstanceId_V1(c, &m->instance))
     CHECK_ERROR(_readBytes(c, &m->data))
     CHECK_ERROR(_readbool(c, &m->is_frozen))
@@ -792,7 +792,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_set_metadata_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_clear_metadata_V1(
     parser_context_t* c, pd_uniques_clear_metadata_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readCompactInstanceId_V1(c, &m->instance))
     return parser_ok;
 }
@@ -800,7 +800,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_clear_metadata_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_set_class_metadata_V1(
     parser_context_t* c, pd_uniques_set_class_metadata_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     CHECK_ERROR(_readBytes(c, &m->data))
     CHECK_ERROR(_readbool(c, &m->is_frozen))
     return parser_ok;
@@ -809,7 +809,7 @@ __Z_INLINE parser_error_t _readMethod_uniques_set_class_metadata_V1(
 __Z_INLINE parser_error_t _readMethod_uniques_clear_class_metadata_V1(
     parser_context_t* c, pd_uniques_clear_class_metadata_V1_t* m)
 {
-    CHECK_ERROR(_readCompactClassId_V1(c, &m->class))
+    CHECK_ERROR(_readCompactClassId_V1(c, &m->class_))
     return parser_ok;
 }
 
@@ -2277,7 +2277,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13056: /* module 51 call 0 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_admin;
         default:
@@ -2286,7 +2286,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13057: /* module 51 call 1 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_owner;
         case 2:
@@ -2297,7 +2297,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13058: /* module 51 call 2 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_witness;
         default:
@@ -2306,7 +2306,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13059: /* module 51 call 3 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_instance;
         case 2:
@@ -2317,7 +2317,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13060: /* module 51 call 4 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_instance;
         case 2:
@@ -2328,7 +2328,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13061: /* module 51 call 5 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_instance;
         case 2:
@@ -2339,7 +2339,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13062: /* module 51 call 6 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_instances;
         default:
@@ -2348,7 +2348,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13063: /* module 51 call 7 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_instance;
         default:
@@ -2357,7 +2357,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13064: /* module 51 call 8 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_instance;
         default:
@@ -2366,21 +2366,21 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13065: /* module 51 call 9 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         default:
             return NULL;
         }
     case 13066: /* module 51 call 10 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         default:
             return NULL;
         }
     case 13067: /* module 51 call 11 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_owner;
         default:
@@ -2389,7 +2389,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13068: /* module 51 call 12 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_issuer;
         case 2:
@@ -2402,7 +2402,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13069: /* module 51 call 13 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_instance;
         case 2:
@@ -2413,7 +2413,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13070: /* module 51 call 14 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_instance;
         case 2:
@@ -2424,7 +2424,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13071: /* module 51 call 15 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_owner;
         case 2:
@@ -2443,7 +2443,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13072: /* module 51 call 16 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_maybe_instance;
         case 2:
@@ -2456,7 +2456,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13073: /* module 51 call 17 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_maybe_instance;
         case 2:
@@ -2467,7 +2467,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13074: /* module 51 call 18 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_instance;
         case 2:
@@ -2480,7 +2480,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13075: /* module 51 call 19 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_instance;
         default:
@@ -2489,7 +2489,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13076: /* module 51 call 20 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         case 1:
             return STR_IT_data;
         case 2:
@@ -2500,7 +2500,7 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
     case 13077: /* module 51 call 21 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_class;
+            return STR_IT_class_;
         default:
             return NULL;
         }
@@ -3704,9 +3704,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13056: /* module 51 call 0 */
         switch (itemIdx) {
-        case 0: /* uniques_create_V1 - class */;
+        case 0: /* uniques_create_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_create_V1.class,
+                &m->basic.uniques_create_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_create_V1 - admin */;
@@ -3719,9 +3719,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13057: /* module 51 call 1 */
         switch (itemIdx) {
-        case 0: /* uniques_force_create_V1 - class */;
+        case 0: /* uniques_force_create_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_force_create_V1.class,
+                &m->basic.uniques_force_create_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_force_create_V1 - owner */;
@@ -3739,9 +3739,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13058: /* module 51 call 2 */
         switch (itemIdx) {
-        case 0: /* uniques_destroy_V1 - class */;
+        case 0: /* uniques_destroy_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_destroy_V1.class,
+                &m->basic.uniques_destroy_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_destroy_V1 - witness */;
@@ -3754,9 +3754,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13059: /* module 51 call 3 */
         switch (itemIdx) {
-        case 0: /* uniques_mint_V1 - class */;
+        case 0: /* uniques_mint_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_mint_V1.class,
+                &m->basic.uniques_mint_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_mint_V1 - instance */;
@@ -3774,9 +3774,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13060: /* module 51 call 4 */
         switch (itemIdx) {
-        case 0: /* uniques_burn_V1 - class */;
+        case 0: /* uniques_burn_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_burn_V1.class,
+                &m->basic.uniques_burn_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_burn_V1 - instance */;
@@ -3794,9 +3794,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13061: /* module 51 call 5 */
         switch (itemIdx) {
-        case 0: /* uniques_transfer_V1 - class */;
+        case 0: /* uniques_transfer_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_transfer_V1.class,
+                &m->basic.uniques_transfer_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_transfer_V1 - instance */;
@@ -3814,9 +3814,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13062: /* module 51 call 6 */
         switch (itemIdx) {
-        case 0: /* uniques_redeposit_V1 - class */;
+        case 0: /* uniques_redeposit_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_redeposit_V1.class,
+                &m->basic.uniques_redeposit_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_redeposit_V1 - instances */;
@@ -3829,9 +3829,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13063: /* module 51 call 7 */
         switch (itemIdx) {
-        case 0: /* uniques_freeze_V1 - class */;
+        case 0: /* uniques_freeze_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_freeze_V1.class,
+                &m->basic.uniques_freeze_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_freeze_V1 - instance */;
@@ -3844,9 +3844,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13064: /* module 51 call 8 */
         switch (itemIdx) {
-        case 0: /* uniques_thaw_V1 - class */;
+        case 0: /* uniques_thaw_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_thaw_V1.class,
+                &m->basic.uniques_thaw_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_thaw_V1 - instance */;
@@ -3859,9 +3859,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13065: /* module 51 call 9 */
         switch (itemIdx) {
-        case 0: /* uniques_freeze_class_V1 - class */;
+        case 0: /* uniques_freeze_class_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_freeze_class_V1.class,
+                &m->basic.uniques_freeze_class_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3869,9 +3869,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13066: /* module 51 call 10 */
         switch (itemIdx) {
-        case 0: /* uniques_thaw_class_V1 - class */;
+        case 0: /* uniques_thaw_class_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_thaw_class_V1.class,
+                &m->basic.uniques_thaw_class_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3879,9 +3879,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13067: /* module 51 call 11 */
         switch (itemIdx) {
-        case 0: /* uniques_transfer_ownership_V1 - class */;
+        case 0: /* uniques_transfer_ownership_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_transfer_ownership_V1.class,
+                &m->basic.uniques_transfer_ownership_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_transfer_ownership_V1 - owner */;
@@ -3894,9 +3894,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13068: /* module 51 call 12 */
         switch (itemIdx) {
-        case 0: /* uniques_set_team_V1 - class */;
+        case 0: /* uniques_set_team_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_set_team_V1.class,
+                &m->basic.uniques_set_team_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_set_team_V1 - issuer */;
@@ -3919,9 +3919,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13069: /* module 51 call 13 */
         switch (itemIdx) {
-        case 0: /* uniques_approve_transfer_V1 - class */;
+        case 0: /* uniques_approve_transfer_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_approve_transfer_V1.class,
+                &m->basic.uniques_approve_transfer_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_approve_transfer_V1 - instance */;
@@ -3939,9 +3939,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13070: /* module 51 call 14 */
         switch (itemIdx) {
-        case 0: /* uniques_cancel_approval_V1 - class */;
+        case 0: /* uniques_cancel_approval_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_cancel_approval_V1.class,
+                &m->basic.uniques_cancel_approval_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_cancel_approval_V1 - instance */;
@@ -3959,9 +3959,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13071: /* module 51 call 15 */
         switch (itemIdx) {
-        case 0: /* uniques_force_asset_status_V1 - class */;
+        case 0: /* uniques_force_asset_status_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_force_asset_status_V1.class,
+                &m->basic.uniques_force_asset_status_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_force_asset_status_V1 - owner */;
@@ -3999,9 +3999,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13072: /* module 51 call 16 */
         switch (itemIdx) {
-        case 0: /* uniques_set_attribute_V1 - class */;
+        case 0: /* uniques_set_attribute_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_set_attribute_V1.class,
+                &m->basic.uniques_set_attribute_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_set_attribute_V1 - maybe_instance */;
@@ -4024,9 +4024,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13073: /* module 51 call 17 */
         switch (itemIdx) {
-        case 0: /* uniques_clear_attribute_V1 - class */;
+        case 0: /* uniques_clear_attribute_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_clear_attribute_V1.class,
+                &m->basic.uniques_clear_attribute_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_clear_attribute_V1 - maybe_instance */;
@@ -4044,9 +4044,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13074: /* module 51 call 18 */
         switch (itemIdx) {
-        case 0: /* uniques_set_metadata_V1 - class */;
+        case 0: /* uniques_set_metadata_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_set_metadata_V1.class,
+                &m->basic.uniques_set_metadata_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_set_metadata_V1 - instance */;
@@ -4069,9 +4069,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13075: /* module 51 call 19 */
         switch (itemIdx) {
-        case 0: /* uniques_clear_metadata_V1 - class */;
+        case 0: /* uniques_clear_metadata_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_clear_metadata_V1.class,
+                &m->basic.uniques_clear_metadata_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_clear_metadata_V1 - instance */;
@@ -4084,9 +4084,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13076: /* module 51 call 20 */
         switch (itemIdx) {
-        case 0: /* uniques_set_class_metadata_V1 - class */;
+        case 0: /* uniques_set_class_metadata_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_set_class_metadata_V1.class,
+                &m->basic.uniques_set_class_metadata_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_set_class_metadata_V1 - data */;
@@ -4104,9 +4104,9 @@ parser_error_t _getMethod_ItemValue_V1(
         }
     case 13077: /* module 51 call 21 */
         switch (itemIdx) {
-        case 0: /* uniques_clear_class_metadata_V1 - class */;
+        case 0: /* uniques_clear_class_metadata_V1 - class_ */;
             return _toStringCompactClassId_V1(
-                &m->basic.uniques_clear_class_metadata_V1.class,
+                &m->basic.uniques_clear_class_metadata_V1.class_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
