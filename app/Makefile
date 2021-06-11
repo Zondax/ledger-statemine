@@ -40,7 +40,7 @@ all: bin/app.elf
 
 include $(BOLOS_SDK)/Makefile.defines
 
-#DEFINES += APP_SECRET_MODE_ENABLED
+DEFINES += APP_SECRET_MODE_ENABLED
 
 $(info ************ TARGET_NAME  = [$(TARGET_NAME)])
 
@@ -111,7 +111,6 @@ OUTPUT_ELF ?= $(CURDIR)/output/app_x.elf
 OUTPUT_INSTALLER:= $(CURDIR)/pkg/installer_x.sh
 endif
 
-$(info TARGET_NAME  = [$(TARGET_NAME)])
 $(info ICONNAME  = [$(ICONNAME)])
 
 ifndef ICONNAME
