@@ -158,7 +158,7 @@ parser_error_t _readProxyType_V1(parser_context_t* c, pd_ProxyType_V1_t* v)
     CHECK_INPUT()
 
     CHECK_ERROR(_readUInt8(c, &v->value))
-    if (v->value > 3) {
+    if (v->value > 7) {
         return parser_value_out_of_range;
     }
 
@@ -574,10 +574,19 @@ parser_error_t _toStringProxyType_V1(
         snprintf(outValue, outValueLen, "NonTransfer");
         break;
     case 2:
-        snprintf(outValue, outValueLen, "Governance");
+        snprintf(outValue, outValueLen, "CancelProxy");
         break;
     case 3:
-        snprintf(outValue, outValueLen, "Staking");
+        snprintf(outValue, outValueLen, "Assets");
+        break;
+    case 4:
+        snprintf(outValue, outValueLen, "AssetOwner");
+        break;
+    case 5:
+        snprintf(outValue, outValueLen, "AssetManager");
+        break;
+    case 6:
+        snprintf(outValue, outValueLen, "Collator");
         break;
     default:
         return parser_print_not_supported;
