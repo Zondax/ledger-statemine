@@ -15,7 +15,7 @@
  ******************************************************************************* */
 
 import Zemu, { DEFAULT_START_OPTIONS } from '@zondax/zemu'
-import { newKusamaApp } from '@zondax/ledger-polkadot'
+import { newStatemineApp } from '@zondax/ledger-substrate'
 import { APP_SEED } from './common'
 
 // @ts-ignore
@@ -35,12 +35,16 @@ const defaultOptions = {
 
 jest.setTimeout(60000)
 
+beforeAll(async () => {
+  await Zemu.checkAndPullImage()
+})
+
 describe('SR25519', function () {
   test('get address sr25519', async function () {
     const sim = new Zemu(APP_PATH)
     try {
       await sim.start({ ...defaultOptions })
-      const app = newKusamaApp(sim.getTransport())
+      const app = newStatemineApp(sim.getTransport())
 
       const resp = await app.getAddress(0x80000000, 0x80000000, 0x80000000, false, 1)
 
@@ -63,7 +67,7 @@ describe('SR25519', function () {
     const sim = new Zemu(APP_PATH)
     try {
       await sim.start({ ...defaultOptions, model: 'nanos' })
-      const app = newKusamaApp(sim.getTransport())
+      const app = newStatemineApp(sim.getTransport())
 
       const respRequest = app.getAddress(0x80000000, 0x80000000, 0x80000000, true, 1)
       // Wait until we are not in the main menu
@@ -91,7 +95,7 @@ describe('SR25519', function () {
     const sim = new Zemu(APP_PATH)
     try {
       await sim.start({ ...defaultOptions })
-      const app = newKusamaApp(sim.getTransport())
+      const app = newStatemineApp(sim.getTransport())
 
       const respRequest = app.getAddress(0x80000000, 0x80000000, 0x80000000, true, 1)
       // Wait until we are not in the main menu
@@ -112,7 +116,7 @@ describe('SR25519', function () {
     const sim = new Zemu(APP_PATH)
     try {
       await sim.start({ ...defaultOptions })
-      const app = newKusamaApp(sim.getTransport())
+      const app = newStatemineApp(sim.getTransport())
       const pathAccount = 0x80000000
       const pathChange = 0x80000000
       const pathIndex = 0x80000000
@@ -141,7 +145,7 @@ describe('SR25519', function () {
       // Now verify the signature
       let prehash = txBlob
       if (txBlob.length > 256) {
-        const context = blake2bInit(32, null)
+        const context = blake2bInit(32)
         blake2bUpdate(context, txBlob)
         prehash = Buffer.from(blake2bFinal(context))
       }
@@ -157,7 +161,7 @@ describe('SR25519', function () {
     const sim = new Zemu(APP_PATH)
     try {
       await sim.start({ ...defaultOptions })
-      const app = newKusamaApp(sim.getTransport())
+      const app = newStatemineApp(sim.getTransport())
       const pathAccount = 0x80000000
       const pathChange = 0x80000000
       const pathIndex = 0x80000000
@@ -192,7 +196,7 @@ describe('SR25519', function () {
       // Now verify the signature
       let prehash = txBlob
       if (txBlob.length > 256) {
-        const context = blake2bInit(32, null)
+        const context = blake2bInit(32)
         blake2bUpdate(context, txBlob)
         prehash = Buffer.from(blake2bFinal(context))
       }
@@ -208,7 +212,7 @@ describe('SR25519', function () {
     const sim = new Zemu(APP_PATH)
     try {
       await sim.start({ ...defaultOptions })
-      const app = newKusamaApp(sim.getTransport())
+      const app = newStatemineApp(sim.getTransport())
       const pathAccount = 0x80000000
       const pathChange = 0x80000000
       const pathIndex = 0x80000000
@@ -247,7 +251,7 @@ describe('SR25519', function () {
       // Now verify the signature
       let prehash = txBlob
       if (txBlob.length > 256) {
-        const context = blake2bInit(32, null)
+        const context = blake2bInit(32)
         blake2bUpdate(context, txBlob)
         prehash = Buffer.from(blake2bFinal(context))
       }
