@@ -542,9 +542,9 @@ parser_error_t _toStringPerbill_V1(
 {
     char bufferUI[100];
     char ratioBuffer[80];
-    MEMSET(outValue, 0, outValueLen);
-    MEMSET(ratioBuffer, 0, sizeof(ratioBuffer));
-    MEMSET(bufferUI, 0, sizeof(bufferUI));
+    memset(outValue, 0, outValueLen);
+    memset(ratioBuffer, 0, sizeof(ratioBuffer));
+    memset(bufferUI, 0, sizeof(bufferUI));
     *pageCount = 1;
 
     if (fpuint64_to_str(ratioBuffer, sizeof(ratioBuffer), v->value, 7) == 0) {

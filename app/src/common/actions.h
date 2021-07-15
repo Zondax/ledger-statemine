@@ -34,7 +34,7 @@ __Z_INLINE zxerr_t app_sign_sr25519() {
     zxerr_t zxerr;
     zxerr = crypto_sign_sr25519_prephase(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE - 3, message, messageLength);
     if (zxerr != zxerr_ok) {
-        MEMZERO(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE);
+        explicit_bzero(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE);
         return zxerr;
     }
     zxerr = crypto_sign_sr25519(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE - 3, &replyLen);
@@ -59,7 +59,7 @@ __Z_INLINE void app_sign_ed25519() {
 
 #ifdef SUPPORT_SR25519
 __Z_INLINE void app_return_sr25519() {
-    MEMCPY(G_io_apdu_buffer, (void *) &N_sr25519_signdata.signature, SIG_PLUS_TYPE_LEN);
+    memcpy(G_io_apdu_buffer, (void *) &N_sr25519_signdata.signature, SIG_PLUS_TYPE_LEN);
     zxerr_t zxerr = zeroize_sr25519_signdata();
 
     if (zxerr != zxerr_ok) {
@@ -80,7 +80,7 @@ __Z_INLINE void app_reject() {
 
 __Z_INLINE zxerr_t app_fill_address(key_kind_e addressKind) {
     // Put data directly in the apdu buffer
-    MEMZERO(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE);
+    explicit_bzero(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE);
     CHECK_ZXERR(crypto_fillAddress(addressKind,
                                    G_io_apdu_buffer, IO_APDU_BUFFER_SIZE - 2,
                                    &action_addrResponseLen));

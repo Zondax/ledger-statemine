@@ -42,7 +42,7 @@ extern "C" {
     CTX_CHECK_AVAIL(c, 1) // Checks that there is something available in the buffer
 
 #define CLEAN_AND_CHECK() \
-    MEMZERO(outValue, outValueLen);  \
+    explicit_bzero(outValue, outValueLen);  \
     if (v == NULL) { *pageCount = 0; return parser_no_data; }
 
 #define GEN_DEF_READARRAY(SIZE) \

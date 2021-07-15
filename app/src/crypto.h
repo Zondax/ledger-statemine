@@ -44,13 +44,13 @@ sr25519_signdata_t NV_CONST N_srdata_impl __attribute__ ((aligned(64)));
 
 zxerr_t zeroize_sr25519_signdata() {
     uint8_t dummysk[SK_LEN_25519];
-    MEMZERO(dummysk, SK_LEN_25519);
+    explicit_bzero(dummysk, SK_LEN_25519);
     uint8_t dummypk[PK_LEN_25519];
-    MEMZERO(dummypk, PK_LEN_25519);
+    explicit_bzero(dummypk, PK_LEN_25519);
     uint8_t dummysigndata[MAX_SIGN_SIZE];
-    MEMZERO(dummysigndata, MAX_SIGN_SIZE);
+    explicit_bzero(dummysigndata, MAX_SIGN_SIZE);
     uint8_t dummysignature[SIG_PLUS_TYPE_LEN];
-    MEMZERO(dummysignature, SIG_PLUS_TYPE_LEN);
+    explicit_bzero(dummysignature, SIG_PLUS_TYPE_LEN);
 
     MEMCPY_NV((void *) &N_sr25519_signdata.sk, dummysk, SK_LEN_25519);
     MEMCPY_NV((void *) &N_sr25519_signdata.pk, dummypk, PK_LEN_25519);

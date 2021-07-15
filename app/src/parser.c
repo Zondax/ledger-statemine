@@ -119,8 +119,8 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
                               char *outKey, uint16_t outKeyLen,
                               char *outVal, uint16_t outValLen,
                               uint8_t pageIdx, uint8_t *pageCount) {
-    MEMZERO(outKey, outKeyLen);
-    MEMZERO(outVal, outValLen);
+    explicit_bzero(outKey, outKeyLen);
+    explicit_bzero(outVal, outValLen);
     snprintf(outKey, outKeyLen, "?");
     snprintf(outVal, outValLen, "?");
     *pageCount = 1;

@@ -192,8 +192,8 @@ parser_error_t _toStringCompactInt(const compactInt_t *c,
                                    char *outValue, uint16_t outValueLen,
                                    uint8_t pageIdx, uint8_t *pageCount) {
     char bufferUI[200];
-    MEMZERO(outValue, outValueLen);
-    MEMZERO(bufferUI, sizeof(bufferUI));
+    explicit_bzero(outValue, outValueLen);
+    explicit_bzero(bufferUI, sizeof(bufferUI));
     *pageCount = 1;
 
     if (c->len <= 4) {
@@ -221,12 +221,12 @@ parser_error_t _toStringCompactInt(const compactInt_t *c,
     if (strlen(prefix) > 0) {
         size_t size = strlen(bufferUI) + strlen(prefix) + 2;
         char _tmpBuffer[200];
-        MEMZERO(_tmpBuffer, sizeof(_tmpBuffer));
+        explicit_bzero(_tmpBuffer, sizeof(_tmpBuffer));
         strcat(_tmpBuffer, prefix);
         strcat(_tmpBuffer, " ");
         strcat(_tmpBuffer, bufferUI);
         // print length: strlen(value) + strlen(prefix) + strlen(" ") + strlen("\0")
-        MEMZERO(bufferUI, sizeof(bufferUI));
+        explicit_bzero(bufferUI, sizeof(bufferUI));
         snprintf(bufferUI, size, "%s", _tmpBuffer);
     }
 
@@ -502,7 +502,7 @@ parser_error_t _toStringPubkeyAsAddress(const uint8_t *pubkey,
 parser_error_t _toStringAddress(const pd_Address_t *v,
                                 char *outValue, uint16_t outValueLen,
                                 uint8_t pageIdx, uint8_t *pageCount) {
-    MEMZERO(outValue, outValueLen);
+    explicit_bzero(outValue, outValueLen);
     if (v == NULL) {
         return parser_ok;
     }
