@@ -28,7 +28,6 @@ extern "C" {
 
 #define PD_CALL_SYSTEM_V1 0
 #define PD_CALL_PARACHAINSYSTEM_V1 1
-#define PD_CALL_RANDOMNESSCOLLECTIVEFLIP_V1 2
 #define PD_CALL_TIMESTAMP_V1 3
 #define PD_CALL_BALANCES_V1 10
 #define PD_CALL_AUTHORSHIP_V1 20
@@ -98,6 +97,12 @@ typedef struct {
 typedef struct {
     pd_CompactMoment_V1_t now;
 } pd_timestamp_set_V1_t;
+
+#define PD_CALL_BALANCES_TRANSFER_ALL_V1 4
+typedef struct {
+    pd_LookupSource_V1_t dest;
+    pd_bool_t keep_alive;
+} pd_balances_transfer_all_V1_t;
 
 #define PD_CALL_AUTHORSHIP_SET_UNCLES_V1 0
 typedef struct {
@@ -390,6 +395,7 @@ typedef union {
     pd_parachainsystem_authorize_upgrade_V1_t parachainsystem_authorize_upgrade_V1;
     pd_parachainsystem_enact_authorized_upgrade_V1_t parachainsystem_enact_authorized_upgrade_V1;
     pd_timestamp_set_V1_t timestamp_set_V1;
+    pd_balances_transfer_all_V1_t balances_transfer_all_V1;
     pd_authorship_set_uncles_V1_t authorship_set_uncles_V1;
     pd_collatorselection_set_invulnerables_V1_t collatorselection_set_invulnerables_V1;
     pd_collatorselection_set_desired_candidates_V1_t collatorselection_set_desired_candidates_V1;

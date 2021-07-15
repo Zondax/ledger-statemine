@@ -260,6 +260,7 @@ static const char* STR_ME_SET_ATTRIBUTE = "Set attribute";
 static const char* STR_ME_CLEAR_ATTRIBUTE = "Clear attribute";
 static const char* STR_ME_SET_CLASS_METADATA = "Set class metadata";
 static const char* STR_ME_CLEAR_CLASS_METADATA = "Clear class metadata";
+static const char* STR_ME_TRANSFER_ALL = "Transfer all";
 
 // Items names
 static const char* STR_IT__ratio = "Ratio";
@@ -418,6 +419,7 @@ static const char* STR_IT_maybe_check_delegate = "Maybe check delegate";
 static const char* STR_IT_maybe_instance = "Maybe instance";
 static const char* STR_IT_key = "Key";
 static const char* STR_IT_class_ = "Class";
+static const char* STR_IT_keep_alive = "Keep alive";
 
 #ifdef __cplusplus
 }

@@ -195,6 +195,14 @@ __Z_INLINE parser_error_t _readMethod_balances_force_transfer_V1(
     return parser_ok;
 }
 
+__Z_INLINE parser_error_t _readMethod_balances_transfer_all_V1(
+    parser_context_t* c, pd_balances_transfer_all_V1_t* m)
+{
+    CHECK_ERROR(_readLookupSource_V1(c, &m->dest))
+    CHECK_ERROR(_readbool(c, &m->keep_alive))
+    return parser_ok;
+}
+
 __Z_INLINE parser_error_t _readMethod_authorship_set_uncles_V1(
     parser_context_t* c, pd_authorship_set_uncles_V1_t* m)
 {
@@ -899,6 +907,9 @@ parser_error_t _readMethod_V1(
     case 2562: /* module 10 call 2 */
         CHECK_ERROR(_readMethod_balances_force_transfer_V1(c, &method->nested.balances_force_transfer_V1))
         break;
+    case 2564: /* module 10 call 4 */
+        CHECK_ERROR(_readMethod_balances_transfer_all_V1(c, &method->basic.balances_transfer_all_V1))
+        break;
     case 5120: /* module 20 call 0 */
         CHECK_ERROR(_readMethod_authorship_set_uncles_V1(c, &method->basic.authorship_set_uncles_V1))
         break;
@@ -1139,8 +1150,6 @@ const char* _getMethod_ModuleName_V1(uint8_t moduleIdx)
         return STR_MO_SYSTEM;
     case 1:
         return STR_MO_PARACHAINSYSTEM;
-    case 2:
-        return STR_MO_RANDOMNESSCOLLECTIVEFLIP;
     case 3:
         return STR_MO_TIMESTAMP;
     case 20:
@@ -1223,6 +1232,8 @@ const char* _getMethod_Name_V1(uint8_t moduleIdx, uint8_t callIdx)
         return STR_ME_SET_BALANCE;
     case 2562: /* module 10 call 2 */
         return STR_ME_FORCE_TRANSFER;
+    case 2564: /* module 10 call 4 */
+        return STR_ME_TRANSFER_ALL;
     case 5120: /* module 20 call 0 */
         return STR_ME_SET_UNCLES;
     case 5376: /* module 21 call 0 */
@@ -1427,6 +1438,8 @@ uint8_t _getMethod_NumItems_V1(uint8_t moduleIdx, uint8_t callIdx)
         return 3;
     case 2562: /* module 10 call 2 */
         return 3;
+    case 2564: /* module 10 call 4 */
+        return 2;
     case 5120: /* module 20 call 0 */
         return 1;
     case 5376: /* module 21 call 0 */
@@ -1762,6 +1775,15 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
             return STR_IT_dest;
         case 2:
             return STR_IT_value;
+        default:
+            return NULL;
+        }
+    case 2564: /* module 10 call 4 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_dest;
+        case 1:
+            return STR_IT_keep_alive;
         default:
             return NULL;
         }
@@ -2792,6 +2814,21 @@ parser_error_t _getMethod_ItemValue_V1(
         case 2: /* balances_force_transfer_V1 - value */;
             return _toStringCompactBalance(
                 &m->nested.balances_force_transfer_V1.value,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 2564: /* module 10 call 4 */
+        switch (itemIdx) {
+        case 0: /* balances_transfer_all_V1 - dest */;
+            return _toStringLookupSource_V1(
+                &m->basic.balances_transfer_all_V1.dest,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* balances_transfer_all_V1 - keep_alive */;
+            return _toStringbool(
+                &m->basic.balances_transfer_all_V1.keep_alive,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4143,6 +4180,7 @@ bool _getMethod_IsNestingSupported_V1(uint8_t moduleIdx, uint8_t callIdx)
     case 259: // ParachainSystem:Authorize upgrade
     case 260: // ParachainSystem:Enact authorized upgrade
     case 768: // Timestamp:Set
+    case 2564: // Balances:Transfer all
     case 5120: // Authorship:Set uncles
     case 5376: // CollatorSelection:Set invulnerables
     case 5377: // CollatorSelection:Set desired candidates
