@@ -153,7 +153,6 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
         {
             explicit_bzero(&cx_privateKey, sizeof(cx_privateKey));
             explicit_bzero(privateKeyData, SK_LEN_25519);
-            explicit_bzero(signature + signatureLength + 1, signatureMaxlen - signatureLength - 1);
         }
     }
     END_TRY;
