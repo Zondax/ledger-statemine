@@ -200,35 +200,44 @@ zxerr_t crypto_sign_sr25519_prephase(uint8_t *buffer, uint16_t bufferLen,
 
 zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen,
                             uint16_t *signatureLen) {
+    if (signatureMaxlen < MIN_BUFFER_LENGTH) {
+        return zxerr_invalid_crypto_settings;
+    }
 
+    *signature = PREFIX_SIGNATURE_TYPE_SR25519;
+    sign_sr25519_phase1((uint8_t *) &N_sr25519_signdata.sk, (uint8_t *) &N_sr25519_signdata.pk, NULL, 0,
+                        (uint8_t *) &N_sr25519_signdata.signdata, sr25519_signdataLen, signature + 1);
+
+    zxerr_t err = zxerr_ok;
+    int ret = 0;
     BEGIN_TRY
     {
         TRY
         {
-            if (signatureMaxlen < MIN_BUFFER_LENGTH) {
-                CLOSE_TRY;
-                return zxerr_invalid_crypto_settings;
-            }
-            *signature = PREFIX_SIGNATURE_TYPE_SR25519;
-            sign_sr25519_phase1((uint8_t *) &N_sr25519_signdata.sk, (uint8_t *) &N_sr25519_signdata.pk, NULL, 0,
-                         (uint8_t *) &N_sr25519_signdata.signdata, sr25519_signdataLen, signature + 1);
-            crypto_scalarmult_ristretto255_base_sdk(signature + 1, signature + 1 + PK_LEN_25519);
-            sign_sr25519_phase2((uint8_t *) &N_sr25519_signdata.sk, (uint8_t *) &N_sr25519_signdata.pk, NULL, 0,
-                         (uint8_t *) &N_sr25519_signdata.signdata, sr25519_signdataLen, signature + 1);
-            MEMCPY_NV((void *) &N_sr25519_signdata.signature, signature, SIG_PLUS_TYPE_LEN);
+            ret = crypto_scalarmult_ristretto255_base_sdk(signature + 1, signature + 1 + PK_LEN_25519);
         }
         CATCH_ALL
         {
-            CLOSE_TRY;
-            return zxerr_unknown;
-        };
+            err = zxerr_unknown;
+        }
         FINALLY
         {
             explicit_bzero(signature + SIG_PLUS_TYPE_LEN, signatureMaxlen - SIG_PLUS_TYPE_LEN);
         }
     }
     END_TRY;
-    return zxerr_ok;
+
+    if (ret != 0) {
+        err = zxerr_unknown;
+    }
+
+    if (err == zxerr_ok) {
+        sign_sr25519_phase2((uint8_t *) &N_sr25519_signdata.sk, (uint8_t *) &N_sr25519_signdata.pk, NULL, 0,
+                            (uint8_t *) &N_sr25519_signdata.signdata, sr25519_signdataLen, signature + 1);
+        MEMCPY_NV((void *) &N_sr25519_signdata.signature, signature, SIG_PLUS_TYPE_LEN);
+    }
+
+    return err;
 }
 #endif
 
