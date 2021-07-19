@@ -81,10 +81,9 @@ __Z_INLINE void app_reject() {
 __Z_INLINE zxerr_t app_fill_address(key_kind_e addressKind) {
     // Put data directly in the apdu buffer
     explicit_bzero(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE);
-    CHECK_ZXERR(crypto_fillAddress(addressKind,
-                                   G_io_apdu_buffer, IO_APDU_BUFFER_SIZE - 2,
-                                   &action_addrResponseLen));
-    return zxerr_ok;
+    return crypto_fillAddress(addressKind,
+                              G_io_apdu_buffer, IO_APDU_BUFFER_SIZE - 2,
+                              &action_addrResponseLen);
 }
 
 __Z_INLINE key_kind_e get_key_type(uint8_t num) {
