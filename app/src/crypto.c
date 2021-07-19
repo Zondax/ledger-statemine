@@ -232,14 +232,12 @@ zxerr_t crypto_fillAddress(key_kind_e addressKind, uint8_t *buffer, uint16_t buf
     if (bufferLen < PK_LEN_25519 + SS58_ADDRESS_MAX_LEN) {
         return zxerr_unknown;
     }
-    explicit_bzero(buffer, bufferLen);
     CHECK_ZXERR(crypto_extractPublicKey(addressKind, hdPath, buffer, bufferLen));
 
     size_t outLen = crypto_SS58EncodePubkey(buffer + PK_LEN_25519,
                                             bufferLen - PK_LEN_25519,
                                             PK_ADDRESS_TYPE, buffer);
     if (outLen == 0) {
-        explicit_bzero(buffer, bufferLen);
         return zxerr_unknown;
     }
 
