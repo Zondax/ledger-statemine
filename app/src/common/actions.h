@@ -24,7 +24,6 @@
 #include "zxerror.h"
 
 extern uint16_t action_addrResponseLen;
-extern uint16_t action_signResponseLen;
 
 #ifdef SUPPORT_SR25519
 __Z_INLINE zxerr_t app_sign_sr25519() {
