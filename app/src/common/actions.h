@@ -56,15 +56,10 @@ __Z_INLINE void app_sign_ed25519() {
 #ifdef SUPPORT_SR25519
 __Z_INLINE void app_return_sr25519() {
     memcpy(G_io_apdu_buffer, (void *) &N_sr25519_signdata.signature, SIG_PLUS_TYPE_LEN);
-    zxerr_t zxerr = zeroize_sr25519_signdata();
+    zeroize_sr25519_signdata();
 
-    if (zxerr != zxerr_ok) {
-        set_code(G_io_apdu_buffer, 0, APDU_CODE_SIGN_VERIFY_ERROR);
-        io_exchange(CHANNEL_APDU | IO_RETURN_AFTER_TX, 2);
-    } else {
-        set_code(G_io_apdu_buffer, SIG_PLUS_TYPE_LEN, APDU_CODE_OK);
-        io_exchange(CHANNEL_APDU | IO_RETURN_AFTER_TX, SIG_PLUS_TYPE_LEN + 2);
-    }
+    set_code(G_io_apdu_buffer, SIG_PLUS_TYPE_LEN, APDU_CODE_OK);
+    io_exchange(CHANNEL_APDU | IO_RETURN_AFTER_TX, SIG_PLUS_TYPE_LEN + 2);
 }
 #endif
 

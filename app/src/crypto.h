@@ -42,7 +42,7 @@ sr25519_signdata_t NV_CONST N_srdata_impl __attribute__ ((aligned(64)));
 #define N_sr25519_signdata (*(NV_VOLATILE sr25519_signdata_t *)PIC(&N_srdata_impl))
 #endif
 
-zxerr_t zeroize_sr25519_signdata() {
+void zeroize_sr25519_signdata(void) {
     _Static_assert(MAX_SIGN_SIZE >= SK_LEN_25519, "invalid SK_LEN_25519");
     _Static_assert(MAX_SIGN_SIZE >= PK_LEN_25519, "invalid PK_LEN_25519");
     _Static_assert(MAX_SIGN_SIZE >= SIG_PLUS_TYPE_LEN, "invalid SIG_PLUS_TYPE_LEN");
@@ -55,13 +55,11 @@ zxerr_t zeroize_sr25519_signdata() {
     MEMCPY_NV((void *) &N_sr25519_signdata.signdata, zero, MAX_SIGN_SIZE);
     MEMCPY_NV((void *) &N_sr25519_signdata.signature, zero, SIG_PLUS_TYPE_LEN);
     sr25519_signdataLen = 0;
-    return zxerr_ok;
 }
 
 #else
 
-zxerr_t zeroize_sr25519_signdata() {
-    return zxerr_ok;
+void zeroize_sr25519_signdata(void) {
 }
 
 #endif
