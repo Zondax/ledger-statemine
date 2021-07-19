@@ -30,7 +30,6 @@ zxerr_t crypto_extractPublicKey(key_kind_e addressKind, const uint32_t path[HDPA
     cx_ecfp_public_key_t cx_publicKey;
     cx_ecfp_private_key_t cx_privateKey;
     uint8_t privateKeyData[SK_LEN_25519];
-    explicit_bzero(privateKeyData, SK_LEN_25519);
 
     if (pubKeyLen < PK_LEN_25519) {
         return zxerr_invalid_crypto_settings;
