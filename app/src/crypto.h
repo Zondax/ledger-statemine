@@ -43,19 +43,17 @@ sr25519_signdata_t NV_CONST N_srdata_impl __attribute__ ((aligned(64)));
 #endif
 
 zxerr_t zeroize_sr25519_signdata() {
-    uint8_t dummysk[SK_LEN_25519];
-    explicit_bzero(dummysk, SK_LEN_25519);
-    uint8_t dummypk[PK_LEN_25519];
-    explicit_bzero(dummypk, PK_LEN_25519);
-    uint8_t dummysigndata[MAX_SIGN_SIZE];
-    explicit_bzero(dummysigndata, MAX_SIGN_SIZE);
-    uint8_t dummysignature[SIG_PLUS_TYPE_LEN];
-    explicit_bzero(dummysignature, SIG_PLUS_TYPE_LEN);
+    _Static_assert(MAX_SIGN_SIZE >= SK_LEN_25519, "invalid SK_LEN_25519");
+    _Static_assert(MAX_SIGN_SIZE >= PK_LEN_25519, "invalid PK_LEN_25519");
+    _Static_assert(MAX_SIGN_SIZE >= SIG_PLUS_TYPE_LEN, "invalid SIG_PLUS_TYPE_LEN");
 
-    MEMCPY_NV((void *) &N_sr25519_signdata.sk, dummysk, SK_LEN_25519);
-    MEMCPY_NV((void *) &N_sr25519_signdata.pk, dummypk, PK_LEN_25519);
-    MEMCPY_NV((void *) &N_sr25519_signdata.signdata, dummysigndata, MAX_SIGN_SIZE);
-    MEMCPY_NV((void *) &N_sr25519_signdata.signature, dummysignature, SIG_PLUS_TYPE_LEN);
+    uint8_t zero[MAX_SIGN_SIZE];
+    explicit_bzero(zero, sizeof(zero));
+
+    MEMCPY_NV((void *) &N_sr25519_signdata.sk, zero, SK_LEN_25519);
+    MEMCPY_NV((void *) &N_sr25519_signdata.pk, zero, PK_LEN_25519);
+    MEMCPY_NV((void *) &N_sr25519_signdata.signdata, zero, MAX_SIGN_SIZE);
+    MEMCPY_NV((void *) &N_sr25519_signdata.signature, zero, SIG_PLUS_TYPE_LEN);
     sr25519_signdataLen = 0;
     return zxerr_ok;
 }
