@@ -177,25 +177,48 @@ zxerr_t crypto_sign_sr25519_prephase(uint8_t *buffer, uint16_t bufferLen,
 
     explicit_bzero(buffer, bufferLen);
     uint8_t privateKeyData[SK_LEN_25519];
-    explicit_bzero(privateKeyData, SK_LEN_25519);
-    os_perso_derive_node_bip32_seed_key(
-            HDW_NORMAL,
-            CX_CURVE_Ed25519,
-            hdPath,
-            HDPATH_LEN_DEFAULT,
-            privateKeyData,
-            NULL,
-            NULL,
-            0);
-
     uint8_t pubkey[PK_LEN_25519];
-    explicit_bzero(pubkey, PK_LEN_25519);
-    get_sr25519_sk(privateKeyData);
-    crypto_scalarmult_ristretto255_base_sdk(pubkey, privateKeyData);
-    MEMCPY_NV((void *) &N_sr25519_signdata.sk, privateKeyData, SK_LEN_25519);
-    MEMCPY_NV((void *) &N_sr25519_signdata.pk, pubkey, PK_LEN_25519);
-    explicit_bzero(buffer, bufferLen);
-    return zxerr_ok;
+
+    zxerr_t err = zxerr_ok;
+    int ret = 0;
+
+    BEGIN_TRY
+    {
+        TRY
+        {
+            os_perso_derive_node_bip32_seed_key(
+                    HDW_NORMAL,
+                    CX_CURVE_Ed25519,
+                    hdPath,
+                    HDPATH_LEN_DEFAULT,
+                    privateKeyData,
+                    NULL,
+                    NULL,
+                    0);
+            get_sr25519_sk(privateKeyData);
+            ret = crypto_scalarmult_ristretto255_base_sdk(pubkey, privateKeyData);
+
+            MEMCPY_NV((void *) &N_sr25519_signdata.sk, privateKeyData, SK_LEN_25519);
+            MEMCPY_NV((void *) &N_sr25519_signdata.pk, pubkey, PK_LEN_25519);
+        }
+        CATCH_ALL
+        {
+            err = zxerr_unknown;
+        }
+        FINALLY
+        {
+            explicit_bzero(buffer, bufferLen);
+            explicit_bzero(privateKeyData, SK_LEN_25519);
+            explicit_bzero(pubkey, PK_LEN_25519);
+        }
+    }
+    END_TRY;
+
+    if (ret != 0) {
+        err = zxerr_unknown;
+    }
+
+    return err;
 }
 
 zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen,
