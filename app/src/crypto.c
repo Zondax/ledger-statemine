@@ -111,6 +111,7 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
     uint8_t privateKeyData[SK_LEN_25519];
     int signatureLength = 0;
     unsigned int info = 0;
+    zxerr_t err = zxerr_ok;
 
     BEGIN_TRY
     {
@@ -145,11 +146,9 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
         }
         CATCH_ALL
         {
-            explicit_bzero(&cx_privateKey, sizeof(cx_privateKey));
             *signatureLen = 0;
-            CLOSE_TRY;
-            return zxerr_unknown;
-        };
+            err = zxerr_unknown;
+        }
         FINALLY
         {
             explicit_bzero(&cx_privateKey, sizeof(cx_privateKey));
@@ -158,7 +157,8 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
         }
     }
     END_TRY;
-    return zxerr_ok;
+
+    return err;
 }
 
 #ifdef SUPPORT_SR25519
