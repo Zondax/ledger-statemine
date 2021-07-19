@@ -161,13 +161,12 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
 }
 
 #ifdef SUPPORT_SR25519
-zxerr_t crypto_sign_sr25519_prephase(uint8_t *buffer, uint16_t bufferLen,
-                                     const uint8_t *message, uint16_t messageLen) {
+zxerr_t crypto_sign_sr25519_prephase(const uint8_t *message, uint16_t messageLen) {
     if (messageLen > MAX_SIGN_SIZE) {
         uint8_t messageDigest[BLAKE2B_DIGEST_SIZE];
-        cx_blake2b_t *ctx = (cx_blake2b_t *) buffer;
-        cx_blake2b_init(ctx, 256);
-        cx_hash(&ctx->header, CX_LAST, message, messageLen, messageDigest, BLAKE2B_DIGEST_SIZE);
+        cx_blake2b_t ctx;
+        cx_blake2b_init(&ctx, 256);
+        cx_hash(&ctx.header, CX_LAST, message, messageLen, messageDigest, BLAKE2B_DIGEST_SIZE);
         MEMCPY_NV((void *) &N_sr25519_signdata.signdata, messageDigest, BLAKE2B_DIGEST_SIZE);
         sr25519_signdataLen = BLAKE2B_DIGEST_SIZE;
     } else {
@@ -175,7 +174,6 @@ zxerr_t crypto_sign_sr25519_prephase(uint8_t *buffer, uint16_t bufferLen,
         sr25519_signdataLen = messageLen;
     }
 
-    explicit_bzero(buffer, bufferLen);
     uint8_t privateKeyData[SK_LEN_25519];
     uint8_t pubkey[PK_LEN_25519];
 
@@ -207,7 +205,6 @@ zxerr_t crypto_sign_sr25519_prephase(uint8_t *buffer, uint16_t bufferLen,
         }
         FINALLY
         {
-            explicit_bzero(buffer, bufferLen);
             explicit_bzero(privateKeyData, SK_LEN_25519);
             explicit_bzero(pubkey, PK_LEN_25519);
         }
@@ -221,8 +218,7 @@ zxerr_t crypto_sign_sr25519_prephase(uint8_t *buffer, uint16_t bufferLen,
     return err;
 }
 
-zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen,
-                            uint16_t *signatureLen) {
+zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen) {
     if (signatureMaxlen < MIN_BUFFER_LENGTH) {
         return zxerr_invalid_crypto_settings;
     }

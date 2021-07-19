@@ -30,15 +30,11 @@ extern uint16_t action_signResponseLen;
 __Z_INLINE zxerr_t app_sign_sr25519() {
     const uint8_t *message = tx_get_buffer();
     const uint16_t messageLength = tx_get_buffer_length();
-    uint16_t replyLen = 0;
-    zxerr_t zxerr;
-    zxerr = crypto_sign_sr25519_prephase(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE - 3, message, messageLength);
+    zxerr_t zxerr = crypto_sign_sr25519_prephase(message, messageLength);
     if (zxerr != zxerr_ok) {
-        explicit_bzero(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE);
         return zxerr;
     }
-    zxerr = crypto_sign_sr25519(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE - 3, &replyLen);
-    return zxerr;
+    return crypto_sign_sr25519(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE - 3);
 }
 #endif
 

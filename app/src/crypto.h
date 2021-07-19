@@ -83,10 +83,9 @@ uint8_t crypto_SS58EncodePubkey(uint8_t *buffer, uint16_t buffer_len,
 
 zxerr_t crypto_fillAddress(key_kind_e addressKind, uint8_t *buffer, uint16_t bufferLen, uint16_t *addrResponseLen);
 
-zxerr_t crypto_sign_sr25519_prephase(uint8_t *buffer, uint16_t bufferLen, const uint8_t *message, uint16_t messageLen);
+zxerr_t crypto_sign_sr25519_prephase(const uint8_t *message, uint16_t messageLen);
 
-zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen,
-                            uint16_t *signatureLen);
+zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen);
 
 zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
                             const uint8_t *message, uint16_t messageLen,
