@@ -30,11 +30,13 @@ zxerr_t crypto_extractPublicKey(key_kind_e addressKind, const uint32_t path[HDPA
     cx_ecfp_public_key_t cx_publicKey;
     cx_ecfp_private_key_t cx_privateKey;
     uint8_t privateKeyData[SK_LEN_25519];
+    zxerr_t err;
 
     if (pubKeyLen < PK_LEN_25519) {
         return zxerr_invalid_crypto_settings;
     }
 
+    err = zxerr_ok;
     BEGIN_TRY
     {
         TRY
@@ -71,9 +73,13 @@ zxerr_t crypto_extractPublicKey(key_kind_e addressKind, const uint32_t path[HDPA
                         break;
 #endif
                 default:
-                    CLOSE_TRY;
-                    return zxerr_invalid_crypto_settings;
+                    err = zxerr_invalid_crypto_settings;
+                    break;
             }
+        }
+        CATCH_ALL
+        {
+            err = zxerr_unknown;
         }
         FINALLY
         {
@@ -83,7 +89,7 @@ zxerr_t crypto_extractPublicKey(key_kind_e addressKind, const uint32_t path[HDPA
     }
     END_TRY;
 
-    return zxerr_ok;
+    return err;
 }
 
 zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
