@@ -22,8 +22,27 @@
 #include "zxmacros.h"
 #include "ristretto.h"
 
-uint16_t sr25519_signdataLen;
 uint32_t hdPath[HDPATH_LEN_DEFAULT];
+
+#ifdef SUPPORT_SR25519
+typedef struct {
+    uint8_t sk[SK_LEN_25519];
+    uint8_t pk[PK_LEN_25519];
+    uint8_t signdata[MAX_SIGN_SIZE];
+    uint8_t signature[SIG_PLUS_TYPE_LEN];
+} sr25519_signdata_t;
+
+static sr25519_signdata_t sr25519_signdata;
+static size_t sr25519_signdataLen;
+
+void zeroize_sr25519_signdata(void) {
+    explicit_bzero(&sr25519_signdata.sk, SK_LEN_25519);
+    explicit_bzero(&sr25519_signdata.pk, PK_LEN_25519);
+    explicit_bzero(&sr25519_signdata.signdata, MAX_SIGN_SIZE);
+    explicit_bzero(&sr25519_signdata.signature, SIG_PLUS_TYPE_LEN);
+    sr25519_signdataLen = 0;
+}
+#endif
 
 zxerr_t crypto_extractPublicKey(key_kind_e addressKind, const uint32_t path[HDPATH_LEN_DEFAULT],
                                 uint8_t *pubKey, uint16_t pubKeyLen) {
@@ -158,16 +177,20 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
 }
 
 #ifdef SUPPORT_SR25519
+void copy_sr25519_signdata(uint8_t *buffer) {
+    memcpy(buffer, &sr25519_signdata.signature, SIG_PLUS_TYPE_LEN);
+}
+
 zxerr_t crypto_sign_sr25519_prephase(const uint8_t *message, uint16_t messageLen) {
     if (messageLen > MAX_SIGN_SIZE) {
         uint8_t messageDigest[BLAKE2B_DIGEST_SIZE];
         cx_blake2b_t ctx;
         cx_blake2b_init(&ctx, 256);
         cx_hash(&ctx.header, CX_LAST, message, messageLen, messageDigest, BLAKE2B_DIGEST_SIZE);
-        MEMCPY_NV((void *) &N_sr25519_signdata.signdata, messageDigest, BLAKE2B_DIGEST_SIZE);
+        memcpy(&sr25519_signdata.signdata, messageDigest, BLAKE2B_DIGEST_SIZE);
         sr25519_signdataLen = BLAKE2B_DIGEST_SIZE;
     } else {
-        MEMCPY_NV((void *) &N_sr25519_signdata.signdata, (void *) message, messageLen);
+        memcpy(&sr25519_signdata.signdata, (void *) message, messageLen);
         sr25519_signdataLen = messageLen;
     }
 
@@ -193,8 +216,8 @@ zxerr_t crypto_sign_sr25519_prephase(const uint8_t *message, uint16_t messageLen
             get_sr25519_sk(privateKeyData);
             ret = crypto_scalarmult_ristretto255_base_sdk(pubkey, privateKeyData);
 
-            MEMCPY_NV((void *) &N_sr25519_signdata.sk, privateKeyData, SK_LEN_25519);
-            MEMCPY_NV((void *) &N_sr25519_signdata.pk, pubkey, PK_LEN_25519);
+            memcpy(&sr25519_signdata.sk, privateKeyData, SK_LEN_25519);
+            memcpy(&sr25519_signdata.pk, pubkey, PK_LEN_25519);
         }
         CATCH_ALL
         {
@@ -221,8 +244,8 @@ zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen) {
     }
 
     *signature = PREFIX_SIGNATURE_TYPE_SR25519;
-    sign_sr25519_phase1((uint8_t *) &N_sr25519_signdata.sk, (uint8_t *) &N_sr25519_signdata.pk, NULL, 0,
-                        (uint8_t *) &N_sr25519_signdata.signdata, sr25519_signdataLen, signature + 1);
+    sign_sr25519_phase1((const uint8_t *)&sr25519_signdata.sk, (const uint8_t *)&sr25519_signdata.pk, NULL, 0,
+                        (const uint8_t *)&sr25519_signdata.signdata, sr25519_signdataLen, signature + 1);
 
     zxerr_t err = zxerr_ok;
     int ret = 0;
@@ -248,9 +271,9 @@ zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen) {
     }
 
     if (err == zxerr_ok) {
-        sign_sr25519_phase2((uint8_t *) &N_sr25519_signdata.sk, (uint8_t *) &N_sr25519_signdata.pk, NULL, 0,
-                            (uint8_t *) &N_sr25519_signdata.signdata, sr25519_signdataLen, signature + 1);
-        MEMCPY_NV((void *) &N_sr25519_signdata.signature, signature, SIG_PLUS_TYPE_LEN);
+        sign_sr25519_phase2((const uint8_t *)&sr25519_signdata.sk, (const uint8_t *)&sr25519_signdata.pk, NULL, 0,
+                            (const uint8_t *)&sr25519_signdata.signdata, sr25519_signdataLen, signature + 1);
+        memcpy(&sr25519_signdata.signature, signature, SIG_PLUS_TYPE_LEN);
     }
 
     return err;
