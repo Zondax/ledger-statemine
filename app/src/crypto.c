@@ -30,17 +30,17 @@ typedef struct {
     uint8_t pk[PK_LEN_25519];
     uint8_t signdata[MAX_SIGN_SIZE];
     uint8_t signature[SIG_PLUS_TYPE_LEN];
+    size_t len;
 } sr25519_signdata_t;
 
 static sr25519_signdata_t sr25519_signdata;
-static size_t sr25519_signdataLen;
 
 void zeroize_sr25519_signdata(void) {
     explicit_bzero(&sr25519_signdata.sk, SK_LEN_25519);
     explicit_bzero(&sr25519_signdata.pk, PK_LEN_25519);
     explicit_bzero(&sr25519_signdata.signdata, MAX_SIGN_SIZE);
     explicit_bzero(&sr25519_signdata.signature, SIG_PLUS_TYPE_LEN);
-    sr25519_signdataLen = 0;
+    sr25519_signdata.len = 0;
 }
 #endif
 
@@ -188,10 +188,10 @@ zxerr_t crypto_sign_sr25519_prephase(const uint8_t *message, uint16_t messageLen
         cx_blake2b_init(&ctx, 256);
         cx_hash(&ctx.header, CX_LAST, message, messageLen, messageDigest, BLAKE2B_DIGEST_SIZE);
         memcpy(&sr25519_signdata.signdata, messageDigest, BLAKE2B_DIGEST_SIZE);
-        sr25519_signdataLen = BLAKE2B_DIGEST_SIZE;
+        sr25519_signdata.len = BLAKE2B_DIGEST_SIZE;
     } else {
         memcpy(&sr25519_signdata.signdata, (void *) message, messageLen);
-        sr25519_signdataLen = messageLen;
+        sr25519_signdata.len = messageLen;
     }
 
     uint8_t privateKeyData[SK_LEN_25519];
@@ -245,7 +245,7 @@ zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen) {
 
     *signature = PREFIX_SIGNATURE_TYPE_SR25519;
     sign_sr25519_phase1((const uint8_t *)&sr25519_signdata.sk, (const uint8_t *)&sr25519_signdata.pk, NULL, 0,
-                        (const uint8_t *)&sr25519_signdata.signdata, sr25519_signdataLen, signature + 1);
+                        (const uint8_t *)&sr25519_signdata.signdata, sr25519_signdata.len, signature + 1);
 
     zxerr_t err = zxerr_ok;
     int ret = 0;
@@ -272,7 +272,7 @@ zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen) {
 
     if (err == zxerr_ok) {
         sign_sr25519_phase2((const uint8_t *)&sr25519_signdata.sk, (const uint8_t *)&sr25519_signdata.pk, NULL, 0,
-                            (const uint8_t *)&sr25519_signdata.signdata, sr25519_signdataLen, signature + 1);
+                            (const uint8_t *)&sr25519_signdata.signdata, sr25519_signdata.len, signature + 1);
         memcpy(&sr25519_signdata.signature, signature, SIG_PLUS_TYPE_LEN);
     }
 
