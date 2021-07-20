@@ -29,11 +29,7 @@ extern uint16_t action_addrResponseLen;
 __Z_INLINE zxerr_t app_sign_sr25519() {
     const uint8_t *message = tx_get_buffer();
     const uint16_t messageLength = tx_get_buffer_length();
-    zxerr_t zxerr = crypto_sign_sr25519_prephase(message, messageLength);
-    if (zxerr != zxerr_ok) {
-        return zxerr;
-    }
-    return crypto_sign_sr25519(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE - 3);
+    return crypto_sign_sr25519(message, messageLength);
 }
 #endif
 

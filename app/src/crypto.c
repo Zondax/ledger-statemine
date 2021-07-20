@@ -25,22 +25,10 @@
 uint32_t hdPath[HDPATH_LEN_DEFAULT];
 
 #ifdef SUPPORT_SR25519
-typedef struct {
-    uint8_t sk[SK_LEN_25519];
-    uint8_t pk[PK_LEN_25519];
-    uint8_t signdata[MAX_SIGN_SIZE];
-    uint8_t signature[SIG_PLUS_TYPE_LEN];
-    size_t len;
-} sr25519_signdata_t;
-
-static sr25519_signdata_t sr25519_signdata;
+static uint8_t sr25519_signature[SIG_PLUS_TYPE_LEN];
 
 void zeroize_sr25519_signdata(void) {
-    explicit_bzero(&sr25519_signdata.sk, SK_LEN_25519);
-    explicit_bzero(&sr25519_signdata.pk, PK_LEN_25519);
-    explicit_bzero(&sr25519_signdata.signdata, MAX_SIGN_SIZE);
-    explicit_bzero(&sr25519_signdata.signature, SIG_PLUS_TYPE_LEN);
-    sr25519_signdata.len = 0;
+  //explicit_bzero(sr25519_signature, sizeof(sr25519_signature));
 }
 #endif
 
@@ -177,21 +165,28 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
 }
 
 #ifdef SUPPORT_SR25519
+typedef struct {
+    uint8_t sk[SK_LEN_25519];
+    uint8_t pk[PK_LEN_25519];
+    uint8_t signdata[MAX_SIGN_SIZE];
+    size_t len;
+} sr25519_signdata_t;
+
 void copy_sr25519_signdata(uint8_t *buffer) {
-    memcpy(buffer, &sr25519_signdata.signature, SIG_PLUS_TYPE_LEN);
+    memcpy(buffer, sr25519_signature, SIG_PLUS_TYPE_LEN);
 }
 
-zxerr_t crypto_sign_sr25519_prephase(const uint8_t *message, uint16_t messageLen) {
+static zxerr_t crypto_sign_sr25519_prephase(sr25519_signdata_t *signdata, const uint8_t *message, uint16_t messageLen) {
     if (messageLen > MAX_SIGN_SIZE) {
         uint8_t messageDigest[BLAKE2B_DIGEST_SIZE];
         cx_blake2b_t ctx;
         cx_blake2b_init(&ctx, 256);
         cx_hash(&ctx.header, CX_LAST, message, messageLen, messageDigest, BLAKE2B_DIGEST_SIZE);
-        memcpy(&sr25519_signdata.signdata, messageDigest, BLAKE2B_DIGEST_SIZE);
-        sr25519_signdata.len = BLAKE2B_DIGEST_SIZE;
+        memcpy(&signdata->signdata, messageDigest, BLAKE2B_DIGEST_SIZE);
+        signdata->len = BLAKE2B_DIGEST_SIZE;
     } else {
-        memcpy(&sr25519_signdata.signdata, (void *) message, messageLen);
-        sr25519_signdata.len = messageLen;
+        memcpy(&signdata->signdata, (void *) message, messageLen);
+        signdata->len = messageLen;
     }
 
     uint8_t privateKeyData[SK_LEN_25519];
@@ -216,8 +211,8 @@ zxerr_t crypto_sign_sr25519_prephase(const uint8_t *message, uint16_t messageLen
             get_sr25519_sk(privateKeyData);
             ret = crypto_scalarmult_ristretto255_base_sdk(pubkey, privateKeyData);
 
-            memcpy(&sr25519_signdata.sk, privateKeyData, SK_LEN_25519);
-            memcpy(&sr25519_signdata.pk, pubkey, PK_LEN_25519);
+            memcpy(&signdata->sk, privateKeyData, SK_LEN_25519);
+            memcpy(&signdata->pk, pubkey, PK_LEN_25519);
         }
         CATCH_ALL
         {
@@ -238,14 +233,10 @@ zxerr_t crypto_sign_sr25519_prephase(const uint8_t *message, uint16_t messageLen
     return err;
 }
 
-zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen) {
-    if (signatureMaxlen < MIN_BUFFER_LENGTH) {
-        return zxerr_invalid_crypto_settings;
-    }
-
-    *signature = PREFIX_SIGNATURE_TYPE_SR25519;
-    sign_sr25519_phase1((const uint8_t *)&sr25519_signdata.sk, (const uint8_t *)&sr25519_signdata.pk, NULL, 0,
-                        (const uint8_t *)&sr25519_signdata.signdata, sr25519_signdata.len, signature + 1);
+static zxerr_t crypto_sign_sr25519_final(const sr25519_signdata_t *signdata) {
+    *sr25519_signature = PREFIX_SIGNATURE_TYPE_SR25519;
+    sign_sr25519_phase1((const uint8_t *)&signdata->sk, (const uint8_t *)&signdata->pk, NULL, 0,
+                        (const uint8_t *)&signdata->signdata, signdata->len, sr25519_signature + 1);
 
     zxerr_t err = zxerr_ok;
     int ret = 0;
@@ -253,7 +244,7 @@ zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen) {
     {
         TRY
         {
-            ret = crypto_scalarmult_ristretto255_base_sdk(signature + 1, signature + 1 + PK_LEN_25519);
+            ret = crypto_scalarmult_ristretto255_base_sdk(sr25519_signature + 1, sr25519_signature + 1 + PK_LEN_25519);
         }
         CATCH_ALL
         {
@@ -265,19 +256,28 @@ zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen) {
     }
     END_TRY;
 
-    if (ret != 0) {
+    if (ret != 0 || err != zxerr_ok) {
         err = zxerr_unknown;
+        explicit_bzero(sr25519_signature, sizeof(sr25519_signature));
+    } else {
+        sign_sr25519_phase2((const uint8_t *)&signdata->sk, (const uint8_t *)&signdata->pk, NULL, 0,
+                            (const uint8_t *)&signdata->signdata, signdata->len, sr25519_signature + 1);
     }
-
-    if (err == zxerr_ok) {
-        sign_sr25519_phase2((const uint8_t *)&sr25519_signdata.sk, (const uint8_t *)&sr25519_signdata.pk, NULL, 0,
-                            (const uint8_t *)&sr25519_signdata.signdata, sr25519_signdata.len, signature + 1);
-        memcpy(&sr25519_signdata.signature, signature, SIG_PLUS_TYPE_LEN);
-    }
-
-    explicit_bzero(signature, signatureMaxlen);
 
     return err;
+}
+
+zxerr_t crypto_sign_sr25519(const uint8_t *message, uint16_t messageLen) {
+  sr25519_signdata_t signdata;
+
+  zxerr_t zxerr = crypto_sign_sr25519_prephase(&signdata, message, messageLen);
+  if (zxerr == zxerr_ok) {
+    zxerr = crypto_sign_sr25519_final((const sr25519_signdata_t *)&signdata);
+  }
+
+  explicit_bzero(&signdata, sizeof(signdata));
+
+  return zxerr;
 }
 #endif
 
