@@ -86,8 +86,7 @@ zxerr_t crypto_sign_sr25519_prephase(const uint8_t *message, uint16_t messageLen
 zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen);
 
 zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
-                            const uint8_t *message, uint16_t messageLen,
-                            uint16_t *signatureLen);
+                            const uint8_t *message, uint16_t messageLen);
 
 #ifdef __cplusplus
 }

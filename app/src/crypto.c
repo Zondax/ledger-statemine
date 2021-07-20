@@ -93,8 +93,7 @@ zxerr_t crypto_extractPublicKey(key_kind_e addressKind, const uint32_t path[HDPA
 }
 
 zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
-                            const uint8_t *message, uint16_t messageLen,
-                            uint16_t *signatureLen) {
+                            const uint8_t *message, uint16_t messageLen) {
     const uint8_t *toSign = message;
     uint8_t messageDigest[BLAKE2B_DIGEST_SIZE];
 
@@ -109,7 +108,6 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
 
     cx_ecfp_private_key_t cx_privateKey;
     uint8_t privateKeyData[SK_LEN_25519];
-    int signatureLength = 0;
     unsigned int info = 0;
     zxerr_t err = zxerr_ok;
 
@@ -132,21 +130,20 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen,
 
             // Sign
             *signature = PREFIX_SIGNATURE_TYPE_ED25519;
-            signatureLength = cx_eddsa_sign(&cx_privateKey,
-                                            CX_LAST,
-                                            CX_SHA512,
-                                            toSign,
-                                            messageLen,
-                                            NULL,
-                                            0,
-                                            signature + 1,
-                                            signatureMaxlen - 1,
-                                            &info);
+            cx_eddsa_sign(&cx_privateKey,
+                          CX_LAST,
+                          CX_SHA512,
+                          toSign,
+                          messageLen,
+                          NULL,
+                          0,
+                          signature + 1,
+                          signatureMaxlen - 1,
+                          &info);
 
         }
         CATCH_ALL
         {
-            *signatureLen = 0;
             err = zxerr_unknown;
         }
         FINALLY

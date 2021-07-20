@@ -40,9 +40,8 @@ __Z_INLINE zxerr_t app_sign_sr25519() {
 __Z_INLINE void app_sign_ed25519() {
     const uint8_t *message = tx_get_buffer();
     const uint16_t messageLength = tx_get_buffer_length();
-    uint16_t replyLen = 0;
     zxerr_t err = crypto_sign_ed25519(G_io_apdu_buffer, IO_APDU_BUFFER_SIZE - 3,
-                                      message, messageLength, &replyLen);
+                                      message, messageLength);
     if (err != zxerr_ok) {
         set_code(G_io_apdu_buffer, 0, APDU_CODE_SIGN_VERIFY_ERROR);
         io_exchange(CHANNEL_APDU | IO_RETURN_AFTER_TX, 2);
