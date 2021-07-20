@@ -189,9 +189,6 @@ static zxerr_t crypto_sign_sr25519_prephase(sr25519_signdata_t *signdata, const 
         signdata->len = messageLen;
     }
 
-    uint8_t privateKeyData[SK_LEN_25519];
-    uint8_t pubkey[PK_LEN_25519];
-
     zxerr_t err = zxerr_ok;
     int ret = 0;
 
@@ -204,15 +201,12 @@ static zxerr_t crypto_sign_sr25519_prephase(sr25519_signdata_t *signdata, const 
                     CX_CURVE_Ed25519,
                     hdPath,
                     HDPATH_LEN_DEFAULT,
-                    privateKeyData,
+                    signdata->sk,
                     NULL,
                     NULL,
                     0);
-            get_sr25519_sk(privateKeyData);
-            ret = crypto_scalarmult_ristretto255_base_sdk(pubkey, privateKeyData);
-
-            memcpy(&signdata->sk, privateKeyData, SK_LEN_25519);
-            memcpy(&signdata->pk, pubkey, PK_LEN_25519);
+            get_sr25519_sk(signdata->sk);
+            ret = crypto_scalarmult_ristretto255_base_sdk(signdata->pk, signdata->sk);
         }
         CATCH_ALL
         {
@@ -220,8 +214,6 @@ static zxerr_t crypto_sign_sr25519_prephase(sr25519_signdata_t *signdata, const 
         }
         FINALLY
         {
-            explicit_bzero(privateKeyData, SK_LEN_25519);
-            explicit_bzero(pubkey, PK_LEN_25519);
         }
     }
     END_TRY;
