@@ -261,7 +261,6 @@ zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen) {
         }
         FINALLY
         {
-            explicit_bzero(signature + SIG_PLUS_TYPE_LEN, signatureMaxlen - SIG_PLUS_TYPE_LEN);
         }
     }
     END_TRY;
@@ -275,6 +274,8 @@ zxerr_t crypto_sign_sr25519(uint8_t *signature, uint16_t signatureMaxlen) {
                             (const uint8_t *)&sr25519_signdata.signdata, sr25519_signdata.len, signature + 1);
         memcpy(&sr25519_signdata.signature, signature, SIG_PLUS_TYPE_LEN);
     }
+
+    explicit_bzero(signature, signatureMaxlen);
 
     return err;
 }
