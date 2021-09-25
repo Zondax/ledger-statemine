@@ -332,8 +332,8 @@ parser_error_t _toStringBalance(
     CLEAN_AND_CHECK()
 
     char bufferUI[200];
-    MEMSET(outValue, 0, outValueLen);
-    MEMSET(bufferUI, 0, sizeof(bufferUI));
+    memset(outValue, 0, outValueLen);
+    memset(bufferUI, 0, sizeof(bufferUI));
     *pageCount = 1;
 
     uint8_t bcdOut[100];
