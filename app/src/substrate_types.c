@@ -21,7 +21,6 @@
 #include "substrate_dispatch.h"
 #include <stddef.h>
 #include <stdint.h>
-#include <zbuffer.h>
 #include <zxmacros.h>
 
 parser_error_t _readbool(parser_context_t* c, pd_bool_t* v)
@@ -85,7 +84,7 @@ parser_error_t _readCallImpl(parser_context_t* c, pd_Call_t* v, pd_MethodNested_
         return parser_tx_nesting_limit_reached;
     }
 
-    CHECK_ERROR(_readCallIndex(c, &v->callIndex));
+    CHECK_ERROR(_readCallIndex(c, &v->callIndex))
 
     if (!_getMethod_IsNestingSupported(c->tx_obj->transactionVersion, v->callIndex.moduleIdx, v->callIndex.idx)) {
         return parser_not_supported;
@@ -121,7 +120,7 @@ parser_error_t _readBytes(parser_context_t* c, pd_Bytes_t* v)
     CHECK_ERROR(_getValue(&clen, &v->_len))
 
     v->_ptr = c->buffer + c->offset;
-    CTX_CHECK_AND_ADVANCE(c, v->_len);
+    CTX_CHECK_AND_ADVANCE(c, v->_len)
     return parser_ok;
 }
 
@@ -415,8 +414,6 @@ parser_error_t _toStringCall(
             outValue, outValueLen, 0, &itemPages);
         (*pageCount) += itemPages;
     }
-
-    zb_check_canary();
 
     if (pageIdx == 0) {
         snprintf(outValue, outValueLen, "%s", _getMethod_Name(*v->_txVerPtr, v->callIndex.moduleIdx, v->callIndex.idx));
