@@ -1,7 +1,6 @@
 # Ledger Statemine app
-
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![GithubActions](https://github.com/zondax/ledger-statemine/actions/workflows/main.yaml/badge.svg)](https://github.com/Zondax/ledger-statemine/blob/main/.github/workflows/main.yaml)
+[![CircleCI](https://circleci.com/gh/Zondax/ledger-statemine.svg?style=shield)](https://circleci.com/gh/Zondax/ledger-statemine)
 
 ![zondax](docs/zondax.jpg)
 
@@ -24,7 +23,6 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-
 # Statemine  1.3.x
 
 ## System

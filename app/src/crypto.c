@@ -105,6 +105,7 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen, const 
 
     cx_ecfp_private_key_t cx_privateKey;
     uint8_t privateKeyData[SK_LEN_25519];
+    int signatureLength = 0;
     unsigned int info = 0;
 
     zxerr_t err = zxerr_ok;
@@ -127,16 +128,16 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen, const 
 
             // Sign
             *signature = PREFIX_SIGNATURE_TYPE_ED25519;
-            cx_eddsa_sign(&cx_privateKey,
-                          CX_LAST,
-                          CX_SHA512,
-                          toSign,
-                          messageLen,
-                          NULL,
-                          0,
-                          signature + 1,
-                          signatureMaxlen - 1,
-                          &info);
+            signatureLength = cx_eddsa_sign(&cx_privateKey,
+                                            CX_LAST,
+                                            CX_SHA512,
+                                            toSign,
+                                            messageLen,
+                                            NULL,
+                                            0,
+                                            signature + 1,
+                                            signatureMaxlen - 1,
+                                            &info);
 
         }
         CATCH_ALL
@@ -147,7 +148,6 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen, const 
         {
             MEMZERO(&cx_privateKey, sizeof(cx_privateKey));
             MEMZERO(privateKeyData, SK_LEN_25519);
-            MEMZERO(signature, signatureMaxlen);
         }
     }
     END_TRY;
@@ -214,8 +214,8 @@ static zxerr_t crypto_sign_sr25519_helper(const uint8_t *data, size_t len) {
                             data, len, sr25519_signature + 1);
     }
 
-    explicit_bzero(pk, sizeof(pk));
-    explicit_bzero(sk, sizeof(sk));
+    MEMZERO(pk, sizeof(pk));
+    MEMZERO(sk, sizeof(sk));
 
     return err;
 }
@@ -244,12 +244,14 @@ zxerr_t crypto_fillAddress(key_kind_e addressKind, uint8_t *buffer, uint16_t buf
     if (bufferLen < PK_LEN_25519 + SS58_ADDRESS_MAX_LEN) {
         return zxerr_unknown;
     }
-    CHECK_ZXERR(crypto_extractPublicKey(addressKind, hdPath, buffer, bufferLen));
+    MEMZERO(buffer, bufferLen);
+    CHECK_ZXERR(crypto_extractPublicKey(addressKind, hdPath, buffer, bufferLen))
 
     size_t outLen = crypto_SS58EncodePubkey(buffer + PK_LEN_25519,
                                             bufferLen - PK_LEN_25519,
                                             PK_ADDRESS_TYPE, buffer);
     if (outLen == 0) {
+        MEMZERO(buffer, bufferLen);
         return zxerr_unknown;
     }
 

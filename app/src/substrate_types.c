@@ -21,6 +21,7 @@
 #include "substrate_dispatch.h"
 #include <stddef.h>
 #include <stdint.h>
+#include <zxformat.h>
 #include <zxmacros.h>
 
 parser_error_t _readbool(parser_context_t* c, pd_bool_t* v)
@@ -84,7 +85,7 @@ parser_error_t _readCallImpl(parser_context_t* c, pd_Call_t* v, pd_MethodNested_
         return parser_tx_nesting_limit_reached;
     }
 
-    CHECK_ERROR(_readCallIndex(c, &v->callIndex))
+    CHECK_ERROR(_readCallIndex(c, &v->callIndex));
 
     if (!_getMethod_IsNestingSupported(c->tx_obj->transactionVersion, v->callIndex.moduleIdx, v->callIndex.idx)) {
         return parser_not_supported;
@@ -120,7 +121,7 @@ parser_error_t _readBytes(parser_context_t* c, pd_Bytes_t* v)
     CHECK_ERROR(_getValue(&clen, &v->_len))
 
     v->_ptr = c->buffer + c->offset;
-    CTX_CHECK_AND_ADVANCE(c, v->_len)
+    CTX_CHECK_AND_ADVANCE(c, v->_len);
     return parser_ok;
 }
 
