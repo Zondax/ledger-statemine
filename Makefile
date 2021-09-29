@@ -51,4 +51,3 @@ test_all:
 	cd tests_zemu && yarn testSR25519
 	make clean_build && SUBSTRATE_PARSER_FULL=1 make
 	make zemu_test
-

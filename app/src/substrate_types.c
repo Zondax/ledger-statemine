@@ -21,7 +21,7 @@
 #include "substrate_dispatch.h"
 #include <stddef.h>
 #include <stdint.h>
-#include <zbuffer.h>
+#include <zxformat.h>
 #include <zxmacros.h>
 
 parser_error_t _readbool(parser_context_t* c, pd_bool_t* v)
@@ -333,8 +333,8 @@ parser_error_t _toStringBalance(
     CLEAN_AND_CHECK()
 
     char bufferUI[200];
-    MEMSET(outValue, 0, outValueLen);
-    MEMSET(bufferUI, 0, sizeof(bufferUI));
+    memset(outValue, 0, outValueLen);
+    memset(bufferUI, 0, sizeof(bufferUI));
     *pageCount = 1;
 
     uint8_t bcdOut[100];
@@ -415,8 +415,6 @@ parser_error_t _toStringCall(
             outValue, outValueLen, 0, &itemPages);
         (*pageCount) += itemPages;
     }
-
-    zb_check_canary();
 
     if (pageIdx == 0) {
         snprintf(outValue, outValueLen, "%s", _getMethod_Name(*v->_txVerPtr, v->callIndex.moduleIdx, v->callIndex.idx));
