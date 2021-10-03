@@ -186,7 +186,7 @@ endif
 #########################
 
 CC := $(CLANGPATH)clang
-CFLAGS += -O3 -Os -Wno-unknown-pragmas -Wno-unused-parameter -Wvla
+CFLAGS += -O3 -Os -Wno-unknown-pragmas -Wno-unused-parameter
 
 AS := $(GCCPATH)arm-none-eabi-gcc
 AFLAGS +=
