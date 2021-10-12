@@ -16,15 +16,17 @@
 
 import Zemu, { DEFAULT_START_OPTIONS } from '@zondax/zemu'
 import { newStatemineApp } from '@zondax/ledger-substrate'
-import { APP_SEED, models } from './common'
+import {APP_SEED, models, setKeys, txBasic, txNomination} from './common'
 
 // @ts-ignore
 import ed25519 from 'ed25519-supercop'
 // @ts-ignore
 import { blake2bFinal, blake2bInit, blake2bUpdate } from 'blakejs'
+import {DEFAULT_START_DELAY} from "@zondax/zemu/src/constants";
 
 const defaultOptions = {
   ...DEFAULT_START_OPTIONS,
+  startDelay: DEFAULT_START_DELAY,
   logging: true,
   custom: `-s "${APP_SEED}"`,
   X11: false,
@@ -159,10 +161,7 @@ describe('Standard', function () {
       const pathChange = 0x80000000
       const pathIndex = 0x80000000
 
-      const txBlobStr =
-        '0a0000a542b7f5bc7b3767e9bbd713decde1ef01d45875981edc52dee8410bb61433340b63ce64c10c05d50391010b63ce64c10c050100000001000000b0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafeb0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe'
-
-      const txBlob = Buffer.from(txBlobStr, 'hex')
+      const txBlob = Buffer.from(txBasic, 'hex')
 
       const responseAddr = await app.getAddress(pathAccount, pathChange, pathIndex)
       const pubKey = Buffer.from(responseAddr.pubKey, 'hex')
@@ -208,10 +207,7 @@ describe('Standard', function () {
       await sim.clickBoth()
       await sim.clickLeft()
 
-      const txBlobStr =
-        '0a0000a542b7f5bc7b3767e9bbd713decde1ef01d45875981edc52dee8410bb61433340b63ce64c10c05d50391010b63ce64c10c050100000001000000b0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafeb0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe'
-
-      const txBlob = Buffer.from(txBlobStr, 'hex')
+      const txBlob = Buffer.from(txBasic, 'hex')
 
       const responseAddr = await app.getAddress(pathAccount, pathChange, pathIndex)
       const pubKey = Buffer.from(responseAddr.pubKey, 'hex')
@@ -243,4 +239,4 @@ describe('Standard', function () {
       await sim.close()
     }
   })
-});
+})

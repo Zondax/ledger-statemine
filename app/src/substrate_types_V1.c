@@ -21,6 +21,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <zxformat.h>
 #include <zxmacros.h>
 
 parser_error_t _readCompactAssetId_V1(parser_context_t* c, pd_CompactAssetId_V1_t* v)
@@ -277,7 +278,7 @@ parser_error_t _toStringCompactAssetId_V1(
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    return _toStringCompactInt(v, 0, 0, "", outValue, outValueLen, pageIdx, pageCount);
+    return _toStringCompactInt(v, 0, "", "", outValue, outValueLen, pageIdx, pageCount);
 }
 
 parser_error_t _toStringCompactClassId_V1(
@@ -287,7 +288,7 @@ parser_error_t _toStringCompactClassId_V1(
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    return _toStringCompactInt(v, 0, 0, "", outValue, outValueLen, pageIdx, pageCount);
+    return _toStringCompactInt(v, 0, "", "", outValue, outValueLen, pageIdx, pageCount);
 }
 
 parser_error_t _toStringCompactInstanceId_V1(
@@ -297,7 +298,7 @@ parser_error_t _toStringCompactInstanceId_V1(
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    return _toStringCompactInt(v, 0, 0, "", outValue, outValueLen, pageIdx, pageCount);
+    return _toStringCompactInt(v, 0, "", "", outValue, outValueLen, pageIdx, pageCount);
 }
 
 parser_error_t _toStringCompactMoment_V1(
@@ -307,7 +308,7 @@ parser_error_t _toStringCompactMoment_V1(
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    return _toStringCompactInt(v, 0, 0, "", outValue, outValueLen, pageIdx, pageCount);
+    return _toStringCompactInt(v, 0, "", "", outValue, outValueLen, pageIdx, pageCount);
 }
 
 parser_error_t _toStringCompactTAssetBalance_V1(
@@ -317,7 +318,7 @@ parser_error_t _toStringCompactTAssetBalance_V1(
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    return _toStringCompactInt(v, 0, 0, "", outValue, outValueLen, pageIdx, pageCount);
+    return _toStringCompactInt(v, 0, "", "", outValue, outValueLen, pageIdx, pageCount);
 }
 
 parser_error_t _toStringAccountId_V1(
@@ -388,7 +389,7 @@ parser_error_t _toStringCompactAccountIndex_V1(
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    return _toStringCompactInt(&v->value, 0, 0, "", outValue, outValueLen, pageIdx, pageCount);
+    return _toStringCompactInt(&v->value, 0, "", "", outValue, outValueLen, pageIdx, pageCount);
 }
 
 parser_error_t _toStringDestroyWitness_V1(
@@ -542,9 +543,9 @@ parser_error_t _toStringPerbill_V1(
 {
     char bufferUI[100];
     char ratioBuffer[80];
-    MEMSET(outValue, 0, outValueLen);
-    MEMSET(ratioBuffer, 0, sizeof(ratioBuffer));
-    MEMSET(bufferUI, 0, sizeof(bufferUI));
+    memset(outValue, 0, outValueLen);
+    memset(ratioBuffer, 0, sizeof(ratioBuffer));
+    memset(bufferUI, 0, sizeof(bufferUI));
     *pageCount = 1;
 
     if (fpuint64_to_str(ratioBuffer, sizeof(ratioBuffer), v->value, 7) == 0) {
