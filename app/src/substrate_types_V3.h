@@ -28,187 +28,198 @@ extern "C" {
 
 typedef struct {
     const uint8_t* _ptr;
-} pd_AccountId_V1_t;
+} pd_AccountId_V3_t;
 
 typedef struct {
     compactInt_t value;
-} pd_CompactAccountIndex_V1_t;
+} pd_CompactAccountIndex_V3_t;
 
 typedef struct {
     pd_u32_t digest_interval;
     pd_u32_t digest_levels;
-} pd_ChangesTrieConfiguration_V1_t;
+} pd_ChangesTrieConfiguration_V3_t;
 
 typedef struct {
     // TODO: Not implemented
     uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_InstanceId_V1_t;
+} pd_InstanceId_V3_t;
 
 typedef struct {
     const uint8_t* _ptr;
-} pd_KeyValue_V1_t;
+} pd_KeyValue_V3_t;
 
 typedef struct {
     const uint8_t* _ptr;
-} pd_Key_V1_t;
+} pd_Key_V3_t;
 
 typedef struct {
     uint8_t value;
     union {
-        pd_AccountId_V1_t id;
-        pd_CompactAccountIndex_V1_t index;
+        pd_AccountId_V3_t id;
+        pd_CompactAccountIndex_V3_t index;
         pd_Bytes_t raw;
         const uint8_t* _ptr;
     };
-} pd_LookupSource_V1_t;
-
-typedef struct {
-    // TODO: Not implemented
-    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_MultiAsset_V1_t;
+} pd_LookupasStaticLookupSource_V3_t;
 
 typedef struct {
     uint8_t value;
-} pd_ProxyType_V1_t;
+} pd_ProxyType_V3_t;
 
 typedef struct {
     pd_BlockNumber_t height;
     uint32_t index;
-} pd_Timepoint_V1_t;
+} pd_Timepoint_V3_t;
+
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_XcmVersion_V3_t;
 
 typedef struct {
     pd_Call_t call;
-} pd_OpaqueCall_V1_t;
+} pd_OpaqueCall_V3_t;
 
 typedef struct {
     uint8_t some;
-    pd_ChangesTrieConfiguration_V1_t contained;
-} pd_OptionChangesTrieConfiguration_V1_t;
+    pd_ChangesTrieConfiguration_V3_t contained;
+} pd_OptionChangesTrieConfiguration_V3_t;
 
 typedef struct {
     uint8_t some;
-    pd_LookupSource_V1_t contained;
-} pd_OptionLookupSource_V1_t;
+    pd_LookupasStaticLookupSource_V3_t contained;
+} pd_OptionLookupasStaticLookupSource_V3_t;
 
 typedef struct {
     uint8_t some;
-    pd_Timepoint_V1_t contained;
-} pd_OptionTimepoint_V1_t;
+    pd_Timepoint_V3_t contained;
+} pd_OptionTimepoint_V3_t;
 
 typedef struct {
-    // FIXME
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_BoundedVecu8KeyLimit_V3_t;
 
-} pd_AssetDestroyWitness_V1_t;
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_BoundedVecu8StringLimit_V3_t;
+
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_BoundedVecu8ValueLimit_V3_t;
+
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_BoxMultiLocation_V3_t;
+
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_BoxVersionedMultiAssets_V3_t;
+
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_BoxVersionedMultiLocation_V3_t;
+
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_BoxVersionedXcmTasSysConfigCall_V3_t;
+
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_BoxVersionedXcmTuple_V3_t;
+
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_CallHashOfT_V3_t;
+
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_DestroyWitness_V3_t;
 
 typedef struct {
     const uint8_t* _ptr;
-} pd_CallHashOf_V1_t;
-
-typedef compactInt_t pd_CompactAssetId_V1_t;
-
-typedef compactInt_t pd_CompactClassId_V1_t;
-
-typedef compactInt_t pd_CompactInstanceId_V1_t;
-
-typedef compactInt_t pd_CompactMoment_V1_t;
-
-typedef compactInt_t pd_CompactTAssetBalance_V1_t;
-
-typedef struct {
-    // TODO: Not implemented
-    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_DestroyWitness_V1_t;
-
-typedef struct {
-    const uint8_t* _ptr;
-} pd_Keys_V1_t;
-
-typedef struct {
-    // TODO: Not implemented
-    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_MultiLocation_V1_t;
+} pd_Keys_V3_t;
 
 typedef struct {
     uint8_t some;
-    pd_InstanceId_V1_t contained;
-} pd_OptionInstanceId_V1_t;
+    pd_InstanceId_V3_t contained;
+} pd_OptionInstanceId_V3_t;
 
 typedef struct {
     uint8_t some;
-    pd_ProxyType_V1_t contained;
-} pd_OptionProxyType_V1_t;
+    pd_ProxyType_V3_t contained;
+} pd_OptionProxyType_V3_t;
+
+typedef struct {
+    uint8_t some;
+    pd_XcmVersion_V3_t contained;
+} pd_OptionXcmVersion_V3_t;
 
 typedef struct {
     // TODO: Not implemented
     uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_OverweightIndex_V1_t;
+} pd_OverweightIndex_V3_t;
 
 typedef struct {
     // TODO: Not implemented
     uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_ParachainInherentData_V1_t;
+} pd_ParachainInherentData_V3_t;
 
 typedef struct {
     uint32_t value;
-} pd_Perbill_V1_t;
+} pd_Perbill_V3_t;
 
 typedef struct {
     // TODO: Not implemented
     uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_RelayChainBlockNumber_V1_t;
+} pd_RelayChainBlockNumber_V3_t;
 
 typedef struct {
     // TODO: Not implemented
     uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_TAssetBalance_V1_t;
+} pd_UpwardMessage_V3_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_VecAccountId_V3_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_VecInstanceId_V3_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_VecKeyValue_V3_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_VecKey_V3_t;
 
 typedef struct {
     // TODO: Not implemented
     uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_UpwardMessage_V1_t;
-
-typedef struct {
-    uint64_t _len;
-    const uint8_t* _ptr;
-    uint64_t _lenBuffer;
-} pd_VecAccountId_V1_t;
-
-typedef struct {
-    uint64_t _len;
-    const uint8_t* _ptr;
-    uint64_t _lenBuffer;
-} pd_VecInstanceId_V1_t;
-
-typedef struct {
-    uint64_t _len;
-    const uint8_t* _ptr;
-    uint64_t _lenBuffer;
-} pd_VecKeyValue_V1_t;
-
-typedef struct {
-    uint64_t _len;
-    const uint8_t* _ptr;
-    uint64_t _lenBuffer;
-} pd_VecKey_V1_t;
-
-typedef struct {
-    uint64_t _len;
-    const uint8_t* _ptr;
-    uint64_t _lenBuffer;
-} pd_VecMultiAsset_V1_t;
+} pd_WeightLimit_V3_t;
 
 typedef struct {
     uint64_t value;
-} pd_Weight_V1_t;
-
-typedef struct {
-    // TODO: Not implemented
-    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_Xcm_V1_t;
-
-typedef struct {
-    const uint8_t* _ptr;
-} pd_u8_array_32_V1_t;
+} pd_Weight_V3_t;
 
 #ifdef __cplusplus
 }

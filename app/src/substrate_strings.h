@@ -261,6 +261,13 @@ static const char* STR_ME_CLEAR_ATTRIBUTE = "Clear attribute";
 static const char* STR_ME_SET_CLASS_METADATA = "Set class metadata";
 static const char* STR_ME_CLEAR_CLASS_METADATA = "Clear class metadata";
 static const char* STR_ME_TRANSFER_ALL = "Transfer all";
+static const char* STR_ME_FORCE_UNRESERVE = "Force unreserve";
+static const char* STR_ME_FORCE_XCM_VERSION = "Force xcm version";
+static const char* STR_ME_FORCE_DEFAULT_XCM_VERSION = "Force default xcm version";
+static const char* STR_ME_FORCE_SUBSCRIBE_VERSION_NOTIFY = "Force subscribe version notify";
+static const char* STR_ME_FORCE_UNSUBSCRIBE_VERSION_NOTIFY = "Force unsubscribe version notify";
+static const char* STR_ME_LIMITED_RESERVE_TRANSFER_ASSETS = "Limited reserve transfer assets";
+static const char* STR_ME_LIMITED_TELEPORT_ASSETS = "Limited teleport assets";
 
 // Items names
 static const char* STR_IT__ratio = "Ratio";
@@ -420,6 +427,13 @@ static const char* STR_IT_maybe_instance = "Maybe instance";
 static const char* STR_IT_key = "Key";
 static const char* STR_IT_class_ = "Class";
 static const char* STR_IT_keep_alive = "Keep alive";
+static const char* STR_IT_fee_asset_item = "Fee asset item";
+static const char* STR_IT_ratio = "Ratio";
+static const char* STR_IT_subkeys = "Subkeys";
+static const char* STR_IT_Amount = "Amount";
+static const char* STR_IT_location = "Location";
+static const char* STR_IT_xcm_version = "Xcm version";
+static const char* STR_IT_maybe_xcm_version = "Maybe xcm version";
 
 #ifdef __cplusplus
 }
