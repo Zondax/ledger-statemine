@@ -16,7 +16,7 @@
 
 import Zemu, { DEFAULT_START_OPTIONS } from '@zondax/zemu'
 import { newStatemineApp } from '@zondax/ledger-substrate'
-import {APP_SEED, models, setKeys, txBasic, txNomination} from './common'
+import {APP_SEED, models, txBasic} from './common'
 
 // @ts-ignore
 import ed25519 from 'ed25519-supercop'
@@ -171,7 +171,7 @@ describe('Standard', function () {
       // Wait until we are not in the main menu
       await sim.waitUntilScreenIsNot(sim.getMainMenuSnapshot())
 
-      await sim.compareSnapshotsAndAccept('.', `${m.prefix.toLowerCase()}-sign_basic_normal`, 5)
+      await sim.compareSnapshotsAndAccept('.', `${m.prefix.toLowerCase()}-sign_basic_normal`, 7)
 
       const signatureResponse = await signatureRequest
       console.log(signatureResponse)
@@ -218,7 +218,7 @@ describe('Standard', function () {
       // Wait until we are not in the main menu
       await sim.waitUntilScreenIsNot(sim.getMainMenuSnapshot())
 
-      await sim.compareSnapshotsAndAccept('.', `${m.prefix.toLowerCase()}-sign_basic_expert`, 11)
+      await sim.compareSnapshotsAndAccept('.', `${m.prefix.toLowerCase()}-sign_basic_expert`, m.name === "nanos" ? 13 : 13)
 
       const signatureResponse = await signatureRequest
       console.log(signatureResponse)

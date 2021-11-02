@@ -16,7 +16,7 @@
 
 import Zemu, { DEFAULT_START_OPTIONS } from '@zondax/zemu'
 import { newStatemineApp } from '@zondax/ledger-substrate'
-import {APP_SEED, txBasic, txNomination} from './common'
+import {APP_SEED, txBasic} from './common'
 
 // @ts-ignore
 import { blake2bFinal, blake2bInit, blake2bUpdate } from 'blakejs'
@@ -131,7 +131,7 @@ describe('SR25519', function () {
       // Wait until we are not in the main menu
       await sim.waitUntilScreenIsNot(sim.getMainMenuSnapshot())
 
-      await sim.compareSnapshotsAndAccept('.', 's-sign_basic_normal', 5)
+      await sim.compareSnapshotsAndAccept('.', 's-sign_basic_normal', 7)
 
       const signatureResponse = await signatureRequest
       console.log(signatureResponse)
@@ -179,7 +179,7 @@ describe('SR25519', function () {
       // Wait until we are not in the main menu
       await sim.waitUntilScreenIsNot(sim.getMainMenuSnapshot())
 
-      await sim.compareSnapshotsAndAccept('.', 's-sign_basic_expert', 11)
+      await sim.compareSnapshotsAndAccept('.', 's-sign_basic_expert', 13)
 
       const signatureResponse = await signatureRequest
       console.log(signatureResponse)
