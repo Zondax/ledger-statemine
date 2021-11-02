@@ -16,7 +16,7 @@
 
 import Zemu, { DEFAULT_START_OPTIONS } from '@zondax/zemu'
 import { newStatemineApp } from '@zondax/ledger-substrate'
-import {APP_SEED, txBasic, txNomination} from './common'
+import {APP_SEED, txBasic} from './common'
 
 // @ts-ignore
 import { blake2bFinal, blake2bInit, blake2bUpdate } from 'blakejs'
