@@ -107,10 +107,6 @@ parser_error_t _readCallImpl(parser_context_t* c, pd_Call_t* v, pd_MethodNested_
 ///////////////////////////////////
 ///////////////////////////////////
 ///////////////////////////////////
-parser_error_t _readCompactBlockNumber(parser_context_t* c, pd_CompactBlockNumber_t* v)
-{
-    return _readCompactInt(c, v);
-}
 
 parser_error_t _readBytes(parser_context_t* c, pd_Bytes_t* v)
 {
@@ -123,10 +119,6 @@ parser_error_t _readBytes(parser_context_t* c, pd_Bytes_t* v)
     v->_ptr = c->buffer + c->offset;
     CTX_CHECK_AND_ADVANCE(c, v->_len);
     return parser_ok;
-}
-
-parser_error_t _readBalance(parser_context_t* c, pd_Balance_t* v) {
-    GEN_DEF_READARRAY(16)
 }
 
 parser_error_t _readCall(parser_context_t* c, pd_Call_t* v)
@@ -151,11 +143,6 @@ parser_error_t _readCall(parser_context_t* c, pd_Call_t* v)
 parser_error_t _readHeader(parser_context_t* c, pd_Header_t* v)
 {
     return parser_not_supported;
-}
-
-parser_error_t _readBalanceOf(parser_context_t* c, pd_BalanceOf_t* v)
-{
-    return _readBalance(c, &v->value);
 }
 
 parser_error_t _readVecCall(parser_context_t* c, pd_VecCall_t* v)
@@ -185,12 +172,24 @@ parser_error_t _readVecCall(parser_context_t* c, pd_VecCall_t* v)
     return parser_ok;
 }
 
+parser_error_t _readBalance(parser_context_t* c, pd_Balance_t* v) {
+    GEN_DEF_READARRAY(16)
+}
+
+parser_error_t _readH256(parser_context_t* c, pd_H256_t* v) {
+    GEN_DEF_READARRAY(32)
+}
+
 parser_error_t _readHash(parser_context_t* c, pd_Hash_t* v) {
     GEN_DEF_READARRAY(32)
 }
 
 parser_error_t _readVecHeader(parser_context_t* c, pd_VecHeader_t* v) {
     GEN_DEF_READVECTOR(Header)
+}
+
+parser_error_t _readVecu8(parser_context_t* c, pd_Vecu8_t* v) {
+    GEN_DEF_READVECTOR(u8)
 }
 
 ///////////////////////////////////
@@ -299,12 +298,8 @@ parser_error_t _toStringCompactu32(
     return _toStringCompactInt(v, 0, "", "", outValue, outValueLen, pageIdx, pageCount);
 }
 
-///////////////////////////////////
-///////////////////////////////////
-///////////////////////////////////
-
-parser_error_t _toStringCompactBlockNumber(
-    const pd_CompactBlockNumber_t* v,
+parser_error_t _toStringCompactu64(
+    const pd_Compactu64_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -312,6 +307,10 @@ parser_error_t _toStringCompactBlockNumber(
 {
     return _toStringCompactInt(v, 0, "", "", outValue, outValueLen, pageIdx, pageCount);
 }
+
+///////////////////////////////////
+///////////////////////////////////
+///////////////////////////////////
 
 parser_error_t _toStringBytes(
     const pd_Bytes_t* v,
@@ -321,43 +320,6 @@ parser_error_t _toStringBytes(
     uint8_t* pageCount)
 {
     GEN_DEF_TOSTRING_ARRAY(v->_len);
-}
-
-parser_error_t _toStringBalance(
-    const pd_Balance_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    CLEAN_AND_CHECK()
-
-    char bufferUI[200];
-    memset(outValue, 0, outValueLen);
-    memset(bufferUI, 0, sizeof(bufferUI));
-    *pageCount = 1;
-
-    uint8_t bcdOut[100];
-    const uint16_t bcdOutLen = sizeof(bcdOut);
-
-    bignumLittleEndian_to_bcd(bcdOut, bcdOutLen, v->_ptr, 16);
-    if (!bignumLittleEndian_bcdprint(bufferUI, sizeof(bufferUI), bcdOut, bcdOutLen)) {
-        return parser_unexpected_buffer_end;
-    }
-
-    // Format number
-    if (intstr_to_fpstr_inplace(bufferUI, sizeof(bufferUI), COIN_AMOUNT_DECIMAL_PLACES) == 0) {
-        return parser_unexpected_value;
-    }
-
-    number_inplace_trimming(bufferUI, 1);
-    number_inplace_trimming(bufferUI, 1);
-    if (z_str3join(bufferUI, sizeof(bufferUI), COIN_TICKER, "") != zxerr_ok) {
-        return parser_print_not_supported;
-    }
-
-    pageString(outValue, outValueLen, bufferUI, pageIdx, pageCount);
-    return parser_ok;
 }
 
 parser_error_t _toStringCall(
@@ -451,16 +413,6 @@ parser_error_t _toStringHeader(
     return parser_print_not_supported;
 }
 
-parser_error_t _toStringBalanceOf(
-    const pd_BalanceOf_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    return _toStringBalance(&v->value, outValue, outValueLen, pageIdx, pageCount);
-}
-
 parser_error_t _toStringVecCall(
     const pd_VecCall_t* v,
     char* outValue,
@@ -521,6 +473,53 @@ parser_error_t _toStringVecCall(
     return parser_print_not_supported;
 }
 
+parser_error_t _toStringBalance(
+    const pd_Balance_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+
+    char bufferUI[200];
+    memset(outValue, 0, outValueLen);
+    memset(bufferUI, 0, sizeof(bufferUI));
+    *pageCount = 1;
+
+    uint8_t bcdOut[100];
+    const uint16_t bcdOutLen = sizeof(bcdOut);
+
+    bignumLittleEndian_to_bcd(bcdOut, bcdOutLen, v->_ptr, 16);
+    if (!bignumLittleEndian_bcdprint(bufferUI, sizeof(bufferUI), bcdOut, bcdOutLen)) {
+        return parser_unexpected_buffer_end;
+    }
+
+    // Format number
+    if (intstr_to_fpstr_inplace(bufferUI, sizeof(bufferUI), COIN_AMOUNT_DECIMAL_PLACES) == 0) {
+        return parser_unexpected_value;
+    }
+
+    number_inplace_trimming(bufferUI, 1);
+    number_inplace_trimming(bufferUI, 1);
+    if (z_str3join(bufferUI, sizeof(bufferUI), COIN_TICKER, "") != zxerr_ok) {
+        return parser_print_not_supported;
+    }
+
+    pageString(outValue, outValueLen, bufferUI, pageIdx, pageCount);
+    return parser_ok;
+}
+
+parser_error_t _toStringH256(
+    const pd_H256_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    GEN_DEF_TOSTRING_ARRAY(32);
+}
+
 parser_error_t _toStringHash(
     const pd_Hash_t* v,
     char* outValue,
@@ -535,9 +534,18 @@ parser_error_t _toStringVecHeader(
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
+    uint8_t* pageCount) {
+    GEN_DEF_TOSTRING_VECTOR(Header)
+}
+
+parser_error_t _toStringVecu8(
+    const pd_Vecu8_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    GEN_DEF_TOSTRING_VECTOR(Header)
+    GEN_DEF_TOSTRING_VECTOR(u8);
 }
 
 ///////////////////////////////////
