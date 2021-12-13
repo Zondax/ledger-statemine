@@ -39,6 +39,7 @@ void __assert_fail(const char * assertion, const char * file, unsigned int line,
 #define FIELD_ERA_PHASE     4
 #define FIELD_ERA_PERIOD    5
 #define FIELD_BLOCK_HASH    6
+#define FIELD_ASSET_ID      7
 
 #define EXPERT_FIELDS_TOTAL_COUNT 5
 
@@ -244,6 +245,21 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
             _toStringHash(&ctx->tx_obj->blockHash,
                           outVal, outValLen,
                           pageIdx, pageCount);
+            return err;
+        }
+
+        if (!parser_show_expert_fields()) {
+            displayIdx++;
+        }
+
+        if (displayIdx == FIELD_ASSET_ID && parser_show_tip(ctx)) {
+            snprintf(outKey, outKeyLen, "AssetId");
+            err = _toStringCompactInt(&ctx->tx_obj->assetId,
+                                          0, "", "",
+                                          outVal, outValLen,
+                                          pageIdx, pageCount);
+            if (err != parser_ok) return err;
+            number_inplace_trimming(outVal, 1);
             return err;
         }
 
