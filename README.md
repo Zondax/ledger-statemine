@@ -1,7 +1,7 @@
 # Ledger Statemine app
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![GithubActions](https://github.com/zondax/ledger-statemine/actions/workflows/main.yaml/badge.svg)](https://github.com/Zondax/ledger-statemine/blob/main/.github/workflows/main.yaml)
+[![GithubActions](https://github.com/zondax/ledger-statemine/actions/workflows/main.yml/badge.svg)](https://github.com/Zondax/ledger-statemine/blob/main/.github/workflows/main.yaml)
 
 ---
 
@@ -28,9 +28,9 @@ Please:
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
 
-# Statemine  3.504.x
+# Statemine  4.601.x
 
-## SYSTEM
+## System
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
@@ -45,23 +45,22 @@ Please:
 |Kill prefix |    |   |   | `Key` prefix <br/>`u32` subkeys <br/> | 
 |Remark with event |    | :heavy_check_mark: |   | `Vecu8` remark <br/> | 
 
-## PARACHAINSYSTEM
+## ParachainSystem
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Set upgrade block |    |   |   | `RelayChainBlockNumber` relay_chain_block <br/> | 
 |Set validation data |    |   |   | `ParachainInherentData` data <br/> | 
 |Sudo send upward message |    |   |   | `UpwardMessage` message <br/> | 
 |Authorize upgrade |    |   |   | `Hash` code_hash <br/> | 
 |Enact authorized upgrade |    |   |   | `Vecu8` code <br/> | 
 
-## TIMESTAMP
+## Timestamp
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
 |Set |    | :heavy_check_mark: |   | `Compactu64` now <br/> | 
 
-## BALANCES
+## Balances
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
@@ -72,13 +71,13 @@ Please:
 |Transfer all | :heavy_check_mark:  | :heavy_check_mark: |   | `LookupasStaticLookupSource` dest <br/>`bool` keep_alive <br/> | 
 |Force unreserve |    | :heavy_check_mark: |   | `LookupasStaticLookupSource` who <br/>`Balance` amount <br/> | 
 
-## AUTHORSHIP
+## Authorship
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
 |Set uncles |    |   |   | `VecHeader` new_uncles <br/> | 
 
-## COLLATORSELECTION
+## CollatorSelection
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
@@ -88,19 +87,19 @@ Please:
 |Register as candidate |    | :heavy_check_mark: |   |  | 
 |Leave intent |    | :heavy_check_mark: |   |  | 
 
-## SESSION
+## Session
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Set keys | :heavy_check_mark:  |   |   | `Keys` keys <br/>`Bytes` proof <br/> | 
+|Set keys | :heavy_check_mark:  | :heavy_check_mark: |   | `Keys` keys <br/>`Bytes` proof <br/> | 
 |Purge keys | :heavy_check_mark:  | :heavy_check_mark: |   |  | 
 
-## XCMPQUEUE
+## XcmpQueue
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
 
-## POLKADOTXCM
+## PolkadotXcm
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
@@ -115,13 +114,13 @@ Please:
 |Limited reserve transfer assets |    |   |   | `BoxVersionedMultiLocation` dest <br/>`BoxVersionedMultiLocation` beneficiary <br/>`BoxVersionedMultiAssets` assets <br/>`u32` fee_asset_item <br/>`WeightLimit` weight_limit <br/> | 
 |Limited teleport assets |    |   |   | `BoxVersionedMultiLocation` dest <br/>`BoxVersionedMultiLocation` beneficiary <br/>`BoxVersionedMultiAssets` assets <br/>`u32` fee_asset_item <br/>`WeightLimit` weight_limit <br/> | 
 
-## DMPQUEUE
+## DmpQueue
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
 |Service overweight |    |   |   | `OverweightIndex` index <br/>`Weight` weight_limit <br/> | 
 
-## UTILITY
+## Utility
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
@@ -129,7 +128,7 @@ Please:
 |As derivative |    |   |   | `u16` index <br/>`Call` call <br/> | 
 |Batch all | :heavy_check_mark:  | :heavy_check_mark: |   | `VecCall` calls <br/> | 
 
-## MULTISIG
+## Multisig
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
@@ -138,7 +137,7 @@ Please:
 |Approve as multi |    | :heavy_check_mark: | :heavy_check_mark: | `u16` threshold <br/>`VecAccountId` other_signatories <br/>`OptionTimepoint` maybe_timepoint <br/>`H256` call_hash <br/>`Weight` max_weight <br/> | 
 |Cancel as multi |    | :heavy_check_mark: | :heavy_check_mark: | `u16` threshold <br/>`VecAccountId` other_signatories <br/>`Timepoint` timepoint <br/>`H256` call_hash <br/> | 
 
-## PROXY
+## Proxy
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
@@ -153,7 +152,7 @@ Please:
 |Reject announcement |    |   |   | `AccountId` delegate <br/>`CallHashOfT` call_hash <br/> | 
 |Proxy announced |    | :heavy_check_mark: |   | `AccountId` delegate <br/>`AccountId` real <br/>`OptionProxyType` force_proxy_type <br/>`Call` call <br/> | 
 
-## ASSETS
+## Assets
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
@@ -181,7 +180,7 @@ Please:
 |Force cancel approval |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` owner <br/>`LookupasStaticLookupSource` delegate <br/> | 
 |Transfer approved |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` owner <br/>`LookupasStaticLookupSource` destination <br/>`CompactBalance` amount <br/> | 
 
-## UNIQUES
+## Uniques
 
 | Name        | Light | XL | Nesting | Arguments | 
 | :---------- |:------------:|:--------:|:--------:|:--------|
