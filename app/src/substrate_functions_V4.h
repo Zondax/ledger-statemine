@@ -35,7 +35,7 @@ parser_error_t _readBoxVersionedMultiAssets_V4(parser_context_t* c, pd_BoxVersio
 parser_error_t _readBoxVersionedMultiLocation_V4(parser_context_t* c, pd_BoxVersionedMultiLocation_V4_t* v);
 parser_error_t _readBoxVersionedXcmTasSysConfigCall_V4(parser_context_t* c, pd_BoxVersionedXcmTasSysConfigCall_V4_t* v);
 parser_error_t _readBoxVersionedXcmTuple_V4(parser_context_t* c, pd_BoxVersionedXcmTuple_V4_t* v);
-parser_error_t _readCallHashOfT_V4(parser_context_t* c, pd_CallHashOfT_V4_t* v);
+parser_error_t _readCallHashOf_V4(parser_context_t* c, pd_CallHashOf_V4_t* v);
 parser_error_t _readChangesTrieConfiguration_V4(parser_context_t* c, pd_ChangesTrieConfiguration_V4_t* v);
 parser_error_t _readCompactAccountIndex_V4(parser_context_t* c, pd_CompactAccountIndex_V4_t* v);
 parser_error_t _readDestroyWitness_V4(parser_context_t* c, pd_DestroyWitness_V4_t* v);
@@ -129,8 +129,8 @@ parser_error_t _toStringBoxVersionedXcmTuple_V4(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringCallHashOfT_V4(
-    const pd_CallHashOfT_V4_t* v,
+parser_error_t _toStringCallHashOf_V4(
+    const pd_CallHashOf_V4_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

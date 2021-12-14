@@ -68,9 +68,8 @@ parser_error_t _readBoxVersionedXcmTuple_V4(parser_context_t* c, pd_BoxVersioned
     return parser_not_supported;
 }
 
-parser_error_t _readCallHashOfT_V4(parser_context_t* c, pd_CallHashOfT_V4_t* v)
-{
-    return parser_not_supported;
+parser_error_t _readCallHashOf_V4(parser_context_t* c, pd_CallHashOf_V4_t* v) {
+    GEN_DEF_READARRAY(32)
 }
 
 parser_error_t _readChangesTrieConfiguration_V4(parser_context_t* c, pd_ChangesTrieConfiguration_V4_t* v)
@@ -366,15 +365,13 @@ parser_error_t _toStringBoxVersionedXcmTuple_V4(
     return parser_print_not_supported;
 }
 
-parser_error_t _toStringCallHashOfT_V4(
-    const pd_CallHashOfT_V4_t* v,
+parser_error_t _toStringCallHashOf_V4(
+    const pd_CallHashOf_V4_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    CLEAN_AND_CHECK()
-    return parser_print_not_supported;
+    uint8_t* pageCount) {
+    GEN_DEF_TOSTRING_ARRAY(32)
 }
 
 parser_error_t _toStringChangesTrieConfiguration_V4(

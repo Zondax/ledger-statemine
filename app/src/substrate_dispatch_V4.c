@@ -23,7 +23,7 @@ __Z_INLINE parser_error_t _readMethod_balances_transfer_V4(
     parser_context_t* c, pd_balances_transfer_V4_t* m)
 {
     CHECK_ERROR(_readLookupasStaticLookupSource_V4(c, &m->dest))
-    CHECK_ERROR(_readCompactBalance(c, &m->Amount))
+    CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
@@ -32,7 +32,7 @@ __Z_INLINE parser_error_t _readMethod_balances_force_transfer_V4(
 {
     CHECK_ERROR(_readLookupasStaticLookupSource_V4(c, &m->source))
     CHECK_ERROR(_readLookupasStaticLookupSource_V4(c, &m->dest))
-    CHECK_ERROR(_readCompactBalance(c, &m->Amount))
+    CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
@@ -40,7 +40,7 @@ __Z_INLINE parser_error_t _readMethod_balances_transfer_keep_alive_V4(
     parser_context_t* c, pd_balances_transfer_keep_alive_V4_t* m)
 {
     CHECK_ERROR(_readLookupasStaticLookupSource_V4(c, &m->dest))
-    CHECK_ERROR(_readCompactBalance(c, &m->Amount))
+    CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
@@ -1030,7 +1030,7 @@ const char* _getMethod_ItemName_V4(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         case 0:
             return STR_IT_dest;
         case 1:
-            return STR_IT_Amount;
+            return STR_IT_amount;
         default:
             return NULL;
         }
@@ -1041,7 +1041,7 @@ const char* _getMethod_ItemName_V4(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         case 1:
             return STR_IT_dest;
         case 2:
-            return STR_IT_Amount;
+            return STR_IT_amount;
         default:
             return NULL;
         }
@@ -1050,7 +1050,7 @@ const char* _getMethod_ItemName_V4(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         case 0:
             return STR_IT_dest;
         case 1:
-            return STR_IT_Amount;
+            return STR_IT_amount;
         default:
             return NULL;
         }
@@ -1571,9 +1571,9 @@ parser_error_t _getMethod_ItemValue_V4(
                 &m->nested.balances_transfer_V4.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* balances_transfer_V4 - Amount */;
+        case 1: /* balances_transfer_V4 - amount */;
             return _toStringCompactBalance(
-                &m->nested.balances_transfer_V4.Amount,
+                &m->nested.balances_transfer_V4.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -1591,9 +1591,9 @@ parser_error_t _getMethod_ItemValue_V4(
                 &m->nested.balances_force_transfer_V4.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* balances_force_transfer_V4 - Amount */;
+        case 2: /* balances_force_transfer_V4 - amount */;
             return _toStringCompactBalance(
-                &m->nested.balances_force_transfer_V4.Amount,
+                &m->nested.balances_force_transfer_V4.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -1606,9 +1606,9 @@ parser_error_t _getMethod_ItemValue_V4(
                 &m->nested.balances_transfer_keep_alive_V4.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* balances_transfer_keep_alive_V4 - Amount */;
+        case 1: /* balances_transfer_keep_alive_V4 - amount */;
             return _toStringCompactBalance(
-                &m->nested.balances_transfer_keep_alive_V4.Amount,
+                &m->nested.balances_transfer_keep_alive_V4.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:

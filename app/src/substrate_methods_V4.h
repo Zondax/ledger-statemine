@@ -167,20 +167,20 @@ typedef union {
 #define PD_CALL_BALANCES_TRANSFER_V4 0
 typedef struct {
     pd_LookupasStaticLookupSource_V4_t dest;
-    pd_CompactBalance_t Amount;
+    pd_CompactBalance_t amount;
 } pd_balances_transfer_V4_t;
 
 #define PD_CALL_BALANCES_FORCE_TRANSFER_V4 2
 typedef struct {
     pd_LookupasStaticLookupSource_V4_t source;
     pd_LookupasStaticLookupSource_V4_t dest;
-    pd_CompactBalance_t Amount;
+    pd_CompactBalance_t amount;
 } pd_balances_force_transfer_V4_t;
 
 #define PD_CALL_BALANCES_TRANSFER_KEEP_ALIVE_V4 3
 typedef struct {
     pd_LookupasStaticLookupSource_V4_t dest;
-    pd_CompactBalance_t Amount;
+    pd_CompactBalance_t amount;
 } pd_balances_transfer_keep_alive_V4_t;
 
 #ifdef SUBSTRATE_PARSER_FULL

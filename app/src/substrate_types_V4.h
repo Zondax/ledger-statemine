@@ -136,9 +136,8 @@ typedef struct {
 } pd_BoxVersionedXcmTuple_V4_t;
 
 typedef struct {
-    // TODO: Not implemented
-    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_CallHashOfT_V4_t;
+    const uint8_t* _ptr;
+} pd_CallHashOf_V4_t;
 
 typedef struct {
     // TODO: Not implemented
