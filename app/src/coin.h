@@ -52,7 +52,7 @@ typedef enum {
 
 #define COIN_AMOUNT_DECIMAL_PLACES          12
 
-#define COIN_GENESIS_HASH                   "b0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe"
+#define COIN_GENESIS_HASH                   "48239ef607d7928874027a43a67689209727dfb3d3dc5e5b03a39bdc2eda771a"
 #define COIN_NAME                           "Statemine"
 #define COIN_TICKER                         "KSM "
 

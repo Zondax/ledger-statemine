@@ -245,6 +245,8 @@ parser_error_t _readEra(parser_context_t *c, pd_ExtrinsicEra_t *v) {
     //  https://github.com/paritytech/substrate/blob/fc3adc87dc806237eb7371c1d21055eea1702be0/core/sr-primitives/src/generic/era.rs#L117
 
     v->type = eEraImmortal;
+    v->period = 0;
+    v->phase = 0;
 
     uint8_t first;
     CHECK_ERROR(_readUInt8(c, &first))
@@ -387,6 +389,7 @@ parser_error_t _readTx(parser_context_t *c, parser_tx_t *v) {
     CHECK_ERROR(_readEra(c, &v->era))
     CHECK_ERROR(_readCompactIndex(c, &v->nonce))
     CHECK_ERROR(_readCompactBalance(c, &v->tip))
+    CHECK_ERROR(_readCompactInt(c,&v->assetId))
     CHECK_ERROR(_readUInt32(c, &v->specVersion))
     CHECK_ERROR(_readUInt32(c, &v->transactionVersion))
     CHECK_ERROR(_readHash(c, &v->genesisHash))
