@@ -1,5 +1,5 @@
 /*******************************************************************************
-*  (c) 2021 Zondax GmbH
+*  (c) 2019 - 2022 Zondax GmbH
 *
 *  Licensed under the Apache License, Version 2.0 (the "License");
 *  you may not use this file except in compliance with the License.
@@ -268,6 +268,11 @@ static const char* STR_ME_FORCE_SUBSCRIBE_VERSION_NOTIFY = "Force subscribe vers
 static const char* STR_ME_FORCE_UNSUBSCRIBE_VERSION_NOTIFY = "Force unsubscribe version notify";
 static const char* STR_ME_LIMITED_RESERVE_TRANSFER_ASSETS = "Limited reserve transfer assets";
 static const char* STR_ME_LIMITED_TELEPORT_ASSETS = "Limited teleport assets";
+static const char* STR_ME_SUSPEND_XCM_EXECUTION = "Suspend xcm execution";
+static const char* STR_ME_RESUME_XCM_EXECUTION = "Resume xcm execution";
+static const char* STR_ME_DISPATCH_AS = "Dispatch as";
+static const char* STR_ME_TOUCH = "Touch";
+static const char* STR_ME_REFUND = "Refund";
 
 // Items names
 static const char* STR_IT__ratio = "Ratio";
@@ -434,6 +439,8 @@ static const char* STR_IT_Amount = "Amount";
 static const char* STR_IT_location = "Location";
 static const char* STR_IT_xcm_version = "Xcm version";
 static const char* STR_IT_maybe_xcm_version = "Maybe xcm version";
+static const char* STR_IT_as_origin = "As origin";
+static const char* STR_IT_allow_burn = "Allow burn";
 
 #ifdef __cplusplus
 }
