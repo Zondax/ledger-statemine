@@ -1,18 +1,18 @@
 /*******************************************************************************
-*  (c) 2019 - 2022 Zondax GmbH
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-********************************************************************************/
+ *  (c) 2019 - 2022 Zondax GmbH
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ ********************************************************************************/
 #include "bignum.h"
 #include "coin.h"
 #include "parser_impl.h"
@@ -77,6 +77,11 @@ parser_error_t _readCallHashOf_V5(parser_context_t* c, pd_CallHashOf_V5_t* v) {
     GEN_DEF_READARRAY(32)
 }
 
+parser_error_t _readChargeAssetIdOf_V5(parser_context_t* c, pd_ChargeAssetIdOf_V5_t* v)
+{
+    return parser_not_supported;
+}
+
 parser_error_t _readCompactAccountIndex_V5(parser_context_t* c, pd_CompactAccountIndex_V5_t* v)
 {
     return _readCompactInt(c, &v->value);
@@ -84,7 +89,10 @@ parser_error_t _readCompactAccountIndex_V5(parser_context_t* c, pd_CompactAccoun
 
 parser_error_t _readDestroyWitness_V5(parser_context_t* c, pd_DestroyWitness_V5_t* v)
 {
-    return parser_not_supported;
+    CHECK_ERROR(_readCompactu32(c, &v->accounts))
+    CHECK_ERROR(_readCompactu32(c, &v->sufficients))
+    CHECK_ERROR(_readCompactu32(c, &v->approvals))
+    return parser_ok;
 }
 
 parser_error_t _readInstanceId_V5(parser_context_t* c, pd_InstanceId_V5_t* v)
@@ -106,7 +114,7 @@ parser_error_t _readKeys_V5(parser_context_t* c, pd_Keys_V5_t* v) {
 
 parser_error_t _readLookupasStaticLookupSource_V5(parser_context_t* c, pd_LookupasStaticLookupSource_V5_t* v)
 {
-    CHECK_INPUT();
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->value))
     switch (v->value) {
     case 0: // Id
@@ -149,7 +157,9 @@ parser_error_t _readParachainInherentData_V5(parser_context_t* c, pd_ParachainIn
 
 parser_error_t _readPerbill_V5(parser_context_t* c, pd_Perbill_V5_t* v)
 {
-    return _readUInt32(c, &v->value);
+    CHECK_INPUT()
+    CHECK_ERROR(_readUInt32(c, &v->value))
+    return parser_ok;
 }
 
 parser_error_t _readProxyType_V5(parser_context_t* c, pd_ProxyType_V5_t* v)
@@ -157,7 +167,7 @@ parser_error_t _readProxyType_V5(parser_context_t* c, pd_ProxyType_V5_t* v)
     CHECK_INPUT()
 
     CHECK_ERROR(_readUInt8(c, &v->value))
-    if (v->value > 7) {
+    if (v->value > 6) {
         return parser_value_out_of_range;
     }
 
@@ -178,12 +188,16 @@ parser_error_t _readUpwardMessage_V5(parser_context_t* c, pd_UpwardMessage_V5_t*
 
 parser_error_t _readWeightLimit_V5(parser_context_t* c, pd_WeightLimit_V5_t* v)
 {
-    return _readUInt64(c, &v->value);
+    CHECK_INPUT()
+    CHECK_ERROR(_readUInt64(c, &v->value))
+    return parser_ok;
 }
 
 parser_error_t _readWeight_V5(parser_context_t* c, pd_Weight_V5_t* v)
 {
-    return _readUInt64(c, &v->value);
+    CHECK_INPUT()
+    CHECK_ERROR(_readUInt64(c, &v->value))
+    return parser_ok;
 }
 
 parser_error_t _readXcmVersion_V5(parser_context_t* c, pd_XcmVersion_V5_t* v)
@@ -374,6 +388,17 @@ parser_error_t _toStringCallHashOf_V5(
     GEN_DEF_TOSTRING_ARRAY(32)
 }
 
+parser_error_t _toStringChargeAssetIdOf_V5(
+    const pd_ChargeAssetIdOf_V5_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+    return parser_print_not_supported;
+}
+
 parser_error_t _toStringCompactAccountIndex_V5(
     const pd_CompactAccountIndex_V5_t* v,
     char* outValue,
@@ -392,7 +417,40 @@ parser_error_t _toStringDestroyWitness_V5(
     uint8_t* pageCount)
 {
     CLEAN_AND_CHECK()
-    return parser_print_not_supported;
+
+    // First measure number of pages
+    uint8_t pages[3];
+    CHECK_ERROR(_toStringCompactu32(&v->accounts, outValue, outValueLen, 0, &pages[0]))
+    CHECK_ERROR(_toStringCompactu32(&v->sufficients, outValue, outValueLen, 0, &pages[1]))
+    CHECK_ERROR(_toStringCompactu32(&v->approvals, outValue, outValueLen, 0, &pages[2]))
+
+    *pageCount = 0;
+    for (uint8_t i = 0; i < (uint8_t)sizeof(pages); i++) {
+        *pageCount += pages[i];
+    }
+
+    if (pageIdx > *pageCount) {
+        return parser_display_idx_out_of_range;
+    }
+
+    if (pageIdx < pages[0]) {
+        CHECK_ERROR(_toStringCompactu32(&v->accounts, outValue, outValueLen, pageIdx, &pages[0]))
+        return parser_ok;
+    }
+    pageIdx -= pages[0];
+
+    if (pageIdx < pages[1]) {
+        CHECK_ERROR(_toStringCompactu32(&v->sufficients, outValue, outValueLen, pageIdx, &pages[1]))
+        return parser_ok;
+    }
+    pageIdx -= pages[1];
+
+    if (pageIdx < pages[2]) {
+        CHECK_ERROR(_toStringCompactu32(&v->approvals, outValue, outValueLen, pageIdx, &pages[2]))
+        return parser_ok;
+    }
+
+    return parser_display_idx_out_of_range;
 }
 
 parser_error_t _toStringInstanceId_V5(
@@ -575,12 +633,16 @@ parser_error_t _toStringTimepoint_V5(
 {
     CLEAN_AND_CHECK()
 
-    // Index + count pages
+    // First measure number of pages
     uint8_t pages[2];
     CHECK_ERROR(_toStringBlockNumber(&v->height, outValue, outValueLen, 0, &pages[0]))
     CHECK_ERROR(_toStringu32(&v->index, outValue, outValueLen, 0, &pages[1]))
 
-    *pageCount = pages[0] + pages[1];
+    *pageCount = 0;
+    for (uint8_t i = 0; i < (uint8_t)sizeof(pages); i++) {
+        *pageCount += pages[i];
+    }
+
     if (pageIdx > *pageCount) {
         return parser_display_idx_out_of_range;
     }
@@ -591,7 +653,6 @@ parser_error_t _toStringTimepoint_V5(
     }
     pageIdx -= pages[0];
 
-    //////
     if (pageIdx < pages[1]) {
         CHECK_ERROR(_toStringu32(&v->index, outValue, outValueLen, pageIdx, &pages[1]))
         return parser_ok;

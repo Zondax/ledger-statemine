@@ -222,8 +222,7 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
 
         if (displayIdx == FIELD_ASSET_ID) {
             snprintf(outKey, outKeyLen, "AssetId");
-            err = _toStringCompactInt(&ctx->tx_obj->assetId,
-                                          0, "", "",
+            err = _toStringOptionChargeAssetIdOf(&ctx->tx_obj->assetId,
                                           outVal, outValLen,
                                           pageIdx, pageCount);
             if (err != parser_ok) return err;

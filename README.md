@@ -5,7 +5,8 @@
 
 ---
 
-![zondax](docs/zondax.jpg)
+![zondax_light](docs/zondax_light.png#gh-light-mode-only)
+![zondax_dark](docs/zondax_dark.png#gh-dark-mode-only)
 
 _Please visit our website at [zondax.ch](https://www.zondax.ch)_
 
@@ -27,8 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-
-# Statemine  5.700.x
+# Statemine  5.800.x
 
 ## System
 
@@ -100,6 +100,12 @@ Please:
 |Service overweight |    |   |   | `OverweightIndex` index <br/>`Weight` weight_limit <br/> |
 |Suspend xcm execution |    | :heavy_check_mark: |   |  |
 |Resume xcm execution |    | :heavy_check_mark: |   |  |
+|Update suspend threshold |    | :heavy_check_mark: |   | `u32` new_ <br/> |
+|Update drop threshold |    | :heavy_check_mark: |   | `u32` new_ <br/> |
+|Update resume threshold |    | :heavy_check_mark: |   | `u32` new_ <br/> |
+|Update threshold weight |    | :heavy_check_mark: |   | `Weight` new_ <br/> |
+|Update weight restrict decay |    | :heavy_check_mark: |   | `Weight` new_ <br/> |
+|Update xcmp max individual weight |    | :heavy_check_mark: |   | `Weight` new_ <br/> |
 
 ## PolkadotXcm
 

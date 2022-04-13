@@ -38,7 +38,7 @@ typedef struct {
     pd_ExtrinsicEra_t era;
     pd_CompactIndex_t nonce;
     pd_CompactBalance_t tip;
-    compactInt_t assetId;
+    pd_OptionChargeAssetIdOf_t assetId;
     uint32_t specVersion;
     uint32_t transactionVersion;
 
