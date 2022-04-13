@@ -184,6 +184,15 @@ parser_error_t _readHash(parser_context_t* c, pd_Hash_t* v) {
     GEN_DEF_READARRAY(32)
 }
 
+parser_error_t _readOptionChargeAssetIdOf(parser_context_t* c, pd_OptionChargeAssetIdOf_t* v)
+{
+    CHECK_ERROR(_readUInt8(c, &v->some))
+    if (v->some > 0) {
+        CHECK_ERROR(_readu32(c, &v->value))
+    }
+    return parser_ok;
+}
+
 parser_error_t _readVecHeader(parser_context_t* c, pd_VecHeader_t* v) {
     GEN_DEF_READVECTOR(Header)
 }
@@ -527,6 +536,24 @@ parser_error_t _toStringHash(
     uint8_t pageIdx,
     uint8_t* pageCount) {
     GEN_DEF_TOSTRING_ARRAY(32)
+}
+
+parser_error_t _toStringOptionChargeAssetIdOf(
+    const pd_OptionChargeAssetIdOf_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+
+    *pageCount = 1;
+    if (v->some == 0) {
+        snprintf(outValue, outValueLen, "0");
+        return parser_ok;
+    }
+    CHECK_ERROR(_toStringu32(&v->value, outValue, outValueLen, pageIdx, pageCount));
+    return parser_ok;
 }
 
 parser_error_t _toStringVecHeader(

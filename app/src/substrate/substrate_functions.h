@@ -41,6 +41,7 @@ parser_error_t _readVecCall(parser_context_t* c, pd_VecCall_t* v);
 parser_error_t _readBalance(parser_context_t* c, pd_Balance_t* v);
 parser_error_t _readH256(parser_context_t* c, pd_H256_t* v);
 parser_error_t _readHash(parser_context_t* c, pd_Hash_t* v);
+parser_error_t _readOptionChargeAssetIdOf(parser_context_t* c, pd_OptionChargeAssetIdOf_t* v);
 parser_error_t _readVecHeader(parser_context_t* c, pd_VecHeader_t* v);
 parser_error_t _readVecu8(parser_context_t* c, pd_Vecu8_t* v);
 
@@ -146,6 +147,13 @@ parser_error_t _toStringH256(
 
 parser_error_t _toStringHash(
     const pd_Hash_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringOptionChargeAssetIdOf(
+    const pd_OptionChargeAssetIdOf_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

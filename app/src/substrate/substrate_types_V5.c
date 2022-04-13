@@ -77,6 +77,11 @@ parser_error_t _readCallHashOf_V5(parser_context_t* c, pd_CallHashOf_V5_t* v) {
     GEN_DEF_READARRAY(32)
 }
 
+parser_error_t _readChargeAssetIdOf_V5(parser_context_t* c, pd_ChargeAssetIdOf_V5_t* v)
+{
+    return parser_not_supported;
+}
+
 parser_error_t _readCompactAccountIndex_V5(parser_context_t* c, pd_CompactAccountIndex_V5_t* v)
 {
     return _readCompactInt(c, &v->value);
@@ -381,6 +386,17 @@ parser_error_t _toStringCallHashOf_V5(
     uint8_t pageIdx,
     uint8_t* pageCount) {
     GEN_DEF_TOSTRING_ARRAY(32)
+}
+
+parser_error_t _toStringChargeAssetIdOf_V5(
+    const pd_ChargeAssetIdOf_V5_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+    return parser_print_not_supported;
 }
 
 parser_error_t _toStringCompactAccountIndex_V5(

@@ -37,6 +37,7 @@ parser_error_t _readBoxVersionedMultiLocation_V5(parser_context_t* c, pd_BoxVers
 parser_error_t _readBoxVersionedXcmTasSysConfigCall_V5(parser_context_t* c, pd_BoxVersionedXcmTasSysConfigCall_V5_t* v);
 parser_error_t _readBoxVersionedXcmTuple_V5(parser_context_t* c, pd_BoxVersionedXcmTuple_V5_t* v);
 parser_error_t _readCallHashOf_V5(parser_context_t* c, pd_CallHashOf_V5_t* v);
+parser_error_t _readChargeAssetIdOf_V5(parser_context_t* c, pd_ChargeAssetIdOf_V5_t* v);
 parser_error_t _readCompactAccountIndex_V5(parser_context_t* c, pd_CompactAccountIndex_V5_t* v);
 parser_error_t _readDestroyWitness_V5(parser_context_t* c, pd_DestroyWitness_V5_t* v);
 parser_error_t _readInstanceId_V5(parser_context_t* c, pd_InstanceId_V5_t* v);
@@ -137,6 +138,13 @@ parser_error_t _toStringBoxVersionedXcmTuple_V5(
 
 parser_error_t _toStringCallHashOf_V5(
     const pd_CallHashOf_V5_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringChargeAssetIdOf_V5(
+    const pd_ChargeAssetIdOf_V5_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

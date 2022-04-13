@@ -116,6 +116,11 @@ typedef struct {
 } pd_Hash_t;
 
 typedef struct {
+    uint8_t some;
+    uint32_t value;
+} pd_OptionChargeAssetIdOf_t;
+
+typedef struct {
     uint64_t _len;
     const uint8_t* _ptr;
     uint64_t _lenBuffer;

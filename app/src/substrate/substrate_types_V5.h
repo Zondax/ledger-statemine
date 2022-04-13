@@ -37,6 +37,11 @@ typedef struct {
 typedef struct {
     // TODO: Not implemented
     uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_ChargeAssetIdOf_V5_t;
+
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
 } pd_InstanceId_V5_t;
 
 typedef struct {
