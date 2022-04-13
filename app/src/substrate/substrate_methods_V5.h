@@ -1,18 +1,18 @@
 /*******************************************************************************
-*  (c) 2019 - 2022 Zondax GmbH
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-********************************************************************************/
+ *  (c) 2019 - 2022 Zondax GmbH
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ ********************************************************************************/
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wextern-c-compat"
 #pragma once
@@ -102,6 +102,36 @@ typedef struct {
 typedef struct {
 } pd_xcmpqueue_resume_xcm_execution_V5_t;
 
+#define PD_CALL_XCMPQUEUE_UPDATE_SUSPEND_THRESHOLD_V5 3
+typedef struct {
+    pd_u32_t new_;
+} pd_xcmpqueue_update_suspend_threshold_V5_t;
+
+#define PD_CALL_XCMPQUEUE_UPDATE_DROP_THRESHOLD_V5 4
+typedef struct {
+    pd_u32_t new_;
+} pd_xcmpqueue_update_drop_threshold_V5_t;
+
+#define PD_CALL_XCMPQUEUE_UPDATE_RESUME_THRESHOLD_V5 5
+typedef struct {
+    pd_u32_t new_;
+} pd_xcmpqueue_update_resume_threshold_V5_t;
+
+#define PD_CALL_XCMPQUEUE_UPDATE_THRESHOLD_WEIGHT_V5 6
+typedef struct {
+    pd_Weight_V5_t new_;
+} pd_xcmpqueue_update_threshold_weight_V5_t;
+
+#define PD_CALL_XCMPQUEUE_UPDATE_WEIGHT_RESTRICT_DECAY_V5 7
+typedef struct {
+    pd_Weight_V5_t new_;
+} pd_xcmpqueue_update_weight_restrict_decay_V5_t;
+
+#define PD_CALL_XCMPQUEUE_UPDATE_XCMP_MAX_INDIVIDUAL_WEIGHT_V5 8
+typedef struct {
+    pd_Weight_V5_t new_;
+} pd_xcmpqueue_update_xcmp_max_individual_weight_V5_t;
+
 #define PD_CALL_PROXY_ADD_PROXY_V5 1
 typedef struct {
     pd_AccountId_V5_t delegate;
@@ -172,6 +202,12 @@ typedef union {
     pd_collatorselection_leave_intent_V5_t collatorselection_leave_intent_V5;
     pd_xcmpqueue_suspend_xcm_execution_V5_t xcmpqueue_suspend_xcm_execution_V5;
     pd_xcmpqueue_resume_xcm_execution_V5_t xcmpqueue_resume_xcm_execution_V5;
+    pd_xcmpqueue_update_suspend_threshold_V5_t xcmpqueue_update_suspend_threshold_V5;
+    pd_xcmpqueue_update_drop_threshold_V5_t xcmpqueue_update_drop_threshold_V5;
+    pd_xcmpqueue_update_resume_threshold_V5_t xcmpqueue_update_resume_threshold_V5;
+    pd_xcmpqueue_update_threshold_weight_V5_t xcmpqueue_update_threshold_weight_V5;
+    pd_xcmpqueue_update_weight_restrict_decay_V5_t xcmpqueue_update_weight_restrict_decay_V5;
+    pd_xcmpqueue_update_xcmp_max_individual_weight_V5_t xcmpqueue_update_xcmp_max_individual_weight_V5;
     pd_proxy_add_proxy_V5_t proxy_add_proxy_V5;
     pd_proxy_remove_proxy_V5_t proxy_remove_proxy_V5;
     pd_proxy_remove_proxies_V5_t proxy_remove_proxies_V5;
