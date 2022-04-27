@@ -28,6 +28,14 @@ ifeq ($(BOLOS_SDK),)
 SUBSTRATE_PARSER_FULL ?= 1
 include $(CURDIR)/deps/ledger-zxlib/dockerized_build.mk
 
+else
+default:
+	$(MAKE) -C app
+%:
+	$(info "Calling app Makefile for target $@")
+	COIN=$(COIN) $(MAKE) -C app $@
+endif
+
 tests_tools_build:
 	cd tests_tools/neon && yarn install
 
@@ -36,21 +44,10 @@ tests_tools_test: tests_tools_build
 
 zemu_install: tests_tools_build
 
-build_all:
-	make clean_build && SUBSTRATE_PARSER_FULL=1 SUPPORT_SR25519=1 make buildS
-	SUBSTRATE_PARSER_FULL=1 make buildS
-	make clean_build
-	SUBSTRATE_PARSER_FULL=1 make buildX
-
-test_all: build_all
+test_all:
 	make zemu_install
+	# test sr25519
+	make clean_build && SUBSTRATE_PARSER_FULL=1 SUPPORT_SR25519=1 make buildS
 	cd tests_zemu && yarn testSR25519
+	make clean_build && SUBSTRATE_PARSER_FULL=1 make
 	make zemu_test
-
-else
-default:
-	$(MAKE) -C app
-%:
-	$(info "Calling app Makefile for target $@")
-	COIN=$(COIN) $(MAKE) -C app $@
-endif
