@@ -28,19 +28,8 @@ parser_error_t _readAccountId_V5(parser_context_t* c, pd_AccountId_V5_t* v) {
     GEN_DEF_READARRAY(32)
 }
 
-parser_error_t _readBoundedVecu8KeyLimit_V5(parser_context_t* c, pd_BoundedVecu8KeyLimit_V5_t* v)
-{
-    return parser_not_supported;
-}
-
-parser_error_t _readBoundedVecu8StringLimit_V5(parser_context_t* c, pd_BoundedVecu8StringLimit_V5_t* v)
-{
-    return parser_not_supported;
-}
-
-parser_error_t _readBoundedVecu8ValueLimit_V5(parser_context_t* c, pd_BoundedVecu8ValueLimit_V5_t* v)
-{
-    return parser_not_supported;
+parser_error_t _readBoundedVecu8_V5(parser_context_t* c, pd_BoundedVecu8_V5_t* v) {
+    GEN_DEF_READVECTOR(u8)
 }
 
 parser_error_t _readBoxMultiLocation_V5(parser_context_t* c, pd_BoxMultiLocation_V5_t* v)
@@ -97,7 +86,9 @@ parser_error_t _readDestroyWitness_V5(parser_context_t* c, pd_DestroyWitness_V5_
 
 parser_error_t _readInstanceId_V5(parser_context_t* c, pd_InstanceId_V5_t* v)
 {
-    return parser_not_supported;
+    CHECK_INPUT()
+    CHECK_ERROR(_readUInt32(c, &v->value))
+    return parser_ok;
 }
 
 parser_error_t _readKeyValue_V5(parser_context_t* c, pd_KeyValue_V5_t* v) {
@@ -280,37 +271,13 @@ parser_error_t _toStringAccountId_V5(
     return _toStringPubkeyAsAddress(v->_ptr, outValue, outValueLen, pageIdx, pageCount);
 }
 
-parser_error_t _toStringBoundedVecu8KeyLimit_V5(
-    const pd_BoundedVecu8KeyLimit_V5_t* v,
+parser_error_t _toStringBoundedVecu8_V5(
+    const pd_BoundedVecu8_V5_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    CLEAN_AND_CHECK()
-    return parser_print_not_supported;
-}
-
-parser_error_t _toStringBoundedVecu8StringLimit_V5(
-    const pd_BoundedVecu8StringLimit_V5_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    CLEAN_AND_CHECK()
-    return parser_print_not_supported;
-}
-
-parser_error_t _toStringBoundedVecu8ValueLimit_V5(
-    const pd_BoundedVecu8ValueLimit_V5_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    CLEAN_AND_CHECK()
-    return parser_print_not_supported;
+    uint8_t* pageCount) {
+    GEN_DEF_TOSTRING_VECTOR(u8)
 }
 
 parser_error_t _toStringBoxMultiLocation_V5(
@@ -419,7 +386,7 @@ parser_error_t _toStringDestroyWitness_V5(
     CLEAN_AND_CHECK()
 
     // First measure number of pages
-    uint8_t pages[3];
+    uint8_t pages[3] = { 0 };
     CHECK_ERROR(_toStringCompactu32(&v->accounts, outValue, outValueLen, 0, &pages[0]))
     CHECK_ERROR(_toStringCompactu32(&v->sufficients, outValue, outValueLen, 0, &pages[1]))
     CHECK_ERROR(_toStringCompactu32(&v->approvals, outValue, outValueLen, 0, &pages[2]))
@@ -461,7 +428,8 @@ parser_error_t _toStringInstanceId_V5(
     uint8_t* pageCount)
 {
     CLEAN_AND_CHECK()
-    return parser_print_not_supported;
+    CHECK_ERROR(_toStringu32(&v->value, outValue, outValueLen, pageIdx, pageCount))
+    return parser_ok;
 }
 
 parser_error_t _toStringKeyValue_V5(
@@ -634,7 +602,7 @@ parser_error_t _toStringTimepoint_V5(
     CLEAN_AND_CHECK()
 
     // First measure number of pages
-    uint8_t pages[2];
+    uint8_t pages[2] = { 0 };
     CHECK_ERROR(_toStringBlockNumber(&v->height, outValue, outValueLen, 0, &pages[0]))
     CHECK_ERROR(_toStringu32(&v->index, outValue, outValueLen, 0, &pages[1]))
 

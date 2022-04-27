@@ -40,8 +40,7 @@ typedef struct {
 } pd_ChargeAssetIdOf_V5_t;
 
 typedef struct {
-    // TODO: Not implemented
-    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+    uint32_t value;
 } pd_InstanceId_V5_t;
 
 typedef struct {
@@ -97,19 +96,10 @@ typedef struct {
 } pd_OptionTimepoint_V5_t;
 
 typedef struct {
-    // TODO: Not implemented
-    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_BoundedVecu8KeyLimit_V5_t;
-
-typedef struct {
-    // TODO: Not implemented
-    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_BoundedVecu8StringLimit_V5_t;
-
-typedef struct {
-    // TODO: Not implemented
-    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
-} pd_BoundedVecu8ValueLimit_V5_t;
+    uint64_t _len;
+    uint64_t _lenBuffer;
+    const uint8_t* _ptr;
+} pd_BoundedVecu8_V5_t;
 
 typedef struct {
     // TODO: Not implemented

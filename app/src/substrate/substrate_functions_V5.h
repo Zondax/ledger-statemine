@@ -27,9 +27,7 @@ extern "C" {
 
 // Read functions
 parser_error_t _readAccountId_V5(parser_context_t* c, pd_AccountId_V5_t* v);
-parser_error_t _readBoundedVecu8KeyLimit_V5(parser_context_t* c, pd_BoundedVecu8KeyLimit_V5_t* v);
-parser_error_t _readBoundedVecu8StringLimit_V5(parser_context_t* c, pd_BoundedVecu8StringLimit_V5_t* v);
-parser_error_t _readBoundedVecu8ValueLimit_V5(parser_context_t* c, pd_BoundedVecu8ValueLimit_V5_t* v);
+parser_error_t _readBoundedVecu8_V5(parser_context_t* c, pd_BoundedVecu8_V5_t* v);
 parser_error_t _readBoxMultiLocation_V5(parser_context_t* c, pd_BoxMultiLocation_V5_t* v);
 parser_error_t _readBoxPalletsOrigin_V5(parser_context_t* c, pd_BoxPalletsOrigin_V5_t* v);
 parser_error_t _readBoxVersionedMultiAssets_V5(parser_context_t* c, pd_BoxVersionedMultiAssets_V5_t* v);
@@ -73,22 +71,8 @@ parser_error_t _toStringAccountId_V5(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringBoundedVecu8KeyLimit_V5(
-    const pd_BoundedVecu8KeyLimit_V5_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringBoundedVecu8StringLimit_V5(
-    const pd_BoundedVecu8StringLimit_V5_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringBoundedVecu8ValueLimit_V5(
-    const pd_BoundedVecu8ValueLimit_V5_t* v,
+parser_error_t _toStringBoundedVecu8_V5(
+    const pd_BoundedVecu8_V5_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

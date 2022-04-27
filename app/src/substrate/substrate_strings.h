@@ -30,6 +30,7 @@ static const char* STR_MO_UTILITY = "Utility";
 static const char* STR_MO_MULTISIG = "Multisig";
 static const char* STR_MO_PROXY = "Proxy";
 static const char* STR_MO_ASSETS = "Assets";
+static const char* STR_MO_UNIQUES = "Uniques";
 
 // Methods names
 static const char* STR_ME_FILL_BLOCK = "Fill block";
@@ -92,6 +93,15 @@ static const char* STR_ME_FORCE_CANCEL_APPROVAL = "Force cancel approval";
 static const char* STR_ME_TRANSFER_APPROVED = "Transfer approved";
 static const char* STR_ME_TOUCH = "Touch";
 static const char* STR_ME_REFUND = "Refund";
+static const char* STR_ME_CREATE = "Create";
+static const char* STR_ME_DESTROY = "Destroy";
+static const char* STR_ME_REDEPOSIT = "Redeposit";
+static const char* STR_ME_FREEZE_CLASS = "Freeze class";
+static const char* STR_ME_THAW_CLASS = "Thaw class";
+static const char* STR_ME_SET_ATTRIBUTE = "Set attribute";
+static const char* STR_ME_CLEAR_ATTRIBUTE = "Clear attribute";
+static const char* STR_ME_SET_CLASS_METADATA = "Set class metadata";
+static const char* STR_ME_CLEAR_CLASS_METADATA = "Clear class metadata";
 
 // Items names
 static const char* STR_IT_ratio = "Ratio";
@@ -150,6 +160,16 @@ static const char* STR_IT_decimals = "Decimals";
 static const char* STR_IT_is_frozen = "Is frozen";
 static const char* STR_IT_destination = "Destination";
 static const char* STR_IT_allow_burn = "Allow burn";
+static const char* STR_IT_class_ = "Class";
+static const char* STR_IT_free_holding = "Free holding";
+static const char* STR_IT_instance = "Instance";
+static const char* STR_IT_check_owner = "Check owner";
+static const char* STR_IT_instances = "Instances";
+static const char* STR_IT_maybe_check_delegate = "Maybe check delegate";
+static const char* STR_IT_maybe_instance = "Maybe instance";
+static const char* STR_IT_key = "Key";
+static const char* STR_IT_value = "Value";
+static const char* STR_IT_data = "Data";
 
 #ifdef __cplusplus
 }
