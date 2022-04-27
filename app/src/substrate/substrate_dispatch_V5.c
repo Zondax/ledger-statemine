@@ -535,6 +535,198 @@ __Z_INLINE parser_error_t _readMethod_assets_refund_V5(
     return parser_ok;
 }
 
+__Z_INLINE parser_error_t _readMethod_uniques_create_V5(
+    parser_context_t* c, pd_uniques_create_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->admin))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_force_create_V5(
+    parser_context_t* c, pd_uniques_force_create_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->owner))
+    CHECK_ERROR(_readbool(c, &m->free_holding))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_destroy_V5(
+    parser_context_t* c, pd_uniques_destroy_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readDestroyWitness_V5(c, &m->witness))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_mint_V5(
+    parser_context_t* c, pd_uniques_mint_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readCompactu32(c, &m->instance))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->owner))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_burn_V5(
+    parser_context_t* c, pd_uniques_burn_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readCompactu32(c, &m->instance))
+    CHECK_ERROR(_readOptionLookupasStaticLookupSource_V5(c, &m->check_owner))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_transfer_V5(
+    parser_context_t* c, pd_uniques_transfer_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readCompactu32(c, &m->instance))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->dest))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_redeposit_V5(
+    parser_context_t* c, pd_uniques_redeposit_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readVecInstanceId_V5(c, &m->instances))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_freeze_V5(
+    parser_context_t* c, pd_uniques_freeze_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readCompactu32(c, &m->instance))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_thaw_V5(
+    parser_context_t* c, pd_uniques_thaw_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readCompactu32(c, &m->instance))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_freeze_class_V5(
+    parser_context_t* c, pd_uniques_freeze_class_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_thaw_class_V5(
+    parser_context_t* c, pd_uniques_thaw_class_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_transfer_ownership_V5(
+    parser_context_t* c, pd_uniques_transfer_ownership_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->owner))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_set_team_V5(
+    parser_context_t* c, pd_uniques_set_team_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->issuer))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->admin))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->freezer))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_approve_transfer_V5(
+    parser_context_t* c, pd_uniques_approve_transfer_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readCompactu32(c, &m->instance))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->delegate))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_cancel_approval_V5(
+    parser_context_t* c, pd_uniques_cancel_approval_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readCompactu32(c, &m->instance))
+    CHECK_ERROR(_readOptionLookupasStaticLookupSource_V5(c, &m->maybe_check_delegate))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_force_asset_status_V5(
+    parser_context_t* c, pd_uniques_force_asset_status_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->owner))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->issuer))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->admin))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V5(c, &m->freezer))
+    CHECK_ERROR(_readbool(c, &m->free_holding))
+    CHECK_ERROR(_readbool(c, &m->is_frozen))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_set_attribute_V5(
+    parser_context_t* c, pd_uniques_set_attribute_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readOptionInstanceId_V5(c, &m->maybe_instance))
+    CHECK_ERROR(_readBoundedVecu8_V5(c, &m->key))
+    CHECK_ERROR(_readBoundedVecu8_V5(c, &m->value))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_clear_attribute_V5(
+    parser_context_t* c, pd_uniques_clear_attribute_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readOptionInstanceId_V5(c, &m->maybe_instance))
+    CHECK_ERROR(_readBoundedVecu8_V5(c, &m->key))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_set_metadata_V5(
+    parser_context_t* c, pd_uniques_set_metadata_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readCompactu32(c, &m->instance))
+    CHECK_ERROR(_readBoundedVecu8_V5(c, &m->data))
+    CHECK_ERROR(_readbool(c, &m->is_frozen))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_clear_metadata_V5(
+    parser_context_t* c, pd_uniques_clear_metadata_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readCompactu32(c, &m->instance))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_set_class_metadata_V5(
+    parser_context_t* c, pd_uniques_set_class_metadata_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    CHECK_ERROR(_readBoundedVecu8_V5(c, &m->data))
+    CHECK_ERROR(_readbool(c, &m->is_frozen))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_clear_class_metadata_V5(
+    parser_context_t* c, pd_uniques_clear_class_metadata_V5_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->class_))
+    return parser_ok;
+}
+
 #endif
 
 parser_error_t _readMethod_V5(
@@ -738,6 +930,72 @@ parser_error_t _readMethod_V5(
     case 12824: /* module 50 call 24 */
         CHECK_ERROR(_readMethod_assets_refund_V5(c, &method->basic.assets_refund_V5))
         break;
+    case 13056: /* module 51 call 0 */
+        CHECK_ERROR(_readMethod_uniques_create_V5(c, &method->basic.uniques_create_V5))
+        break;
+    case 13057: /* module 51 call 1 */
+        CHECK_ERROR(_readMethod_uniques_force_create_V5(c, &method->basic.uniques_force_create_V5))
+        break;
+    case 13058: /* module 51 call 2 */
+        CHECK_ERROR(_readMethod_uniques_destroy_V5(c, &method->basic.uniques_destroy_V5))
+        break;
+    case 13059: /* module 51 call 3 */
+        CHECK_ERROR(_readMethod_uniques_mint_V5(c, &method->basic.uniques_mint_V5))
+        break;
+    case 13060: /* module 51 call 4 */
+        CHECK_ERROR(_readMethod_uniques_burn_V5(c, &method->basic.uniques_burn_V5))
+        break;
+    case 13061: /* module 51 call 5 */
+        CHECK_ERROR(_readMethod_uniques_transfer_V5(c, &method->basic.uniques_transfer_V5))
+        break;
+    case 13062: /* module 51 call 6 */
+        CHECK_ERROR(_readMethod_uniques_redeposit_V5(c, &method->basic.uniques_redeposit_V5))
+        break;
+    case 13063: /* module 51 call 7 */
+        CHECK_ERROR(_readMethod_uniques_freeze_V5(c, &method->basic.uniques_freeze_V5))
+        break;
+    case 13064: /* module 51 call 8 */
+        CHECK_ERROR(_readMethod_uniques_thaw_V5(c, &method->basic.uniques_thaw_V5))
+        break;
+    case 13065: /* module 51 call 9 */
+        CHECK_ERROR(_readMethod_uniques_freeze_class_V5(c, &method->basic.uniques_freeze_class_V5))
+        break;
+    case 13066: /* module 51 call 10 */
+        CHECK_ERROR(_readMethod_uniques_thaw_class_V5(c, &method->basic.uniques_thaw_class_V5))
+        break;
+    case 13067: /* module 51 call 11 */
+        CHECK_ERROR(_readMethod_uniques_transfer_ownership_V5(c, &method->basic.uniques_transfer_ownership_V5))
+        break;
+    case 13068: /* module 51 call 12 */
+        CHECK_ERROR(_readMethod_uniques_set_team_V5(c, &method->basic.uniques_set_team_V5))
+        break;
+    case 13069: /* module 51 call 13 */
+        CHECK_ERROR(_readMethod_uniques_approve_transfer_V5(c, &method->basic.uniques_approve_transfer_V5))
+        break;
+    case 13070: /* module 51 call 14 */
+        CHECK_ERROR(_readMethod_uniques_cancel_approval_V5(c, &method->basic.uniques_cancel_approval_V5))
+        break;
+    case 13071: /* module 51 call 15 */
+        CHECK_ERROR(_readMethod_uniques_force_asset_status_V5(c, &method->basic.uniques_force_asset_status_V5))
+        break;
+    case 13072: /* module 51 call 16 */
+        CHECK_ERROR(_readMethod_uniques_set_attribute_V5(c, &method->basic.uniques_set_attribute_V5))
+        break;
+    case 13073: /* module 51 call 17 */
+        CHECK_ERROR(_readMethod_uniques_clear_attribute_V5(c, &method->basic.uniques_clear_attribute_V5))
+        break;
+    case 13074: /* module 51 call 18 */
+        CHECK_ERROR(_readMethod_uniques_set_metadata_V5(c, &method->basic.uniques_set_metadata_V5))
+        break;
+    case 13075: /* module 51 call 19 */
+        CHECK_ERROR(_readMethod_uniques_clear_metadata_V5(c, &method->basic.uniques_clear_metadata_V5))
+        break;
+    case 13076: /* module 51 call 20 */
+        CHECK_ERROR(_readMethod_uniques_set_class_metadata_V5(c, &method->basic.uniques_set_class_metadata_V5))
+        break;
+    case 13077: /* module 51 call 21 */
+        CHECK_ERROR(_readMethod_uniques_clear_class_metadata_V5(c, &method->basic.uniques_clear_class_metadata_V5))
+        break;
 #endif
     default:
         return parser_unexpected_callIndex;
@@ -775,6 +1033,8 @@ const char* _getMethod_ModuleName_V5(uint8_t moduleIdx)
         return STR_MO_PROXY;
     case 50:
         return STR_MO_ASSETS;
+    case 51:
+        return STR_MO_UNIQUES;
 #endif
     default:
         return NULL;
@@ -804,6 +1064,16 @@ const char* _getMethod_Name_V5(uint8_t moduleIdx, uint8_t callIdx)
         return STR_ME_BATCH;
     case 10242: /* module 40 call 2 */
         return STR_ME_BATCH_ALL;
+    default:
+        return _getMethod_Name_V5_ParserFull(callPrivIdx);
+    }
+
+    return NULL;
+}
+
+const char* _getMethod_Name_V5_ParserFull(uint16_t callPrivIdx)
+{
+    switch (callPrivIdx) {
 #ifdef SUBSTRATE_PARSER_FULL
     case 0: /* module 0 call 0 */
         return STR_ME_FILL_BLOCK;
@@ -915,6 +1185,50 @@ const char* _getMethod_Name_V5(uint8_t moduleIdx, uint8_t callIdx)
         return STR_ME_TOUCH;
     case 12824: /* module 50 call 24 */
         return STR_ME_REFUND;
+    case 13056: /* module 51 call 0 */
+        return STR_ME_CREATE;
+    case 13057: /* module 51 call 1 */
+        return STR_ME_FORCE_CREATE;
+    case 13058: /* module 51 call 2 */
+        return STR_ME_DESTROY;
+    case 13059: /* module 51 call 3 */
+        return STR_ME_MINT;
+    case 13060: /* module 51 call 4 */
+        return STR_ME_BURN;
+    case 13061: /* module 51 call 5 */
+        return STR_ME_TRANSFER;
+    case 13062: /* module 51 call 6 */
+        return STR_ME_REDEPOSIT;
+    case 13063: /* module 51 call 7 */
+        return STR_ME_FREEZE;
+    case 13064: /* module 51 call 8 */
+        return STR_ME_THAW;
+    case 13065: /* module 51 call 9 */
+        return STR_ME_FREEZE_CLASS;
+    case 13066: /* module 51 call 10 */
+        return STR_ME_THAW_CLASS;
+    case 13067: /* module 51 call 11 */
+        return STR_ME_TRANSFER_OWNERSHIP;
+    case 13068: /* module 51 call 12 */
+        return STR_ME_SET_TEAM;
+    case 13069: /* module 51 call 13 */
+        return STR_ME_APPROVE_TRANSFER;
+    case 13070: /* module 51 call 14 */
+        return STR_ME_CANCEL_APPROVAL;
+    case 13071: /* module 51 call 15 */
+        return STR_ME_FORCE_ASSET_STATUS;
+    case 13072: /* module 51 call 16 */
+        return STR_ME_SET_ATTRIBUTE;
+    case 13073: /* module 51 call 17 */
+        return STR_ME_CLEAR_ATTRIBUTE;
+    case 13074: /* module 51 call 18 */
+        return STR_ME_SET_METADATA;
+    case 13075: /* module 51 call 19 */
+        return STR_ME_CLEAR_METADATA;
+    case 13076: /* module 51 call 20 */
+        return STR_ME_SET_CLASS_METADATA;
+    case 13077: /* module 51 call 21 */
+        return STR_ME_CLEAR_CLASS_METADATA;
 #endif
     default:
         return NULL;
@@ -1055,6 +1369,50 @@ uint8_t _getMethod_NumItems_V5(uint8_t moduleIdx, uint8_t callIdx)
         return 1;
     case 12824: /* module 50 call 24 */
         return 2;
+    case 13056: /* module 51 call 0 */
+        return 2;
+    case 13057: /* module 51 call 1 */
+        return 3;
+    case 13058: /* module 51 call 2 */
+        return 2;
+    case 13059: /* module 51 call 3 */
+        return 3;
+    case 13060: /* module 51 call 4 */
+        return 3;
+    case 13061: /* module 51 call 5 */
+        return 3;
+    case 13062: /* module 51 call 6 */
+        return 2;
+    case 13063: /* module 51 call 7 */
+        return 2;
+    case 13064: /* module 51 call 8 */
+        return 2;
+    case 13065: /* module 51 call 9 */
+        return 1;
+    case 13066: /* module 51 call 10 */
+        return 1;
+    case 13067: /* module 51 call 11 */
+        return 2;
+    case 13068: /* module 51 call 12 */
+        return 4;
+    case 13069: /* module 51 call 13 */
+        return 3;
+    case 13070: /* module 51 call 14 */
+        return 3;
+    case 13071: /* module 51 call 15 */
+        return 7;
+    case 13072: /* module 51 call 16 */
+        return 4;
+    case 13073: /* module 51 call 17 */
+        return 3;
+    case 13074: /* module 51 call 18 */
+        return 4;
+    case 13075: /* module 51 call 19 */
+        return 2;
+    case 13076: /* module 51 call 20 */
+        return 3;
+    case 13077: /* module 51 call 21 */
+        return 1;
 #endif
     default:
         return 0;
@@ -1655,6 +2013,236 @@ const char* _getMethod_ItemName_V5(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
             return STR_IT_id;
         case 1:
             return STR_IT_allow_burn;
+        default:
+            return NULL;
+        }
+    case 13056: /* module 51 call 0 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_admin;
+        default:
+            return NULL;
+        }
+    case 13057: /* module 51 call 1 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_owner;
+        case 2:
+            return STR_IT_free_holding;
+        default:
+            return NULL;
+        }
+    case 13058: /* module 51 call 2 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_witness;
+        default:
+            return NULL;
+        }
+    case 13059: /* module 51 call 3 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_instance;
+        case 2:
+            return STR_IT_owner;
+        default:
+            return NULL;
+        }
+    case 13060: /* module 51 call 4 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_instance;
+        case 2:
+            return STR_IT_check_owner;
+        default:
+            return NULL;
+        }
+    case 13061: /* module 51 call 5 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_instance;
+        case 2:
+            return STR_IT_dest;
+        default:
+            return NULL;
+        }
+    case 13062: /* module 51 call 6 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_instances;
+        default:
+            return NULL;
+        }
+    case 13063: /* module 51 call 7 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_instance;
+        default:
+            return NULL;
+        }
+    case 13064: /* module 51 call 8 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_instance;
+        default:
+            return NULL;
+        }
+    case 13065: /* module 51 call 9 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        default:
+            return NULL;
+        }
+    case 13066: /* module 51 call 10 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        default:
+            return NULL;
+        }
+    case 13067: /* module 51 call 11 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_owner;
+        default:
+            return NULL;
+        }
+    case 13068: /* module 51 call 12 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_issuer;
+        case 2:
+            return STR_IT_admin;
+        case 3:
+            return STR_IT_freezer;
+        default:
+            return NULL;
+        }
+    case 13069: /* module 51 call 13 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_instance;
+        case 2:
+            return STR_IT_delegate;
+        default:
+            return NULL;
+        }
+    case 13070: /* module 51 call 14 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_instance;
+        case 2:
+            return STR_IT_maybe_check_delegate;
+        default:
+            return NULL;
+        }
+    case 13071: /* module 51 call 15 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_owner;
+        case 2:
+            return STR_IT_issuer;
+        case 3:
+            return STR_IT_admin;
+        case 4:
+            return STR_IT_freezer;
+        case 5:
+            return STR_IT_free_holding;
+        case 6:
+            return STR_IT_is_frozen;
+        default:
+            return NULL;
+        }
+    case 13072: /* module 51 call 16 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_maybe_instance;
+        case 2:
+            return STR_IT_key;
+        case 3:
+            return STR_IT_value;
+        default:
+            return NULL;
+        }
+    case 13073: /* module 51 call 17 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_maybe_instance;
+        case 2:
+            return STR_IT_key;
+        default:
+            return NULL;
+        }
+    case 13074: /* module 51 call 18 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_instance;
+        case 2:
+            return STR_IT_data;
+        case 3:
+            return STR_IT_is_frozen;
+        default:
+            return NULL;
+        }
+    case 13075: /* module 51 call 19 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_instance;
+        default:
+            return NULL;
+        }
+    case 13076: /* module 51 call 20 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
+        case 1:
+            return STR_IT_data;
+        case 2:
+            return STR_IT_is_frozen;
+        default:
+            return NULL;
+        }
+    case 13077: /* module 51 call 21 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_class_;
         default:
             return NULL;
         }
@@ -2676,6 +3264,416 @@ parser_error_t _getMethod_ItemValue_V5(
         default:
             return parser_no_data;
         }
+    case 13056: /* module 51 call 0 */
+        switch (itemIdx) {
+        case 0: /* uniques_create_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_create_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_create_V5 - admin */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_create_V5.admin,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13057: /* module 51 call 1 */
+        switch (itemIdx) {
+        case 0: /* uniques_force_create_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_force_create_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_force_create_V5 - owner */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_force_create_V5.owner,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_force_create_V5 - free_holding */;
+            return _toStringbool(
+                &m->basic.uniques_force_create_V5.free_holding,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13058: /* module 51 call 2 */
+        switch (itemIdx) {
+        case 0: /* uniques_destroy_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_destroy_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_destroy_V5 - witness */;
+            return _toStringDestroyWitness_V5(
+                &m->basic.uniques_destroy_V5.witness,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13059: /* module 51 call 3 */
+        switch (itemIdx) {
+        case 0: /* uniques_mint_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_mint_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_mint_V5 - instance */;
+            return _toStringCompactu32(
+                &m->basic.uniques_mint_V5.instance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_mint_V5 - owner */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_mint_V5.owner,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13060: /* module 51 call 4 */
+        switch (itemIdx) {
+        case 0: /* uniques_burn_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_burn_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_burn_V5 - instance */;
+            return _toStringCompactu32(
+                &m->basic.uniques_burn_V5.instance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_burn_V5 - check_owner */;
+            return _toStringOptionLookupasStaticLookupSource_V5(
+                &m->basic.uniques_burn_V5.check_owner,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13061: /* module 51 call 5 */
+        switch (itemIdx) {
+        case 0: /* uniques_transfer_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_transfer_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_transfer_V5 - instance */;
+            return _toStringCompactu32(
+                &m->basic.uniques_transfer_V5.instance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_transfer_V5 - dest */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_transfer_V5.dest,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13062: /* module 51 call 6 */
+        switch (itemIdx) {
+        case 0: /* uniques_redeposit_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_redeposit_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_redeposit_V5 - instances */;
+            return _toStringVecInstanceId_V5(
+                &m->basic.uniques_redeposit_V5.instances,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13063: /* module 51 call 7 */
+        switch (itemIdx) {
+        case 0: /* uniques_freeze_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_freeze_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_freeze_V5 - instance */;
+            return _toStringCompactu32(
+                &m->basic.uniques_freeze_V5.instance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13064: /* module 51 call 8 */
+        switch (itemIdx) {
+        case 0: /* uniques_thaw_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_thaw_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_thaw_V5 - instance */;
+            return _toStringCompactu32(
+                &m->basic.uniques_thaw_V5.instance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13065: /* module 51 call 9 */
+        switch (itemIdx) {
+        case 0: /* uniques_freeze_class_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_freeze_class_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13066: /* module 51 call 10 */
+        switch (itemIdx) {
+        case 0: /* uniques_thaw_class_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_thaw_class_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13067: /* module 51 call 11 */
+        switch (itemIdx) {
+        case 0: /* uniques_transfer_ownership_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_transfer_ownership_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_transfer_ownership_V5 - owner */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_transfer_ownership_V5.owner,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13068: /* module 51 call 12 */
+        switch (itemIdx) {
+        case 0: /* uniques_set_team_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_set_team_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_set_team_V5 - issuer */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_set_team_V5.issuer,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_set_team_V5 - admin */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_set_team_V5.admin,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* uniques_set_team_V5 - freezer */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_set_team_V5.freezer,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13069: /* module 51 call 13 */
+        switch (itemIdx) {
+        case 0: /* uniques_approve_transfer_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_approve_transfer_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_approve_transfer_V5 - instance */;
+            return _toStringCompactu32(
+                &m->basic.uniques_approve_transfer_V5.instance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_approve_transfer_V5 - delegate */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_approve_transfer_V5.delegate,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13070: /* module 51 call 14 */
+        switch (itemIdx) {
+        case 0: /* uniques_cancel_approval_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_cancel_approval_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_cancel_approval_V5 - instance */;
+            return _toStringCompactu32(
+                &m->basic.uniques_cancel_approval_V5.instance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_cancel_approval_V5 - maybe_check_delegate */;
+            return _toStringOptionLookupasStaticLookupSource_V5(
+                &m->basic.uniques_cancel_approval_V5.maybe_check_delegate,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13071: /* module 51 call 15 */
+        switch (itemIdx) {
+        case 0: /* uniques_force_asset_status_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_force_asset_status_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_force_asset_status_V5 - owner */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_force_asset_status_V5.owner,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_force_asset_status_V5 - issuer */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_force_asset_status_V5.issuer,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* uniques_force_asset_status_V5 - admin */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_force_asset_status_V5.admin,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 4: /* uniques_force_asset_status_V5 - freezer */;
+            return _toStringLookupasStaticLookupSource_V5(
+                &m->basic.uniques_force_asset_status_V5.freezer,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 5: /* uniques_force_asset_status_V5 - free_holding */;
+            return _toStringbool(
+                &m->basic.uniques_force_asset_status_V5.free_holding,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 6: /* uniques_force_asset_status_V5 - is_frozen */;
+            return _toStringbool(
+                &m->basic.uniques_force_asset_status_V5.is_frozen,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13072: /* module 51 call 16 */
+        switch (itemIdx) {
+        case 0: /* uniques_set_attribute_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_set_attribute_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_set_attribute_V5 - maybe_instance */;
+            return _toStringOptionInstanceId_V5(
+                &m->basic.uniques_set_attribute_V5.maybe_instance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_set_attribute_V5 - key */;
+            return _toStringBoundedVecu8_V5(
+                &m->basic.uniques_set_attribute_V5.key,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* uniques_set_attribute_V5 - value */;
+            return _toStringBoundedVecu8_V5(
+                &m->basic.uniques_set_attribute_V5.value,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13073: /* module 51 call 17 */
+        switch (itemIdx) {
+        case 0: /* uniques_clear_attribute_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_clear_attribute_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_clear_attribute_V5 - maybe_instance */;
+            return _toStringOptionInstanceId_V5(
+                &m->basic.uniques_clear_attribute_V5.maybe_instance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_clear_attribute_V5 - key */;
+            return _toStringBoundedVecu8_V5(
+                &m->basic.uniques_clear_attribute_V5.key,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13074: /* module 51 call 18 */
+        switch (itemIdx) {
+        case 0: /* uniques_set_metadata_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_set_metadata_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_set_metadata_V5 - instance */;
+            return _toStringCompactu32(
+                &m->basic.uniques_set_metadata_V5.instance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_set_metadata_V5 - data */;
+            return _toStringBoundedVecu8_V5(
+                &m->basic.uniques_set_metadata_V5.data,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* uniques_set_metadata_V5 - is_frozen */;
+            return _toStringbool(
+                &m->basic.uniques_set_metadata_V5.is_frozen,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13075: /* module 51 call 19 */
+        switch (itemIdx) {
+        case 0: /* uniques_clear_metadata_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_clear_metadata_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_clear_metadata_V5 - instance */;
+            return _toStringCompactu32(
+                &m->basic.uniques_clear_metadata_V5.instance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13076: /* module 51 call 20 */
+        switch (itemIdx) {
+        case 0: /* uniques_set_class_metadata_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_set_class_metadata_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_set_class_metadata_V5 - data */;
+            return _toStringBoundedVecu8_V5(
+                &m->basic.uniques_set_class_metadata_V5.data,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_set_class_metadata_V5 - is_frozen */;
+            return _toStringbool(
+                &m->basic.uniques_set_class_metadata_V5.is_frozen,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13077: /* module 51 call 21 */
+        switch (itemIdx) {
+        case 0: /* uniques_clear_class_metadata_V5 - class_ */;
+            return _toStringCompactu32(
+                &m->basic.uniques_clear_class_metadata_V5.class_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
 #endif
     default:
         return parser_ok;
@@ -2727,6 +3725,28 @@ bool _getMethod_IsNestingSupported_V5(uint8_t moduleIdx, uint8_t callIdx)
     case 10761: // Proxy:Proxy announced
     case 12823: // Assets:Touch
     case 12824: // Assets:Refund
+    case 13056: // Uniques:Create
+    case 13057: // Uniques:Force create
+    case 13058: // Uniques:Destroy
+    case 13059: // Uniques:Mint
+    case 13060: // Uniques:Burn
+    case 13061: // Uniques:Transfer
+    case 13062: // Uniques:Redeposit
+    case 13063: // Uniques:Freeze
+    case 13064: // Uniques:Thaw
+    case 13065: // Uniques:Freeze class
+    case 13066: // Uniques:Thaw class
+    case 13067: // Uniques:Transfer ownership
+    case 13068: // Uniques:Set team
+    case 13069: // Uniques:Approve transfer
+    case 13070: // Uniques:Cancel approval
+    case 13071: // Uniques:Force asset status
+    case 13072: // Uniques:Set attribute
+    case 13073: // Uniques:Clear attribute
+    case 13074: // Uniques:Set metadata
+    case 13075: // Uniques:Clear metadata
+    case 13076: // Uniques:Set class metadata
+    case 13077: // Uniques:Clear class metadata
         return false;
     default:
         return true;
