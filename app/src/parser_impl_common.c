@@ -56,9 +56,9 @@ const char *parser_getErrorDescription(parser_error_t err) {
         case parser_init_context_empty:
             return "Initialized empty context";
         case parser_display_idx_out_of_range:
-            return "Call number of pages is out of range";
+            return "display_idx_out_of_range";
         case parser_display_page_out_of_range:
-            return "Page index is out of range";
+            return "display_page_out_of_range";
         // Coin specific
         case parser_spec_not_supported:
             return "Spec version not supported";
@@ -79,7 +79,7 @@ const char *parser_getErrorDescription(parser_error_t err) {
         case parser_unexpected_module:
             return "Unexpected module index";
         case parser_unexpected_callIndex:
-            return "Unsupported Call index for target module ";
+            return "Method not supported";
         case parser_unexpected_unparsed_bytes:
             return "Unexpected unparsed bytes";
         case parser_print_not_supported:
