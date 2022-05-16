@@ -24,7 +24,7 @@
 #include "substrate_types.h"
 #include "substrate_dispatch.h"
 
-uint16_t __address_type;
+extern uint16_t __address_type;
 
 parser_error_t _readTx(parser_context_t *c, parser_tx_t *v) {
     CHECK_INPUT()
