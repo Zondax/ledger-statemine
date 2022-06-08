@@ -23,7 +23,7 @@ extern "C" {
 #include <stddef.h>
 #include "substrate_methods.h"
 
-#ifdef TARGET_NANOX
+#if defined(TARGET_NANOX) || defined(TARGET_NANOS2)
 #define MAX_CALL_NESTING_SIZE 6
 #define MAX_CALL_VEC_SIZE 6
 #else
@@ -38,7 +38,7 @@ typedef struct {
     pd_ExtrinsicEra_t era;
     pd_CompactIndex_t nonce;
     pd_CompactBalance_t tip;
-    compactInt_t assetId;
+    pd_OptionChargeAssetIdOf_t assetId;
     uint32_t specVersion;
     uint32_t transactionVersion;
 

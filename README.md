@@ -5,7 +5,8 @@
 
 ---
 
-![zondax](docs/zondax.jpg)
+![zondax_light](docs/zondax_light.png#gh-light-mode-only)
+![zondax_dark](docs/zondax_dark.png#gh-dark-mode-only)
 
 _Please visit our website at [zondax.ch](https://www.zondax.ch)_
 
@@ -27,8 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-
-# Statemine  5.700.x
+# Statemine  6.900.x
 
 ## System
 
@@ -100,6 +100,12 @@ Please:
 |Service overweight |    |   |   | `OverweightIndex` index <br/>`Weight` weight_limit <br/> |
 |Suspend xcm execution |    | :heavy_check_mark: |   |  |
 |Resume xcm execution |    | :heavy_check_mark: |   |  |
+|Update suspend threshold |    | :heavy_check_mark: |   | `u32` new_ <br/> |
+|Update drop threshold |    | :heavy_check_mark: |   | `u32` new_ <br/> |
+|Update resume threshold |    | :heavy_check_mark: |   | `u32` new_ <br/> |
+|Update threshold weight |    | :heavy_check_mark: |   | `Weight` new_ <br/> |
+|Update weight restrict decay |    | :heavy_check_mark: |   | `Weight` new_ <br/> |
+|Update xcmp max individual weight |    | :heavy_check_mark: |   | `Weight` new_ <br/> |
 
 ## PolkadotXcm
 
@@ -189,26 +195,27 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Create |    |   |   | `Compactu32` class_ <br/>`LookupasStaticLookupSource` admin <br/> |
-|Force create |    |   |   | `Compactu32` class_ <br/>`LookupasStaticLookupSource` owner <br/>`bool` free_holding <br/> |
-|Destroy |    |   |   | `Compactu32` class_ <br/>`DestroyWitness` witness <br/> |
-|Mint |    |   |   | `Compactu32` class_ <br/>`Compactu32` instance <br/>`LookupasStaticLookupSource` owner <br/> |
-|Burn |    |   |   | `Compactu32` class_ <br/>`Compactu32` instance <br/>`OptionLookupasStaticLookupSource` check_owner <br/> |
-|Transfer |    |   |   | `Compactu32` class_ <br/>`Compactu32` instance <br/>`LookupasStaticLookupSource` dest <br/> |
-|Redeposit |    |   |   | `Compactu32` class_ <br/>`VecInstanceId` instances <br/> |
-|Freeze |    |   |   | `Compactu32` class_ <br/>`Compactu32` instance <br/> |
-|Thaw |    |   |   | `Compactu32` class_ <br/>`Compactu32` instance <br/> |
-|Freeze class |    |   |   | `Compactu32` class_ <br/> |
-|Thaw class |    |   |   | `Compactu32` class_ <br/> |
-|Transfer ownership |    |   |   | `Compactu32` class_ <br/>`LookupasStaticLookupSource` owner <br/> |
-|Set team |    |   |   | `Compactu32` class_ <br/>`LookupasStaticLookupSource` issuer <br/>`LookupasStaticLookupSource` admin <br/>`LookupasStaticLookupSource` freezer <br/> |
-|Approve transfer |    |   |   | `Compactu32` class_ <br/>`Compactu32` instance <br/>`LookupasStaticLookupSource` delegate <br/> |
-|Cancel approval |    |   |   | `Compactu32` class_ <br/>`Compactu32` instance <br/>`OptionLookupasStaticLookupSource` maybe_check_delegate <br/> |
-|Force asset status |    |   |   | `Compactu32` class_ <br/>`LookupasStaticLookupSource` owner <br/>`LookupasStaticLookupSource` issuer <br/>`LookupasStaticLookupSource` admin <br/>`LookupasStaticLookupSource` freezer <br/>`bool` free_holding <br/>`bool` is_frozen <br/> |
-|Set attribute |    |   |   | `Compactu32` class_ <br/>`OptionInstanceId` maybe_instance <br/>`BoundedVecu8KeyLimit` key <br/>`BoundedVecu8ValueLimit` value <br/> |
-|Clear attribute |    |   |   | `Compactu32` class_ <br/>`OptionInstanceId` maybe_instance <br/>`BoundedVecu8KeyLimit` key <br/> |
-|Set metadata |    |   |   | `Compactu32` class_ <br/>`Compactu32` instance <br/>`BoundedVecu8StringLimit` data <br/>`bool` is_frozen <br/> |
-|Clear metadata |    |   |   | `Compactu32` class_ <br/>`Compactu32` instance <br/> |
-|Set class metadata |    |   |   | `Compactu32` class_ <br/>`BoundedVecu8StringLimit` data <br/>`bool` is_frozen <br/> |
-|Clear class metadata |    |   |   | `Compactu32` class_ <br/> |
+|Create |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`LookupasStaticLookupSource` admin <br/> |
+|Force create |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`LookupasStaticLookupSource` owner <br/>`bool` free_holding <br/> |
+|Destroy |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`DestroyWitness` witness <br/> |
+|Mint |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`InstanceId` instance <br/>`LookupasStaticLookupSource` owner <br/> |
+|Burn |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`InstanceId` instance <br/>`OptionLookupasStaticLookupSource` check_owner <br/> |
+|Transfer |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`InstanceId` instance <br/>`LookupasStaticLookupSource` dest <br/> |
+|Redeposit |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`VecInstanceId` instances <br/> |
+|Freeze |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`InstanceId` instance <br/> |
+|Thaw |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`InstanceId` instance <br/> |
+|Freeze class |    | :heavy_check_mark: |   | `ClassId` class_ <br/> |
+|Thaw class |    | :heavy_check_mark: |   | `ClassId` class_ <br/> |
+|Transfer ownership |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`LookupasStaticLookupSource` owner <br/> |
+|Set team |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`LookupasStaticLookupSource` issuer <br/>`LookupasStaticLookupSource` admin <br/>`LookupasStaticLookupSource` freezer <br/> |
+|Approve transfer |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`InstanceId` instance <br/>`LookupasStaticLookupSource` delegate <br/> |
+|Cancel approval |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`InstanceId` instance <br/>`OptionLookupasStaticLookupSource` maybe_check_delegate <br/> |
+|Force asset status |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`LookupasStaticLookupSource` owner <br/>`LookupasStaticLookupSource` issuer <br/>`LookupasStaticLookupSource` admin <br/>`LookupasStaticLookupSource` freezer <br/>`bool` free_holding <br/>`bool` is_frozen <br/> |
+|Set attribute |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`OptionInstanceId` maybe_instance <br/>`BoundedVecu8` key <br/>`BoundedVecu8` value <br/> |
+|Clear attribute |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`OptionInstanceId` maybe_instance <br/>`BoundedVecu8` key <br/> |
+|Set metadata |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`InstanceId` instance <br/>`BoundedVecu8` data <br/>`bool` is_frozen <br/> |
+|Clear metadata |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`InstanceId` instance <br/> |
+|Set class metadata |    | :heavy_check_mark: |   | `ClassId` class_ <br/>`BoundedVecu8` data <br/>`bool` is_frozen <br/> |
+|Clear class metadata |    | :heavy_check_mark: |   | `ClassId` class_ <br/> |
+|Set accept ownership |    | :heavy_check_mark: |   | `OptionClassId` maybe_class <br/> |
 

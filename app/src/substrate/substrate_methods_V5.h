@@ -1,18 +1,18 @@
 /*******************************************************************************
-*  (c) 2019 - 2022 Zondax GmbH
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-********************************************************************************/
+ *  (c) 2019 - 2022 Zondax GmbH
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ ********************************************************************************/
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wextern-c-compat"
 #pragma once
@@ -36,6 +36,7 @@ extern "C" {
 #define PD_CALL_MULTISIG_V5 41
 #define PD_CALL_PROXY_V5 42
 #define PD_CALL_ASSETS_V5 50
+#define PD_CALL_UNIQUES_V5 51
 
 #define PD_CALL_BALANCES_TRANSFER_ALL_V5 4
 typedef struct {
@@ -102,6 +103,36 @@ typedef struct {
 typedef struct {
 } pd_xcmpqueue_resume_xcm_execution_V5_t;
 
+#define PD_CALL_XCMPQUEUE_UPDATE_SUSPEND_THRESHOLD_V5 3
+typedef struct {
+    pd_u32_t new_;
+} pd_xcmpqueue_update_suspend_threshold_V5_t;
+
+#define PD_CALL_XCMPQUEUE_UPDATE_DROP_THRESHOLD_V5 4
+typedef struct {
+    pd_u32_t new_;
+} pd_xcmpqueue_update_drop_threshold_V5_t;
+
+#define PD_CALL_XCMPQUEUE_UPDATE_RESUME_THRESHOLD_V5 5
+typedef struct {
+    pd_u32_t new_;
+} pd_xcmpqueue_update_resume_threshold_V5_t;
+
+#define PD_CALL_XCMPQUEUE_UPDATE_THRESHOLD_WEIGHT_V5 6
+typedef struct {
+    pd_Weight_V5_t new_;
+} pd_xcmpqueue_update_threshold_weight_V5_t;
+
+#define PD_CALL_XCMPQUEUE_UPDATE_WEIGHT_RESTRICT_DECAY_V5 7
+typedef struct {
+    pd_Weight_V5_t new_;
+} pd_xcmpqueue_update_weight_restrict_decay_V5_t;
+
+#define PD_CALL_XCMPQUEUE_UPDATE_XCMP_MAX_INDIVIDUAL_WEIGHT_V5 8
+typedef struct {
+    pd_Weight_V5_t new_;
+} pd_xcmpqueue_update_xcmp_max_individual_weight_V5_t;
+
 #define PD_CALL_PROXY_ADD_PROXY_V5 1
 typedef struct {
     pd_AccountId_V5_t delegate;
@@ -155,6 +186,154 @@ typedef struct {
     pd_bool_t allow_burn;
 } pd_assets_refund_V5_t;
 
+#define PD_CALL_UNIQUES_CREATE_V5 0
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_LookupasStaticLookupSource_V5_t admin;
+} pd_uniques_create_V5_t;
+
+#define PD_CALL_UNIQUES_FORCE_CREATE_V5 1
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_LookupasStaticLookupSource_V5_t owner;
+    pd_bool_t free_holding;
+} pd_uniques_force_create_V5_t;
+
+#define PD_CALL_UNIQUES_DESTROY_V5 2
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_DestroyWitness_V5_t witness;
+} pd_uniques_destroy_V5_t;
+
+#define PD_CALL_UNIQUES_MINT_V5 3
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_Compactu32_t instance;
+    pd_LookupasStaticLookupSource_V5_t owner;
+} pd_uniques_mint_V5_t;
+
+#define PD_CALL_UNIQUES_BURN_V5 4
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_Compactu32_t instance;
+    pd_OptionLookupasStaticLookupSource_V5_t check_owner;
+} pd_uniques_burn_V5_t;
+
+#define PD_CALL_UNIQUES_TRANSFER_V5 5
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_Compactu32_t instance;
+    pd_LookupasStaticLookupSource_V5_t dest;
+} pd_uniques_transfer_V5_t;
+
+#define PD_CALL_UNIQUES_REDEPOSIT_V5 6
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_VecInstanceId_V5_t instances;
+} pd_uniques_redeposit_V5_t;
+
+#define PD_CALL_UNIQUES_FREEZE_V5 7
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_Compactu32_t instance;
+} pd_uniques_freeze_V5_t;
+
+#define PD_CALL_UNIQUES_THAW_V5 8
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_Compactu32_t instance;
+} pd_uniques_thaw_V5_t;
+
+#define PD_CALL_UNIQUES_FREEZE_CLASS_V5 9
+typedef struct {
+    pd_Compactu32_t class_;
+} pd_uniques_freeze_class_V5_t;
+
+#define PD_CALL_UNIQUES_THAW_CLASS_V5 10
+typedef struct {
+    pd_Compactu32_t class_;
+} pd_uniques_thaw_class_V5_t;
+
+#define PD_CALL_UNIQUES_TRANSFER_OWNERSHIP_V5 11
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_LookupasStaticLookupSource_V5_t owner;
+} pd_uniques_transfer_ownership_V5_t;
+
+#define PD_CALL_UNIQUES_SET_TEAM_V5 12
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_LookupasStaticLookupSource_V5_t issuer;
+    pd_LookupasStaticLookupSource_V5_t admin;
+    pd_LookupasStaticLookupSource_V5_t freezer;
+} pd_uniques_set_team_V5_t;
+
+#define PD_CALL_UNIQUES_APPROVE_TRANSFER_V5 13
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_Compactu32_t instance;
+    pd_LookupasStaticLookupSource_V5_t delegate;
+} pd_uniques_approve_transfer_V5_t;
+
+#define PD_CALL_UNIQUES_CANCEL_APPROVAL_V5 14
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_Compactu32_t instance;
+    pd_OptionLookupasStaticLookupSource_V5_t maybe_check_delegate;
+} pd_uniques_cancel_approval_V5_t;
+
+#define PD_CALL_UNIQUES_FORCE_ASSET_STATUS_V5 15
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_LookupasStaticLookupSource_V5_t owner;
+    pd_LookupasStaticLookupSource_V5_t issuer;
+    pd_LookupasStaticLookupSource_V5_t admin;
+    pd_LookupasStaticLookupSource_V5_t freezer;
+    pd_bool_t free_holding;
+    pd_bool_t is_frozen;
+} pd_uniques_force_asset_status_V5_t;
+
+#define PD_CALL_UNIQUES_SET_ATTRIBUTE_V5 16
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_OptionInstanceId_V5_t maybe_instance;
+    pd_BoundedVecu8_V5_t key;
+    pd_BoundedVecu8_V5_t value;
+} pd_uniques_set_attribute_V5_t;
+
+#define PD_CALL_UNIQUES_CLEAR_ATTRIBUTE_V5 17
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_OptionInstanceId_V5_t maybe_instance;
+    pd_BoundedVecu8_V5_t key;
+} pd_uniques_clear_attribute_V5_t;
+
+#define PD_CALL_UNIQUES_SET_METADATA_V5 18
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_Compactu32_t instance;
+    pd_BoundedVecu8_V5_t data;
+    pd_bool_t is_frozen;
+} pd_uniques_set_metadata_V5_t;
+
+#define PD_CALL_UNIQUES_CLEAR_METADATA_V5 19
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_Compactu32_t instance;
+} pd_uniques_clear_metadata_V5_t;
+
+#define PD_CALL_UNIQUES_SET_CLASS_METADATA_V5 20
+typedef struct {
+    pd_Compactu32_t class_;
+    pd_BoundedVecu8_V5_t data;
+    pd_bool_t is_frozen;
+} pd_uniques_set_class_metadata_V5_t;
+
+#define PD_CALL_UNIQUES_CLEAR_CLASS_METADATA_V5 21
+typedef struct {
+    pd_Compactu32_t class_;
+} pd_uniques_clear_class_metadata_V5_t;
+
 #endif
 
 typedef union {
@@ -172,6 +351,12 @@ typedef union {
     pd_collatorselection_leave_intent_V5_t collatorselection_leave_intent_V5;
     pd_xcmpqueue_suspend_xcm_execution_V5_t xcmpqueue_suspend_xcm_execution_V5;
     pd_xcmpqueue_resume_xcm_execution_V5_t xcmpqueue_resume_xcm_execution_V5;
+    pd_xcmpqueue_update_suspend_threshold_V5_t xcmpqueue_update_suspend_threshold_V5;
+    pd_xcmpqueue_update_drop_threshold_V5_t xcmpqueue_update_drop_threshold_V5;
+    pd_xcmpqueue_update_resume_threshold_V5_t xcmpqueue_update_resume_threshold_V5;
+    pd_xcmpqueue_update_threshold_weight_V5_t xcmpqueue_update_threshold_weight_V5;
+    pd_xcmpqueue_update_weight_restrict_decay_V5_t xcmpqueue_update_weight_restrict_decay_V5;
+    pd_xcmpqueue_update_xcmp_max_individual_weight_V5_t xcmpqueue_update_xcmp_max_individual_weight_V5;
     pd_proxy_add_proxy_V5_t proxy_add_proxy_V5;
     pd_proxy_remove_proxy_V5_t proxy_remove_proxy_V5;
     pd_proxy_remove_proxies_V5_t proxy_remove_proxies_V5;
@@ -180,6 +365,28 @@ typedef union {
     pd_proxy_proxy_announced_V5_t proxy_proxy_announced_V5;
     pd_assets_touch_V5_t assets_touch_V5;
     pd_assets_refund_V5_t assets_refund_V5;
+    pd_uniques_create_V5_t uniques_create_V5;
+    pd_uniques_force_create_V5_t uniques_force_create_V5;
+    pd_uniques_destroy_V5_t uniques_destroy_V5;
+    pd_uniques_mint_V5_t uniques_mint_V5;
+    pd_uniques_burn_V5_t uniques_burn_V5;
+    pd_uniques_transfer_V5_t uniques_transfer_V5;
+    pd_uniques_redeposit_V5_t uniques_redeposit_V5;
+    pd_uniques_freeze_V5_t uniques_freeze_V5;
+    pd_uniques_thaw_V5_t uniques_thaw_V5;
+    pd_uniques_freeze_class_V5_t uniques_freeze_class_V5;
+    pd_uniques_thaw_class_V5_t uniques_thaw_class_V5;
+    pd_uniques_transfer_ownership_V5_t uniques_transfer_ownership_V5;
+    pd_uniques_set_team_V5_t uniques_set_team_V5;
+    pd_uniques_approve_transfer_V5_t uniques_approve_transfer_V5;
+    pd_uniques_cancel_approval_V5_t uniques_cancel_approval_V5;
+    pd_uniques_force_asset_status_V5_t uniques_force_asset_status_V5;
+    pd_uniques_set_attribute_V5_t uniques_set_attribute_V5;
+    pd_uniques_clear_attribute_V5_t uniques_clear_attribute_V5;
+    pd_uniques_set_metadata_V5_t uniques_set_metadata_V5;
+    pd_uniques_clear_metadata_V5_t uniques_clear_metadata_V5;
+    pd_uniques_set_class_metadata_V5_t uniques_set_class_metadata_V5;
+    pd_uniques_clear_class_metadata_V5_t uniques_clear_class_metadata_V5;
 #endif
 } pd_MethodBasic_V5_t;
 
