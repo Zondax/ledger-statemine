@@ -62,7 +62,7 @@ public:
 };
 
 // Retrieve testcases from json file
-std::vector<testcase_t> GetJsonTestCases(std::string jsonFile) {
+std::vector<testcase_t> GetJsonTestCases(const std::string &jsonFile) {
     auto answer = std::vector<testcase_t>();
 
     Json::CharReaderBuilder builder;
@@ -119,18 +119,14 @@ void check_testcase(const testcase_t &tc, bool expert_mode) {
     ASSERT_EQ(err, parser_ok) << parser_getErrorDescription(err);
 
     auto output = dumpUI(&ctx, 39, 39);
-    std::vector<std::string> expected = app_mode_expert() ? tc.expected_expert : tc.expected;
 
     std::cout << std::endl;
     for (const auto &i: output) {
-        std::cout << "[ACTUAL  ]  " << i << std::endl;
+        std::cout << i << std::endl;
     }
-    std::cout << "" << std::endl;
-    for (const auto &i: expected) {
-        std::cout << "[EXPECTED]  " << i << std::endl;
-    }
-    std::cout << "||||||||||||||||||||||||||||||||||||||||||" << std::endl;
+    std::cout << std::endl << std::endl;
 
+    std::vector<std::string> expected = app_mode_expert() ? tc.expected_expert : tc.expected;
     EXPECT_EQ(output.size(), expected.size());
     for (size_t i = 0; i < expected.size(); i++) {
         if (i < output.size()) {
