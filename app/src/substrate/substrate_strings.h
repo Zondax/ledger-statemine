@@ -103,6 +103,13 @@ static const char* STR_ME_CLEAR_ATTRIBUTE = "Clear attribute";
 static const char* STR_ME_SET_CLASS_METADATA = "Set class metadata";
 static const char* STR_ME_CLEAR_CLASS_METADATA = "Clear class metadata";
 static const char* STR_ME_SET_ACCEPT_OWNERSHIP = "Set accept ownership";
+static const char* STR_ME_FORCE_BATCH = "Force batch";
+static const char* STR_ME_FREEZE_COLLECTION = "Freeze collection";
+static const char* STR_ME_THAW_COLLECTION = "Thaw collection";
+static const char* STR_ME_FORCE_ITEM_STATUS = "Force item status";
+static const char* STR_ME_SET_COLLECTION_METADATA = "Set collection metadata";
+static const char* STR_ME_CLEAR_COLLECTION_METADATA = "Clear collection metadata";
+static const char* STR_ME_SET_COLLECTION_MAX_SUPPLY = "Set collection max supply";
 
 // Items names
 static const char* STR_IT_ratio = "Ratio";
@@ -172,6 +179,11 @@ static const char* STR_IT_key = "Key";
 static const char* STR_IT_value = "Value";
 static const char* STR_IT_data = "Data";
 static const char* STR_IT_maybe_class = "Maybe class";
+static const char* STR_IT_collection = "Collection";
+static const char* STR_IT_item = "Item";
+static const char* STR_IT_maybe_item = "Maybe item";
+static const char* STR_IT_maybe_collection = "Maybe collection";
+static const char* STR_IT_max_supply = "Max supply";
 
 #ifdef __cplusplus
 }

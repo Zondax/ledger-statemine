@@ -61,11 +61,8 @@ typedef enum {
 #define COIN_NAME "Statemine"
 #define COIN_TICKER "KSM "
 
-#define COIN_SECRET_REQUIRED_CLICKS 0
-
 #define MENU_MAIN_APP_LINE1 "Statemine"
 #define MENU_MAIN_APP_LINE2 "Ready"
-#define MENU_MAIN_APP_LINE2_SECRET "KSM RECOVERY"
 #define APPVERSION_LINE1 "Statemine"
 #define APPVERSION_LINE2 "v" APPVERSION
 

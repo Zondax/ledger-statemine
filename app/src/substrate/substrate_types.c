@@ -140,11 +140,6 @@ parser_error_t _readCall(parser_context_t* c, pd_Call_t* v)
     return parser_ok;
 }
 
-parser_error_t _readHeader(parser_context_t* c, pd_Header_t* v)
-{
-    return parser_not_supported;
-}
-
 parser_error_t _readVecCall(parser_context_t* c, pd_VecCall_t* v)
 {
     compactInt_t clen;
@@ -191,10 +186,6 @@ parser_error_t _readOptionChargeAssetIdOf(parser_context_t* c, pd_OptionChargeAs
         CHECK_ERROR(_readu32(c, &v->value))
     }
     return parser_ok;
-}
-
-parser_error_t _readVecHeader(parser_context_t* c, pd_VecHeader_t* v) {
-    GEN_DEF_READVECTOR(Header)
 }
 
 parser_error_t _readVecu8(parser_context_t* c, pd_Vecu8_t* v) {
@@ -304,7 +295,7 @@ parser_error_t _toStringCompactu32(
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    return _toStringCompactInt(v, 0, "", "", outValue, outValueLen, pageIdx, pageCount);
+    return _toStringCompactInt(v, 0, false, "", "", outValue, outValueLen, pageIdx, pageCount);
 }
 
 parser_error_t _toStringCompactu64(
@@ -314,7 +305,7 @@ parser_error_t _toStringCompactu64(
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    return _toStringCompactInt(v, 0, "", "", outValue, outValueLen, pageIdx, pageCount);
+    return _toStringCompactInt(v, 0, false, "", "", outValue, outValueLen, pageIdx, pageCount);
 }
 
 ///////////////////////////////////
@@ -409,17 +400,6 @@ parser_error_t _toStringCall(
     }
 
     return parser_display_idx_out_of_range;
-}
-
-parser_error_t _toStringHeader(
-    const pd_Header_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    CLEAN_AND_CHECK()
-    return parser_print_not_supported;
 }
 
 parser_error_t _toStringVecCall(
@@ -554,15 +534,6 @@ parser_error_t _toStringOptionChargeAssetIdOf(
     }
     CHECK_ERROR(_toStringu32(&v->value, outValue, outValueLen, pageIdx, pageCount));
     return parser_ok;
-}
-
-parser_error_t _toStringVecHeader(
-    const pd_VecHeader_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount) {
-    GEN_DEF_TOSTRING_VECTOR(Header)
 }
 
 parser_error_t _toStringVecu8(
