@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Statemine  7.9230.x
+# Statemine  7.9270.x
 
 ## System
 
@@ -80,7 +80,7 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Set invulnerables |    |   |   | `VecAccountId` new_ <br/> |
+|Set invulnerables |    | :heavy_check_mark: |   | `VecAccountId` new_ <br/> |
 |Set desired candidates |    | :heavy_check_mark: |   | `u32` max <br/> |
 |Set candidacy bond |    | :heavy_check_mark: |   | `Balance` bond <br/> |
 |Register as candidate |    | :heavy_check_mark: |   |  |
@@ -97,7 +97,7 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Service overweight |    |   |   | `OverweightIndex` index <br/>`Weight` weight_limit <br/> |
+|Service overweight |    | :heavy_check_mark: |   | `OverweightIndex` index <br/>`Weight` weight_limit <br/> |
 |Suspend xcm execution |    | :heavy_check_mark: |   |  |
 |Resume xcm execution |    | :heavy_check_mark: |   |  |
 |Update suspend threshold |    | :heavy_check_mark: |   | `u32` new_ <br/> |
@@ -126,7 +126,7 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Service overweight |    |   |   | `OverweightIndex` index <br/>`Weight` weight_limit <br/> |
+|Service overweight |    | :heavy_check_mark: |   | `OverweightIndex` index <br/>`Weight` weight_limit <br/> |
 
 ## Utility
 
@@ -157,18 +157,18 @@ Please:
 |Remove proxies |    | :heavy_check_mark: |   |  |
 |Anonymous |    | :heavy_check_mark: |   | `ProxyType` proxy_type <br/>`BlockNumber` delay <br/>`u16` index <br/> |
 |Kill anonymous |    | :heavy_check_mark: |   | `AccountId` spawner <br/>`ProxyType` proxy_type <br/>`u16` index <br/>`Compactu32` height <br/>`Compactu32` ext_index <br/> |
-|Announce |    |   |   | `AccountId` real <br/>`CallHashOf` call_hash <br/> |
-|Remove announcement |    |   |   | `AccountId` real <br/>`CallHashOf` call_hash <br/> |
-|Reject announcement |    |   |   | `AccountId` delegate <br/>`CallHashOf` call_hash <br/> |
+|Announce |    | :heavy_check_mark: |   | `AccountId` real <br/>`CallHashOf` call_hash <br/> |
+|Remove announcement |    | :heavy_check_mark: |   | `AccountId` real <br/>`CallHashOf` call_hash <br/> |
+|Reject announcement |    | :heavy_check_mark: |   | `AccountId` delegate <br/>`CallHashOf` call_hash <br/> |
 |Proxy announced |    | :heavy_check_mark: |   | `AccountId` delegate <br/>`AccountId` real <br/>`OptionProxyType` force_proxy_type <br/>`Call` call <br/> |
 
 ## Assets
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Create |    |   |   | `Compactu32` id <br/>`LookupasStaticLookupSource` admin <br/>`Balance` min_balance <br/> |
+|Create |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` admin <br/>`Balance` min_balance <br/> |
 |Force create |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` owner <br/>`bool` is_sufficient <br/>`CompactBalance` min_balance <br/> |
-|Destroy |    |   |   | `Compactu32` id <br/>`DestroyWitness` witness <br/> |
+|Destroy |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`DestroyWitness` witness <br/> |
 |Mint |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` beneficiary <br/>`CompactBalance` amount <br/> |
 |Burn |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` who <br/>`CompactBalance` amount <br/> |
 |Transfer |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` target <br/>`CompactBalance` amount <br/> |
@@ -220,4 +220,6 @@ Please:
 |Clear collection metadata |    | :heavy_check_mark: |   | `CollectionId` collection <br/> |
 |Set accept ownership |    | :heavy_check_mark: |   | `OptionCollectionId` maybe_collection <br/> |
 |Set collection max supply |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`u32` max_supply <br/> |
+|Set price |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`OptionItemPrice` price <br/>`OptionLookupasStaticLookupSource` whitelisted_buyer <br/> |
+|Buy item |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`ItemPrice` bid_price <br/> |
 
