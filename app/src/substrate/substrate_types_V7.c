@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2022 Zondax GmbH
+ *  (c) 2019 - 2022 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -32,6 +32,10 @@ parser_error_t _readBoundedVecu8_V7(parser_context_t* c, pd_BoundedVecu8_V7_t* v
     GEN_DEF_READVECTOR(u8)
 }
 
+parser_error_t _readCallHashOf_V7(parser_context_t* c, pd_CallHashOf_V7_t* v) {
+    GEN_DEF_READARRAY(32)
+}
+
 parser_error_t _readChargeAssetIdOf_V7(parser_context_t* c, pd_ChargeAssetIdOf_V7_t* v)
 {
     return parser_not_supported;
@@ -61,6 +65,13 @@ parser_error_t _readItemId_V7(parser_context_t* c, pd_ItemId_V7_t* v)
 {
     CHECK_INPUT()
     CHECK_ERROR(_readUInt32(c, &v->value))
+    return parser_ok;
+}
+
+parser_error_t _readItemPrice_V7(parser_context_t* c, pd_ItemPrice_V7_t* v)
+{
+    CHECK_INPUT()
+    CHECK_ERROR(_readBalance(c, &v->value))
     return parser_ok;
 }
 
@@ -99,6 +110,13 @@ parser_error_t _readOpaqueCall_V7(parser_context_t* c, pd_OpaqueCall_V7_t* v)
     uint8_t size;
     CHECK_ERROR(_readUInt8(c, &size))
     return _readCall(c, &v->call);
+}
+
+parser_error_t _readOverweightIndex_V7(parser_context_t* c, pd_OverweightIndex_V7_t* v)
+{
+    CHECK_INPUT()
+    CHECK_ERROR(_readUInt64(c, &v->value))
+    return parser_ok;
 }
 
 parser_error_t _readPerbill_V7(parser_context_t* c, pd_Perbill_V7_t* v)
@@ -160,6 +178,15 @@ parser_error_t _readOptionItemId_V7(parser_context_t* c, pd_OptionItemId_V7_t* v
     return parser_ok;
 }
 
+parser_error_t _readOptionItemPrice_V7(parser_context_t* c, pd_OptionItemPrice_V7_t* v)
+{
+    CHECK_ERROR(_readUInt8(c, &v->some))
+    if (v->some > 0) {
+        CHECK_ERROR(_readItemPrice_V7(c, &v->contained))
+    }
+    return parser_ok;
+}
+
 parser_error_t _readOptionLookupasStaticLookupSource_V7(parser_context_t* c, pd_OptionLookupasStaticLookupSource_V7_t* v)
 {
     CHECK_ERROR(_readUInt8(c, &v->some))
@@ -208,6 +235,15 @@ parser_error_t _toStringBoundedVecu8_V7(
     uint8_t pageIdx,
     uint8_t* pageCount) {
     GEN_DEF_TOSTRING_VECTOR(u8)
+}
+
+parser_error_t _toStringCallHashOf_V7(
+    const pd_CallHashOf_V7_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount) {
+    GEN_DEF_TOSTRING_ARRAY(32)
 }
 
 parser_error_t _toStringChargeAssetIdOf_V7(
@@ -295,6 +331,18 @@ parser_error_t _toStringItemId_V7(
     return _toStringu32(&v->value, outValue, outValueLen, pageIdx, pageCount);
 }
 
+parser_error_t _toStringItemPrice_V7(
+    const pd_ItemPrice_V7_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+    CHECK_ERROR(_toStringBalance(&v->value, outValue, outValueLen, pageIdx, pageCount))
+    return parser_ok;
+}
+
 parser_error_t _toStringKeys_V7(
     const pd_Keys_V7_t* v,
     char* outValue,
@@ -345,6 +393,16 @@ parser_error_t _toStringOpaqueCall_V7(
     uint8_t* pageCount)
 {
     return _toStringCall(&v->call, outValue, outValueLen, pageIdx, pageCount);
+}
+
+parser_error_t _toStringOverweightIndex_V7(
+    const pd_OverweightIndex_V7_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    return _toStringu64(&v->value, outValue, outValueLen, pageIdx, pageCount);
 }
 
 parser_error_t _toStringPerbill_V7(
@@ -509,6 +567,27 @@ parser_error_t _toStringOptionItemId_V7(
     *pageCount = 1;
     if (v->some > 0) {
         CHECK_ERROR(_toStringItemId_V7(
+            &v->contained,
+            outValue, outValueLen,
+            pageIdx, pageCount));
+    } else {
+        snprintf(outValue, outValueLen, "None");
+    }
+    return parser_ok;
+}
+
+parser_error_t _toStringOptionItemPrice_V7(
+    const pd_OptionItemPrice_V7_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+
+    *pageCount = 1;
+    if (v->some > 0) {
+        CHECK_ERROR(_toStringItemPrice_V7(
             &v->contained,
             outValue, outValueLen,
             pageIdx, pageCount));

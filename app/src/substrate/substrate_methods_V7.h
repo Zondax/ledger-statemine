@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2022 Zondax GmbH
+ *  (c) 2019 - 2022 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ extern "C" {
 #define PD_CALL_COLLATORSELECTION_V7 21
 #define PD_CALL_SESSION_V7 22
 #define PD_CALL_XCMPQUEUE_V7 30
+#define PD_CALL_DMPQUEUE_V7 33
 #define PD_CALL_UTILITY_V7 40
 #define PD_CALL_MULTISIG_V7 41
 #define PD_CALL_PROXY_V7 42
@@ -77,6 +78,11 @@ typedef struct {
     pd_Balance_t amount;
 } pd_balances_force_unreserve_V7_t;
 
+#define PD_CALL_COLLATORSELECTION_SET_INVULNERABLES_V7 0
+typedef struct {
+    pd_VecAccountId_V7_t new_;
+} pd_collatorselection_set_invulnerables_V7_t;
+
 #define PD_CALL_COLLATORSELECTION_SET_DESIRED_CANDIDATES_V7 1
 typedef struct {
     pd_u32_t max;
@@ -94,6 +100,12 @@ typedef struct {
 #define PD_CALL_COLLATORSELECTION_LEAVE_INTENT_V7 4
 typedef struct {
 } pd_collatorselection_leave_intent_V7_t;
+
+#define PD_CALL_XCMPQUEUE_SERVICE_OVERWEIGHT_V7 0
+typedef struct {
+    pd_OverweightIndex_V7_t index;
+    pd_Weight_V7_t weight_limit;
+} pd_xcmpqueue_service_overweight_V7_t;
 
 #define PD_CALL_XCMPQUEUE_SUSPEND_XCM_EXECUTION_V7 1
 typedef struct {
@@ -133,6 +145,12 @@ typedef struct {
     pd_Weight_V7_t new_;
 } pd_xcmpqueue_update_xcmp_max_individual_weight_V7_t;
 
+#define PD_CALL_DMPQUEUE_SERVICE_OVERWEIGHT_V7 0
+typedef struct {
+    pd_OverweightIndex_V7_t index;
+    pd_Weight_V7_t weight_limit;
+} pd_dmpqueue_service_overweight_V7_t;
+
 #define PD_CALL_UTILITY_FORCE_BATCH_V7 4
 typedef struct {
     pd_VecCall_t calls;
@@ -171,6 +189,24 @@ typedef struct {
     pd_Compactu32_t height;
     pd_Compactu32_t ext_index;
 } pd_proxy_kill_anonymous_V7_t;
+
+#define PD_CALL_PROXY_ANNOUNCE_V7 6
+typedef struct {
+    pd_AccountId_V7_t real;
+    pd_CallHashOf_V7_t call_hash;
+} pd_proxy_announce_V7_t;
+
+#define PD_CALL_PROXY_REMOVE_ANNOUNCEMENT_V7 7
+typedef struct {
+    pd_AccountId_V7_t real;
+    pd_CallHashOf_V7_t call_hash;
+} pd_proxy_remove_announcement_V7_t;
+
+#define PD_CALL_PROXY_REJECT_ANNOUNCEMENT_V7 8
+typedef struct {
+    pd_AccountId_V7_t delegate;
+    pd_CallHashOf_V7_t call_hash;
+} pd_proxy_reject_announcement_V7_t;
 
 #define PD_CALL_PROXY_PROXY_ANNOUNCED_V7 9
 typedef struct {
@@ -350,6 +386,21 @@ typedef struct {
     pd_u32_t max_supply;
 } pd_uniques_set_collection_max_supply_V7_t;
 
+#define PD_CALL_UNIQUES_SET_PRICE_V7 24
+typedef struct {
+    pd_CollectionId_V7_t collection;
+    pd_ItemId_V7_t item;
+    pd_OptionItemPrice_V7_t price;
+    pd_OptionLookupasStaticLookupSource_V7_t whitelisted_buyer;
+} pd_uniques_set_price_V7_t;
+
+#define PD_CALL_UNIQUES_BUY_ITEM_V7 25
+typedef struct {
+    pd_CollectionId_V7_t collection;
+    pd_ItemId_V7_t item;
+    pd_ItemPrice_V7_t bid_price;
+} pd_uniques_buy_item_V7_t;
+
 #endif
 
 typedef union {
@@ -361,10 +412,12 @@ typedef union {
 #ifdef SUBSTRATE_PARSER_FULL
     pd_timestamp_set_V7_t timestamp_set_V7;
     pd_balances_force_unreserve_V7_t balances_force_unreserve_V7;
+    pd_collatorselection_set_invulnerables_V7_t collatorselection_set_invulnerables_V7;
     pd_collatorselection_set_desired_candidates_V7_t collatorselection_set_desired_candidates_V7;
     pd_collatorselection_set_candidacy_bond_V7_t collatorselection_set_candidacy_bond_V7;
     pd_collatorselection_register_as_candidate_V7_t collatorselection_register_as_candidate_V7;
     pd_collatorselection_leave_intent_V7_t collatorselection_leave_intent_V7;
+    pd_xcmpqueue_service_overweight_V7_t xcmpqueue_service_overweight_V7;
     pd_xcmpqueue_suspend_xcm_execution_V7_t xcmpqueue_suspend_xcm_execution_V7;
     pd_xcmpqueue_resume_xcm_execution_V7_t xcmpqueue_resume_xcm_execution_V7;
     pd_xcmpqueue_update_suspend_threshold_V7_t xcmpqueue_update_suspend_threshold_V7;
@@ -373,12 +426,16 @@ typedef union {
     pd_xcmpqueue_update_threshold_weight_V7_t xcmpqueue_update_threshold_weight_V7;
     pd_xcmpqueue_update_weight_restrict_decay_V7_t xcmpqueue_update_weight_restrict_decay_V7;
     pd_xcmpqueue_update_xcmp_max_individual_weight_V7_t xcmpqueue_update_xcmp_max_individual_weight_V7;
+    pd_dmpqueue_service_overweight_V7_t dmpqueue_service_overweight_V7;
     pd_utility_force_batch_V7_t utility_force_batch_V7;
     pd_proxy_add_proxy_V7_t proxy_add_proxy_V7;
     pd_proxy_remove_proxy_V7_t proxy_remove_proxy_V7;
     pd_proxy_remove_proxies_V7_t proxy_remove_proxies_V7;
     pd_proxy_anonymous_V7_t proxy_anonymous_V7;
     pd_proxy_kill_anonymous_V7_t proxy_kill_anonymous_V7;
+    pd_proxy_announce_V7_t proxy_announce_V7;
+    pd_proxy_remove_announcement_V7_t proxy_remove_announcement_V7;
+    pd_proxy_reject_announcement_V7_t proxy_reject_announcement_V7;
     pd_proxy_proxy_announced_V7_t proxy_proxy_announced_V7;
     pd_assets_touch_V7_t assets_touch_V7;
     pd_assets_refund_V7_t assets_refund_V7;
@@ -406,6 +463,8 @@ typedef union {
     pd_uniques_clear_collection_metadata_V7_t uniques_clear_collection_metadata_V7;
     pd_uniques_set_accept_ownership_V7_t uniques_set_accept_ownership_V7;
     pd_uniques_set_collection_max_supply_V7_t uniques_set_collection_max_supply_V7;
+    pd_uniques_set_price_V7_t uniques_set_price_V7;
+    pd_uniques_buy_item_V7_t uniques_buy_item_V7;
 #endif
 } pd_MethodBasic_V7_t;
 
@@ -506,6 +565,13 @@ typedef struct {
     pd_Call_t call;
 } pd_proxy_proxy_V7_t;
 
+#define PD_CALL_ASSETS_CREATE_V7 0
+typedef struct {
+    pd_Compactu32_t id;
+    pd_LookupasStaticLookupSource_V7_t admin;
+    pd_Balance_t min_balance;
+} pd_assets_create_V7_t;
+
 #define PD_CALL_ASSETS_FORCE_CREATE_V7 1
 typedef struct {
     pd_Compactu32_t id;
@@ -513,6 +579,12 @@ typedef struct {
     pd_bool_t is_sufficient;
     pd_CompactBalance_t min_balance;
 } pd_assets_force_create_V7_t;
+
+#define PD_CALL_ASSETS_DESTROY_V7 2
+typedef struct {
+    pd_Compactu32_t id;
+    pd_DestroyWitness_V7_t witness;
+} pd_assets_destroy_V7_t;
 
 #define PD_CALL_ASSETS_MINT_V7 3
 typedef struct {
@@ -672,7 +744,9 @@ typedef union {
     pd_multisig_approve_as_multi_V7_t multisig_approve_as_multi_V7;
     pd_multisig_cancel_as_multi_V7_t multisig_cancel_as_multi_V7;
     pd_proxy_proxy_V7_t proxy_proxy_V7;
+    pd_assets_create_V7_t assets_create_V7;
     pd_assets_force_create_V7_t assets_force_create_V7;
+    pd_assets_destroy_V7_t assets_destroy_V7;
     pd_assets_mint_V7_t assets_mint_V7;
     pd_assets_burn_V7_t assets_burn_V7;
     pd_assets_transfer_V7_t assets_transfer_V7;

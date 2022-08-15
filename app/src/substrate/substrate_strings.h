@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2022 Zondax GmbH
+ *  (c) 2019 - 2022 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ static const char* STR_MO_BALANCES = "Balances";
 static const char* STR_MO_COLLATORSELECTION = "Collatorselection";
 static const char* STR_MO_SESSION = "Session";
 static const char* STR_MO_XCMPQUEUE = "Xcmpqueue";
+static const char* STR_MO_DMPQUEUE = "Dmpqueue";
 static const char* STR_MO_UTILITY = "Utility";
 static const char* STR_MO_MULTISIG = "Multisig";
 static const char* STR_MO_PROXY = "Proxy";
@@ -46,12 +47,14 @@ static const char* STR_ME_FORCE_TRANSFER = "Force transfer";
 static const char* STR_ME_TRANSFER_KEEP_ALIVE = "Transfer keep alive";
 static const char* STR_ME_TRANSFER_ALL = "Transfer all";
 static const char* STR_ME_FORCE_UNRESERVE = "Force unreserve";
+static const char* STR_ME_SET_INVULNERABLES = "Set invulnerables";
 static const char* STR_ME_SET_DESIRED_CANDIDATES = "Set desired candidates";
 static const char* STR_ME_SET_CANDIDACY_BOND = "Set candidacy bond";
 static const char* STR_ME_REGISTER_AS_CANDIDATE = "Register as candidate";
 static const char* STR_ME_LEAVE_INTENT = "Leave intent";
 static const char* STR_ME_SET_KEYS = "Set keys";
 static const char* STR_ME_PURGE_KEYS = "Purge keys";
+static const char* STR_ME_SERVICE_OVERWEIGHT = "Service overweight";
 static const char* STR_ME_SUSPEND_XCM_EXECUTION = "Suspend xcm execution";
 static const char* STR_ME_RESUME_XCM_EXECUTION = "Resume xcm execution";
 static const char* STR_ME_UPDATE_SUSPEND_THRESHOLD = "Update suspend threshold";
@@ -62,6 +65,7 @@ static const char* STR_ME_UPDATE_WEIGHT_RESTRICT_DECAY = "Update weight restrict
 static const char* STR_ME_UPDATE_XCMP_MAX_INDIVIDUAL_WEIGHT = "Update xcmp max individual weight";
 static const char* STR_ME_BATCH = "Batch";
 static const char* STR_ME_BATCH_ALL = "Batch all";
+static const char* STR_ME_FORCE_BATCH = "Force batch";
 static const char* STR_ME_AS_MULTI_THRESHOLD_1 = "As multi threshold 1";
 static const char* STR_ME_AS_MULTI = "As multi";
 static const char* STR_ME_APPROVE_AS_MULTI = "Approve as multi";
@@ -72,8 +76,13 @@ static const char* STR_ME_REMOVE_PROXY = "Remove proxy";
 static const char* STR_ME_REMOVE_PROXIES = "Remove proxies";
 static const char* STR_ME_ANONYMOUS = "Anonymous";
 static const char* STR_ME_KILL_ANONYMOUS = "Kill anonymous";
+static const char* STR_ME_ANNOUNCE = "Announce";
+static const char* STR_ME_REMOVE_ANNOUNCEMENT = "Remove announcement";
+static const char* STR_ME_REJECT_ANNOUNCEMENT = "Reject announcement";
 static const char* STR_ME_PROXY_ANNOUNCED = "Proxy announced";
+static const char* STR_ME_CREATE = "Create";
 static const char* STR_ME_FORCE_CREATE = "Force create";
+static const char* STR_ME_DESTROY = "Destroy";
 static const char* STR_ME_MINT = "Mint";
 static const char* STR_ME_BURN = "Burn";
 static const char* STR_ME_FREEZE = "Freeze";
@@ -93,23 +102,18 @@ static const char* STR_ME_FORCE_CANCEL_APPROVAL = "Force cancel approval";
 static const char* STR_ME_TRANSFER_APPROVED = "Transfer approved";
 static const char* STR_ME_TOUCH = "Touch";
 static const char* STR_ME_REFUND = "Refund";
-static const char* STR_ME_CREATE = "Create";
-static const char* STR_ME_DESTROY = "Destroy";
 static const char* STR_ME_REDEPOSIT = "Redeposit";
-static const char* STR_ME_FREEZE_CLASS = "Freeze class";
-static const char* STR_ME_THAW_CLASS = "Thaw class";
-static const char* STR_ME_SET_ATTRIBUTE = "Set attribute";
-static const char* STR_ME_CLEAR_ATTRIBUTE = "Clear attribute";
-static const char* STR_ME_SET_CLASS_METADATA = "Set class metadata";
-static const char* STR_ME_CLEAR_CLASS_METADATA = "Clear class metadata";
-static const char* STR_ME_SET_ACCEPT_OWNERSHIP = "Set accept ownership";
-static const char* STR_ME_FORCE_BATCH = "Force batch";
 static const char* STR_ME_FREEZE_COLLECTION = "Freeze collection";
 static const char* STR_ME_THAW_COLLECTION = "Thaw collection";
 static const char* STR_ME_FORCE_ITEM_STATUS = "Force item status";
+static const char* STR_ME_SET_ATTRIBUTE = "Set attribute";
+static const char* STR_ME_CLEAR_ATTRIBUTE = "Clear attribute";
 static const char* STR_ME_SET_COLLECTION_METADATA = "Set collection metadata";
 static const char* STR_ME_CLEAR_COLLECTION_METADATA = "Clear collection metadata";
+static const char* STR_ME_SET_ACCEPT_OWNERSHIP = "Set accept ownership";
 static const char* STR_ME_SET_COLLECTION_MAX_SUPPLY = "Set collection max supply";
+static const char* STR_ME_SET_PRICE = "Set price";
+static const char* STR_ME_BUY_ITEM = "Buy item";
 
 // Items names
 static const char* STR_IT_ratio = "Ratio";
@@ -168,22 +172,20 @@ static const char* STR_IT_decimals = "Decimals";
 static const char* STR_IT_is_frozen = "Is frozen";
 static const char* STR_IT_destination = "Destination";
 static const char* STR_IT_allow_burn = "Allow burn";
-static const char* STR_IT_class_ = "Class";
+static const char* STR_IT_collection = "Collection";
 static const char* STR_IT_free_holding = "Free holding";
-static const char* STR_IT_instance = "Instance";
+static const char* STR_IT_item = "Item";
 static const char* STR_IT_check_owner = "Check owner";
-static const char* STR_IT_instances = "Instances";
 static const char* STR_IT_maybe_check_delegate = "Maybe check delegate";
-static const char* STR_IT_maybe_instance = "Maybe instance";
+static const char* STR_IT_maybe_item = "Maybe item";
 static const char* STR_IT_key = "Key";
 static const char* STR_IT_value = "Value";
 static const char* STR_IT_data = "Data";
-static const char* STR_IT_maybe_class = "Maybe class";
-static const char* STR_IT_collection = "Collection";
-static const char* STR_IT_item = "Item";
-static const char* STR_IT_maybe_item = "Maybe item";
 static const char* STR_IT_maybe_collection = "Maybe collection";
 static const char* STR_IT_max_supply = "Max supply";
+static const char* STR_IT_price = "Price";
+static const char* STR_IT_whitelisted_buyer = "Whitelisted buyer";
+static const char* STR_IT_bid_price = "Bid price";
 
 #ifdef __cplusplus
 }

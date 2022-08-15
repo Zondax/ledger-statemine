@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2022 Zondax GmbH
+ *  (c) 2019 - 2022 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -147,6 +147,13 @@ __Z_INLINE parser_error_t _readMethod_balances_force_unreserve_V7(
     return parser_ok;
 }
 
+__Z_INLINE parser_error_t _readMethod_collatorselection_set_invulnerables_V7(
+    parser_context_t* c, pd_collatorselection_set_invulnerables_V7_t* m)
+{
+    CHECK_ERROR(_readVecAccountId_V7(c, &m->new_))
+    return parser_ok;
+}
+
 __Z_INLINE parser_error_t _readMethod_collatorselection_set_desired_candidates_V7(
     parser_context_t* c, pd_collatorselection_set_desired_candidates_V7_t* m)
 {
@@ -170,6 +177,14 @@ __Z_INLINE parser_error_t _readMethod_collatorselection_register_as_candidate_V7
 __Z_INLINE parser_error_t _readMethod_collatorselection_leave_intent_V7(
     parser_context_t* c, pd_collatorselection_leave_intent_V7_t* m)
 {
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_xcmpqueue_service_overweight_V7(
+    parser_context_t* c, pd_xcmpqueue_service_overweight_V7_t* m)
+{
+    CHECK_ERROR(_readOverweightIndex_V7(c, &m->index))
+    CHECK_ERROR(_readWeight_V7(c, &m->weight_limit))
     return parser_ok;
 }
 
@@ -224,6 +239,14 @@ __Z_INLINE parser_error_t _readMethod_xcmpqueue_update_xcmp_max_individual_weigh
     parser_context_t* c, pd_xcmpqueue_update_xcmp_max_individual_weight_V7_t* m)
 {
     CHECK_ERROR(_readWeight_V7(c, &m->new_))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_dmpqueue_service_overweight_V7(
+    parser_context_t* c, pd_dmpqueue_service_overweight_V7_t* m)
+{
+    CHECK_ERROR(_readOverweightIndex_V7(c, &m->index))
+    CHECK_ERROR(_readWeight_V7(c, &m->weight_limit))
     return parser_ok;
 }
 
@@ -328,6 +351,30 @@ __Z_INLINE parser_error_t _readMethod_proxy_kill_anonymous_V7(
     return parser_ok;
 }
 
+__Z_INLINE parser_error_t _readMethod_proxy_announce_V7(
+    parser_context_t* c, pd_proxy_announce_V7_t* m)
+{
+    CHECK_ERROR(_readAccountId_V7(c, &m->real))
+    CHECK_ERROR(_readCallHashOf_V7(c, &m->call_hash))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_proxy_remove_announcement_V7(
+    parser_context_t* c, pd_proxy_remove_announcement_V7_t* m)
+{
+    CHECK_ERROR(_readAccountId_V7(c, &m->real))
+    CHECK_ERROR(_readCallHashOf_V7(c, &m->call_hash))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_proxy_reject_announcement_V7(
+    parser_context_t* c, pd_proxy_reject_announcement_V7_t* m)
+{
+    CHECK_ERROR(_readAccountId_V7(c, &m->delegate))
+    CHECK_ERROR(_readCallHashOf_V7(c, &m->call_hash))
+    return parser_ok;
+}
+
 __Z_INLINE parser_error_t _readMethod_proxy_proxy_announced_V7(
     parser_context_t* c, pd_proxy_proxy_announced_V7_t* m)
 {
@@ -338,6 +385,15 @@ __Z_INLINE parser_error_t _readMethod_proxy_proxy_announced_V7(
     return parser_ok;
 }
 
+__Z_INLINE parser_error_t _readMethod_assets_create_V7(
+    parser_context_t* c, pd_assets_create_V7_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->id))
+    CHECK_ERROR(_readLookupasStaticLookupSource_V7(c, &m->admin))
+    CHECK_ERROR(_readBalance(c, &m->min_balance))
+    return parser_ok;
+}
+
 __Z_INLINE parser_error_t _readMethod_assets_force_create_V7(
     parser_context_t* c, pd_assets_force_create_V7_t* m)
 {
@@ -345,6 +401,14 @@ __Z_INLINE parser_error_t _readMethod_assets_force_create_V7(
     CHECK_ERROR(_readLookupasStaticLookupSource_V7(c, &m->owner))
     CHECK_ERROR(_readbool(c, &m->is_sufficient))
     CHECK_ERROR(_readCompactBalance(c, &m->min_balance))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_assets_destroy_V7(
+    parser_context_t* c, pd_assets_destroy_V7_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->id))
+    CHECK_ERROR(_readDestroyWitness_V7(c, &m->witness))
     return parser_ok;
 }
 
@@ -749,6 +813,25 @@ __Z_INLINE parser_error_t _readMethod_uniques_set_collection_max_supply_V7(
     return parser_ok;
 }
 
+__Z_INLINE parser_error_t _readMethod_uniques_set_price_V7(
+    parser_context_t* c, pd_uniques_set_price_V7_t* m)
+{
+    CHECK_ERROR(_readCollectionId_V7(c, &m->collection))
+    CHECK_ERROR(_readItemId_V7(c, &m->item))
+    CHECK_ERROR(_readOptionItemPrice_V7(c, &m->price))
+    CHECK_ERROR(_readOptionLookupasStaticLookupSource_V7(c, &m->whitelisted_buyer))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_uniques_buy_item_V7(
+    parser_context_t* c, pd_uniques_buy_item_V7_t* m)
+{
+    CHECK_ERROR(_readCollectionId_V7(c, &m->collection))
+    CHECK_ERROR(_readItemId_V7(c, &m->item))
+    CHECK_ERROR(_readItemPrice_V7(c, &m->bid_price))
+    return parser_ok;
+}
+
 #endif
 
 parser_error_t _readMethod_V7(
@@ -814,6 +897,9 @@ parser_error_t _readMethod_V7(
     case 2565: /* module 10 call 5 */
         CHECK_ERROR(_readMethod_balances_force_unreserve_V7(c, &method->basic.balances_force_unreserve_V7))
         break;
+    case 5376: /* module 21 call 0 */
+        CHECK_ERROR(_readMethod_collatorselection_set_invulnerables_V7(c, &method->basic.collatorselection_set_invulnerables_V7))
+        break;
     case 5377: /* module 21 call 1 */
         CHECK_ERROR(_readMethod_collatorselection_set_desired_candidates_V7(c, &method->basic.collatorselection_set_desired_candidates_V7))
         break;
@@ -825,6 +911,9 @@ parser_error_t _readMethod_V7(
         break;
     case 5380: /* module 21 call 4 */
         CHECK_ERROR(_readMethod_collatorselection_leave_intent_V7(c, &method->basic.collatorselection_leave_intent_V7))
+        break;
+    case 7680: /* module 30 call 0 */
+        CHECK_ERROR(_readMethod_xcmpqueue_service_overweight_V7(c, &method->basic.xcmpqueue_service_overweight_V7))
         break;
     case 7681: /* module 30 call 1 */
         CHECK_ERROR(_readMethod_xcmpqueue_suspend_xcm_execution_V7(c, &method->basic.xcmpqueue_suspend_xcm_execution_V7))
@@ -849,6 +938,9 @@ parser_error_t _readMethod_V7(
         break;
     case 7688: /* module 30 call 8 */
         CHECK_ERROR(_readMethod_xcmpqueue_update_xcmp_max_individual_weight_V7(c, &method->basic.xcmpqueue_update_xcmp_max_individual_weight_V7))
+        break;
+    case 8448: /* module 33 call 0 */
+        CHECK_ERROR(_readMethod_dmpqueue_service_overweight_V7(c, &method->basic.dmpqueue_service_overweight_V7))
         break;
     case 10244: /* module 40 call 4 */
         CHECK_ERROR(_readMethod_utility_force_batch_V7(c, &method->basic.utility_force_batch_V7))
@@ -883,11 +975,26 @@ parser_error_t _readMethod_V7(
     case 10757: /* module 42 call 5 */
         CHECK_ERROR(_readMethod_proxy_kill_anonymous_V7(c, &method->basic.proxy_kill_anonymous_V7))
         break;
+    case 10758: /* module 42 call 6 */
+        CHECK_ERROR(_readMethod_proxy_announce_V7(c, &method->basic.proxy_announce_V7))
+        break;
+    case 10759: /* module 42 call 7 */
+        CHECK_ERROR(_readMethod_proxy_remove_announcement_V7(c, &method->basic.proxy_remove_announcement_V7))
+        break;
+    case 10760: /* module 42 call 8 */
+        CHECK_ERROR(_readMethod_proxy_reject_announcement_V7(c, &method->basic.proxy_reject_announcement_V7))
+        break;
     case 10761: /* module 42 call 9 */
         CHECK_ERROR(_readMethod_proxy_proxy_announced_V7(c, &method->basic.proxy_proxy_announced_V7))
         break;
+    case 12800: /* module 50 call 0 */
+        CHECK_ERROR(_readMethod_assets_create_V7(c, &method->nested.assets_create_V7))
+        break;
     case 12801: /* module 50 call 1 */
         CHECK_ERROR(_readMethod_assets_force_create_V7(c, &method->nested.assets_force_create_V7))
+        break;
+    case 12802: /* module 50 call 2 */
+        CHECK_ERROR(_readMethod_assets_destroy_V7(c, &method->nested.assets_destroy_V7))
         break;
     case 12803: /* module 50 call 3 */
         CHECK_ERROR(_readMethod_assets_mint_V7(c, &method->nested.assets_mint_V7))
@@ -1027,6 +1134,12 @@ parser_error_t _readMethod_V7(
     case 13079: /* module 51 call 23 */
         CHECK_ERROR(_readMethod_uniques_set_collection_max_supply_V7(c, &method->basic.uniques_set_collection_max_supply_V7))
         break;
+    case 13080: /* module 51 call 24 */
+        CHECK_ERROR(_readMethod_uniques_set_price_V7(c, &method->basic.uniques_set_price_V7))
+        break;
+    case 13081: /* module 51 call 25 */
+        CHECK_ERROR(_readMethod_uniques_buy_item_V7(c, &method->basic.uniques_buy_item_V7))
+        break;
 #endif
     default:
         return parser_unexpected_callIndex;
@@ -1058,6 +1171,8 @@ const char* _getMethod_ModuleName_V7(uint8_t moduleIdx)
         return STR_MO_COLLATORSELECTION;
     case 30:
         return STR_MO_XCMPQUEUE;
+    case 33:
+        return STR_MO_DMPQUEUE;
     case 41:
         return STR_MO_MULTISIG;
     case 42:
@@ -1124,6 +1239,8 @@ const char* _getMethod_Name_V7_ParserFull(uint16_t callPrivIdx)
         return STR_ME_SET_BALANCE;
     case 2565: /* module 10 call 5 */
         return STR_ME_FORCE_UNRESERVE;
+    case 5376: /* module 21 call 0 */
+        return STR_ME_SET_INVULNERABLES;
     case 5377: /* module 21 call 1 */
         return STR_ME_SET_DESIRED_CANDIDATES;
     case 5378: /* module 21 call 2 */
@@ -1132,6 +1249,8 @@ const char* _getMethod_Name_V7_ParserFull(uint16_t callPrivIdx)
         return STR_ME_REGISTER_AS_CANDIDATE;
     case 5380: /* module 21 call 4 */
         return STR_ME_LEAVE_INTENT;
+    case 7680: /* module 30 call 0 */
+        return STR_ME_SERVICE_OVERWEIGHT;
     case 7681: /* module 30 call 1 */
         return STR_ME_SUSPEND_XCM_EXECUTION;
     case 7682: /* module 30 call 2 */
@@ -1148,6 +1267,8 @@ const char* _getMethod_Name_V7_ParserFull(uint16_t callPrivIdx)
         return STR_ME_UPDATE_WEIGHT_RESTRICT_DECAY;
     case 7688: /* module 30 call 8 */
         return STR_ME_UPDATE_XCMP_MAX_INDIVIDUAL_WEIGHT;
+    case 8448: /* module 33 call 0 */
+        return STR_ME_SERVICE_OVERWEIGHT;
     case 10244: /* module 40 call 4 */
         return STR_ME_FORCE_BATCH;
     case 10496: /* module 41 call 0 */
@@ -1170,10 +1291,20 @@ const char* _getMethod_Name_V7_ParserFull(uint16_t callPrivIdx)
         return STR_ME_ANONYMOUS;
     case 10757: /* module 42 call 5 */
         return STR_ME_KILL_ANONYMOUS;
+    case 10758: /* module 42 call 6 */
+        return STR_ME_ANNOUNCE;
+    case 10759: /* module 42 call 7 */
+        return STR_ME_REMOVE_ANNOUNCEMENT;
+    case 10760: /* module 42 call 8 */
+        return STR_ME_REJECT_ANNOUNCEMENT;
     case 10761: /* module 42 call 9 */
         return STR_ME_PROXY_ANNOUNCED;
+    case 12800: /* module 50 call 0 */
+        return STR_ME_CREATE;
     case 12801: /* module 50 call 1 */
         return STR_ME_FORCE_CREATE;
+    case 12802: /* module 50 call 2 */
+        return STR_ME_DESTROY;
     case 12803: /* module 50 call 3 */
         return STR_ME_MINT;
     case 12804: /* module 50 call 4 */
@@ -1266,6 +1397,10 @@ const char* _getMethod_Name_V7_ParserFull(uint16_t callPrivIdx)
         return STR_ME_SET_ACCEPT_OWNERSHIP;
     case 13079: /* module 51 call 23 */
         return STR_ME_SET_COLLECTION_MAX_SUPPLY;
+    case 13080: /* module 51 call 24 */
+        return STR_ME_SET_PRICE;
+    case 13081: /* module 51 call 25 */
+        return STR_ME_BUY_ITEM;
 #endif
     default:
         return NULL;
@@ -1314,6 +1449,8 @@ uint8_t _getMethod_NumItems_V7(uint8_t moduleIdx, uint8_t callIdx)
         return 3;
     case 2565: /* module 10 call 5 */
         return 2;
+    case 5376: /* module 21 call 0 */
+        return 1;
     case 5377: /* module 21 call 1 */
         return 1;
     case 5378: /* module 21 call 2 */
@@ -1322,6 +1459,8 @@ uint8_t _getMethod_NumItems_V7(uint8_t moduleIdx, uint8_t callIdx)
         return 0;
     case 5380: /* module 21 call 4 */
         return 0;
+    case 7680: /* module 30 call 0 */
+        return 2;
     case 7681: /* module 30 call 1 */
         return 0;
     case 7682: /* module 30 call 2 */
@@ -1338,6 +1477,8 @@ uint8_t _getMethod_NumItems_V7(uint8_t moduleIdx, uint8_t callIdx)
         return 1;
     case 7688: /* module 30 call 8 */
         return 1;
+    case 8448: /* module 33 call 0 */
+        return 2;
     case 10244: /* module 40 call 4 */
         return 1;
     case 10496: /* module 41 call 0 */
@@ -1360,10 +1501,20 @@ uint8_t _getMethod_NumItems_V7(uint8_t moduleIdx, uint8_t callIdx)
         return 3;
     case 10757: /* module 42 call 5 */
         return 5;
+    case 10758: /* module 42 call 6 */
+        return 2;
+    case 10759: /* module 42 call 7 */
+        return 2;
+    case 10760: /* module 42 call 8 */
+        return 2;
     case 10761: /* module 42 call 9 */
         return 4;
+    case 12800: /* module 50 call 0 */
+        return 3;
     case 12801: /* module 50 call 1 */
         return 4;
+    case 12802: /* module 50 call 2 */
+        return 2;
     case 12803: /* module 50 call 3 */
         return 3;
     case 12804: /* module 50 call 4 */
@@ -1456,6 +1607,10 @@ uint8_t _getMethod_NumItems_V7(uint8_t moduleIdx, uint8_t callIdx)
         return 1;
     case 13079: /* module 51 call 23 */
         return 2;
+    case 13080: /* module 51 call 24 */
+        return 4;
+    case 13081: /* module 51 call 25 */
+        return 3;
 #endif
     default:
         return 0;
@@ -1605,6 +1760,13 @@ const char* _getMethod_ItemName_V7(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         default:
             return NULL;
         }
+    case 5376: /* module 21 call 0 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_new_;
+        default:
+            return NULL;
+        }
     case 5377: /* module 21 call 1 */
         switch (itemIdx) {
         case 0:
@@ -1626,6 +1788,15 @@ const char* _getMethod_ItemName_V7(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         }
     case 5380: /* module 21 call 4 */
         switch (itemIdx) {
+        default:
+            return NULL;
+        }
+    case 7680: /* module 30 call 0 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_index;
+        case 1:
+            return STR_IT_weight_limit;
         default:
             return NULL;
         }
@@ -1678,6 +1849,15 @@ const char* _getMethod_ItemName_V7(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         switch (itemIdx) {
         case 0:
             return STR_IT_new_;
+        default:
+            return NULL;
+        }
+    case 8448: /* module 33 call 0 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_index;
+        case 1:
+            return STR_IT_weight_limit;
         default:
             return NULL;
         }
@@ -1806,6 +1986,33 @@ const char* _getMethod_ItemName_V7(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         default:
             return NULL;
         }
+    case 10758: /* module 42 call 6 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_real;
+        case 1:
+            return STR_IT_call_hash;
+        default:
+            return NULL;
+        }
+    case 10759: /* module 42 call 7 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_real;
+        case 1:
+            return STR_IT_call_hash;
+        default:
+            return NULL;
+        }
+    case 10760: /* module 42 call 8 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_delegate;
+        case 1:
+            return STR_IT_call_hash;
+        default:
+            return NULL;
+        }
     case 10761: /* module 42 call 9 */
         switch (itemIdx) {
         case 0:
@@ -1819,6 +2026,17 @@ const char* _getMethod_ItemName_V7(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         default:
             return NULL;
         }
+    case 12800: /* module 50 call 0 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_id;
+        case 1:
+            return STR_IT_admin;
+        case 2:
+            return STR_IT_min_balance;
+        default:
+            return NULL;
+        }
     case 12801: /* module 50 call 1 */
         switch (itemIdx) {
         case 0:
@@ -1829,6 +2047,15 @@ const char* _getMethod_ItemName_V7(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
             return STR_IT_is_sufficient;
         case 3:
             return STR_IT_min_balance;
+        default:
+            return NULL;
+        }
+    case 12802: /* module 50 call 2 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_id;
+        case 1:
+            return STR_IT_witness;
         default:
             return NULL;
         }
@@ -2312,6 +2539,30 @@ const char* _getMethod_ItemName_V7(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         default:
             return NULL;
         }
+    case 13080: /* module 51 call 24 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_collection;
+        case 1:
+            return STR_IT_item;
+        case 2:
+            return STR_IT_price;
+        case 3:
+            return STR_IT_whitelisted_buyer;
+        default:
+            return NULL;
+        }
+    case 13081: /* module 51 call 25 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_collection;
+        case 1:
+            return STR_IT_item;
+        case 2:
+            return STR_IT_bid_price;
+        default:
+            return NULL;
+        }
 #endif
     default:
         return NULL;
@@ -2540,6 +2791,16 @@ parser_error_t _getMethod_ItemValue_V7(
         default:
             return parser_no_data;
         }
+    case 5376: /* module 21 call 0 */
+        switch (itemIdx) {
+        case 0: /* collatorselection_set_invulnerables_V7 - new_ */;
+            return _toStringVecAccountId_V7(
+                &m->basic.collatorselection_set_invulnerables_V7.new_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
     case 5377: /* module 21 call 1 */
         switch (itemIdx) {
         case 0: /* collatorselection_set_desired_candidates_V7 - max */;
@@ -2567,6 +2828,21 @@ parser_error_t _getMethod_ItemValue_V7(
         }
     case 5380: /* module 21 call 4 */
         switch (itemIdx) {
+        default:
+            return parser_no_data;
+        }
+    case 7680: /* module 30 call 0 */
+        switch (itemIdx) {
+        case 0: /* xcmpqueue_service_overweight_V7 - index */;
+            return _toStringOverweightIndex_V7(
+                &m->basic.xcmpqueue_service_overweight_V7.index,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* xcmpqueue_service_overweight_V7 - weight_limit */;
+            return _toStringWeight_V7(
+                &m->basic.xcmpqueue_service_overweight_V7.weight_limit,
+                outValue, outValueLen,
+                pageIdx, pageCount);
         default:
             return parser_no_data;
         }
@@ -2635,6 +2911,21 @@ parser_error_t _getMethod_ItemValue_V7(
         case 0: /* xcmpqueue_update_xcmp_max_individual_weight_V7 - new_ */;
             return _toStringWeight_V7(
                 &m->basic.xcmpqueue_update_xcmp_max_individual_weight_V7.new_,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 8448: /* module 33 call 0 */
+        switch (itemIdx) {
+        case 0: /* dmpqueue_service_overweight_V7 - index */;
+            return _toStringOverweightIndex_V7(
+                &m->basic.dmpqueue_service_overweight_V7.index,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* dmpqueue_service_overweight_V7 - weight_limit */;
+            return _toStringWeight_V7(
+                &m->basic.dmpqueue_service_overweight_V7.weight_limit,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2870,6 +3161,51 @@ parser_error_t _getMethod_ItemValue_V7(
         default:
             return parser_no_data;
         }
+    case 10758: /* module 42 call 6 */
+        switch (itemIdx) {
+        case 0: /* proxy_announce_V7 - real */;
+            return _toStringAccountId_V7(
+                &m->basic.proxy_announce_V7.real,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* proxy_announce_V7 - call_hash */;
+            return _toStringCallHashOf_V7(
+                &m->basic.proxy_announce_V7.call_hash,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 10759: /* module 42 call 7 */
+        switch (itemIdx) {
+        case 0: /* proxy_remove_announcement_V7 - real */;
+            return _toStringAccountId_V7(
+                &m->basic.proxy_remove_announcement_V7.real,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* proxy_remove_announcement_V7 - call_hash */;
+            return _toStringCallHashOf_V7(
+                &m->basic.proxy_remove_announcement_V7.call_hash,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 10760: /* module 42 call 8 */
+        switch (itemIdx) {
+        case 0: /* proxy_reject_announcement_V7 - delegate */;
+            return _toStringAccountId_V7(
+                &m->basic.proxy_reject_announcement_V7.delegate,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* proxy_reject_announcement_V7 - call_hash */;
+            return _toStringCallHashOf_V7(
+                &m->basic.proxy_reject_announcement_V7.call_hash,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
     case 10761: /* module 42 call 9 */
         switch (itemIdx) {
         case 0: /* proxy_proxy_announced_V7 - delegate */;
@@ -2895,6 +3231,26 @@ parser_error_t _getMethod_ItemValue_V7(
         default:
             return parser_no_data;
         }
+    case 12800: /* module 50 call 0 */
+        switch (itemIdx) {
+        case 0: /* assets_create_V7 - id */;
+            return _toStringCompactu32(
+                &m->nested.assets_create_V7.id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* assets_create_V7 - admin */;
+            return _toStringLookupasStaticLookupSource_V7(
+                &m->nested.assets_create_V7.admin,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* assets_create_V7 - min_balance */;
+            return _toStringBalance(
+                &m->nested.assets_create_V7.min_balance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
     case 12801: /* module 50 call 1 */
         switch (itemIdx) {
         case 0: /* assets_force_create_V7 - id */;
@@ -2915,6 +3271,21 @@ parser_error_t _getMethod_ItemValue_V7(
         case 3: /* assets_force_create_V7 - min_balance */;
             return _toStringCompactBalance(
                 &m->nested.assets_force_create_V7.min_balance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 12802: /* module 50 call 2 */
+        switch (itemIdx) {
+        case 0: /* assets_destroy_V7 - id */;
+            return _toStringCompactu32(
+                &m->nested.assets_destroy_V7.id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* assets_destroy_V7 - witness */;
+            return _toStringDestroyWitness_V7(
+                &m->nested.assets_destroy_V7.witness,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3775,6 +4146,51 @@ parser_error_t _getMethod_ItemValue_V7(
         default:
             return parser_no_data;
         }
+    case 13080: /* module 51 call 24 */
+        switch (itemIdx) {
+        case 0: /* uniques_set_price_V7 - collection */;
+            return _toStringCollectionId_V7(
+                &m->basic.uniques_set_price_V7.collection,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_set_price_V7 - item */;
+            return _toStringItemId_V7(
+                &m->basic.uniques_set_price_V7.item,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_set_price_V7 - price */;
+            return _toStringOptionItemPrice_V7(
+                &m->basic.uniques_set_price_V7.price,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* uniques_set_price_V7 - whitelisted_buyer */;
+            return _toStringOptionLookupasStaticLookupSource_V7(
+                &m->basic.uniques_set_price_V7.whitelisted_buyer,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13081: /* module 51 call 25 */
+        switch (itemIdx) {
+        case 0: /* uniques_buy_item_V7 - collection */;
+            return _toStringCollectionId_V7(
+                &m->basic.uniques_buy_item_V7.collection,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* uniques_buy_item_V7 - item */;
+            return _toStringItemId_V7(
+                &m->basic.uniques_buy_item_V7.item,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* uniques_buy_item_V7 - bid_price */;
+            return _toStringItemPrice_V7(
+                &m->basic.uniques_buy_item_V7.bid_price,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
 #endif
     default:
         return parser_ok;
@@ -3802,12 +4218,14 @@ bool _getMethod_IsNestingSupported_V7(uint8_t moduleIdx, uint8_t callIdx)
     case 768: // Timestamp:Set
     case 2564: // Balances:Transfer all
     case 2565: // Balances:Force unreserve
+    case 5376: // CollatorSelection:Set invulnerables
     case 5377: // CollatorSelection:Set desired candidates
     case 5378: // CollatorSelection:Set candidacy bond
     case 5379: // CollatorSelection:Register as candidate
     case 5380: // CollatorSelection:Leave intent
     case 5632: // Session:Set keys
     case 5633: // Session:Purge keys
+    case 7680: // XcmpQueue:Service overweight
     case 7681: // XcmpQueue:Suspend xcm execution
     case 7682: // XcmpQueue:Resume xcm execution
     case 7683: // XcmpQueue:Update suspend threshold
@@ -3816,6 +4234,7 @@ bool _getMethod_IsNestingSupported_V7(uint8_t moduleIdx, uint8_t callIdx)
     case 7686: // XcmpQueue:Update threshold weight
     case 7687: // XcmpQueue:Update weight restrict decay
     case 7688: // XcmpQueue:Update xcmp max individual weight
+    case 8448: // DmpQueue:Service overweight
     case 10240: // Utility:Batch
     case 10242: // Utility:Batch all
     case 10244: // Utility:Force batch
@@ -3824,6 +4243,9 @@ bool _getMethod_IsNestingSupported_V7(uint8_t moduleIdx, uint8_t callIdx)
     case 10755: // Proxy:Remove proxies
     case 10756: // Proxy:Anonymous
     case 10757: // Proxy:Kill anonymous
+    case 10758: // Proxy:Announce
+    case 10759: // Proxy:Remove announcement
+    case 10760: // Proxy:Reject announcement
     case 10761: // Proxy:Proxy announced
     case 12823: // Assets:Touch
     case 12824: // Assets:Refund
@@ -3851,6 +4273,8 @@ bool _getMethod_IsNestingSupported_V7(uint8_t moduleIdx, uint8_t callIdx)
     case 13077: // Uniques:Clear collection metadata
     case 13078: // Uniques:Set accept ownership
     case 13079: // Uniques:Set collection max supply
+    case 13080: // Uniques:Set price
+    case 13081: // Uniques:Buy item
         return false;
     default:
         return true;
