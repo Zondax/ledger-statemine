@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Statemine  7.9270.x
+# Statemine  8.9290.x
 
 ## System
 
@@ -63,12 +63,12 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Transfer | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: | `LookupasStaticLookupSource` dest <br/>`CompactBalance` amount <br/> |
-|Set balance |    | :heavy_check_mark: | :heavy_check_mark: | `LookupasStaticLookupSource` who <br/>`CompactBalance` new_free <br/>`CompactBalance` new_reserved <br/> |
-|Force transfer | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: | `LookupasStaticLookupSource` source <br/>`LookupasStaticLookupSource` dest <br/>`CompactBalance` amount <br/> |
-|Transfer keep alive | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: | `LookupasStaticLookupSource` dest <br/>`CompactBalance` amount <br/> |
-|Transfer all | :heavy_check_mark:  | :heavy_check_mark: |   | `LookupasStaticLookupSource` dest <br/>`bool` keep_alive <br/> |
-|Force unreserve |    | :heavy_check_mark: |   | `LookupasStaticLookupSource` who <br/>`Balance` amount <br/> |
+|Transfer | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT` dest <br/>`CompactBalance` amount <br/> |
+|Set balance |    | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT` who <br/>`CompactBalance` new_free <br/>`CompactBalance` new_reserved <br/> |
+|Force transfer | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT` source <br/>`AccountIdLookupOfT` dest <br/>`CompactBalance` amount <br/> |
+|Transfer keep alive | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT` dest <br/>`CompactBalance` amount <br/> |
+|Transfer all | :heavy_check_mark:  | :heavy_check_mark: |   | `AccountIdLookupOfT` dest <br/>`bool` keep_alive <br/> |
+|Force unreserve |    | :heavy_check_mark: |   | `AccountIdLookupOfT` who <br/>`Balance` amount <br/> |
 
 ## Authorship
 
@@ -151,44 +151,44 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Proxy |    | :heavy_check_mark: | :heavy_check_mark: | `AccountId` real <br/>`OptionProxyType` force_proxy_type <br/>`Call` call <br/> |
-|Add proxy |    | :heavy_check_mark: |   | `AccountId` delegate <br/>`ProxyType` proxy_type <br/>`BlockNumber` delay <br/> |
-|Remove proxy |    | :heavy_check_mark: |   | `AccountId` delegate <br/>`ProxyType` proxy_type <br/>`BlockNumber` delay <br/> |
+|Proxy |    | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT` real <br/>`OptionProxyType` force_proxy_type <br/>`Call` call <br/> |
+|Add proxy |    | :heavy_check_mark: |   | `AccountIdLookupOfT` delegate <br/>`ProxyType` proxy_type <br/>`BlockNumber` delay <br/> |
+|Remove proxy |    | :heavy_check_mark: |   | `AccountIdLookupOfT` delegate <br/>`ProxyType` proxy_type <br/>`BlockNumber` delay <br/> |
 |Remove proxies |    | :heavy_check_mark: |   |  |
 |Anonymous |    | :heavy_check_mark: |   | `ProxyType` proxy_type <br/>`BlockNumber` delay <br/>`u16` index <br/> |
-|Kill anonymous |    | :heavy_check_mark: |   | `AccountId` spawner <br/>`ProxyType` proxy_type <br/>`u16` index <br/>`Compactu32` height <br/>`Compactu32` ext_index <br/> |
-|Announce |    | :heavy_check_mark: |   | `AccountId` real <br/>`CallHashOf` call_hash <br/> |
-|Remove announcement |    | :heavy_check_mark: |   | `AccountId` real <br/>`CallHashOf` call_hash <br/> |
-|Reject announcement |    | :heavy_check_mark: |   | `AccountId` delegate <br/>`CallHashOf` call_hash <br/> |
-|Proxy announced |    | :heavy_check_mark: |   | `AccountId` delegate <br/>`AccountId` real <br/>`OptionProxyType` force_proxy_type <br/>`Call` call <br/> |
+|Kill anonymous |    | :heavy_check_mark: |   | `AccountIdLookupOfT` spawner <br/>`ProxyType` proxy_type <br/>`u16` index <br/>`Compactu32` height <br/>`Compactu32` ext_index <br/> |
+|Announce |    | :heavy_check_mark: |   | `AccountIdLookupOfT` real <br/>`CallHashOf` call_hash <br/> |
+|Remove announcement |    | :heavy_check_mark: |   | `AccountIdLookupOfT` real <br/>`CallHashOf` call_hash <br/> |
+|Reject announcement |    | :heavy_check_mark: |   | `AccountIdLookupOfT` delegate <br/>`CallHashOf` call_hash <br/> |
+|Proxy announced |    | :heavy_check_mark: |   | `AccountIdLookupOfT` delegate <br/>`AccountIdLookupOfT` real <br/>`OptionProxyType` force_proxy_type <br/>`Call` call <br/> |
 
 ## Assets
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Create |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` admin <br/>`Balance` min_balance <br/> |
-|Force create |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` owner <br/>`bool` is_sufficient <br/>`CompactBalance` min_balance <br/> |
+|Create |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` admin <br/>`Balance` min_balance <br/> |
+|Force create |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` owner <br/>`bool` is_sufficient <br/>`CompactBalance` min_balance <br/> |
 |Destroy |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`DestroyWitness` witness <br/> |
-|Mint |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` beneficiary <br/>`CompactBalance` amount <br/> |
-|Burn |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` who <br/>`CompactBalance` amount <br/> |
-|Transfer |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` target <br/>`CompactBalance` amount <br/> |
-|Transfer keep alive |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` target <br/>`CompactBalance` amount <br/> |
-|Force transfer |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` source <br/>`LookupasStaticLookupSource` dest <br/>`CompactBalance` amount <br/> |
-|Freeze |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` who <br/> |
-|Thaw |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` who <br/> |
+|Mint |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` beneficiary <br/>`CompactBalance` amount <br/> |
+|Burn |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` who <br/>`CompactBalance` amount <br/> |
+|Transfer |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` target <br/>`CompactBalance` amount <br/> |
+|Transfer keep alive |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` target <br/>`CompactBalance` amount <br/> |
+|Force transfer |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` source <br/>`AccountIdLookupOfT` dest <br/>`CompactBalance` amount <br/> |
+|Freeze |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` who <br/> |
+|Thaw |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` who <br/> |
 |Freeze asset |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/> |
 |Thaw asset |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/> |
-|Transfer ownership |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` owner <br/> |
-|Set team |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` issuer <br/>`LookupasStaticLookupSource` admin <br/>`LookupasStaticLookupSource` freezer <br/> |
+|Transfer ownership |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` owner <br/> |
+|Set team |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` issuer <br/>`AccountIdLookupOfT` admin <br/>`AccountIdLookupOfT` freezer <br/> |
 |Set metadata |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`Vecu8` name <br/>`Vecu8` symbol <br/>`u8` decimals <br/> |
 |Clear metadata |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/> |
 |Force set metadata |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`Vecu8` name <br/>`Vecu8` symbol <br/>`u8` decimals <br/>`bool` is_frozen <br/> |
 |Force clear metadata |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/> |
-|Force asset status |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` owner <br/>`LookupasStaticLookupSource` issuer <br/>`LookupasStaticLookupSource` admin <br/>`LookupasStaticLookupSource` freezer <br/>`CompactBalance` min_balance <br/>`bool` is_sufficient <br/>`bool` is_frozen <br/> |
-|Approve transfer |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` delegate <br/>`CompactBalance` amount <br/> |
-|Cancel approval |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` delegate <br/> |
-|Force cancel approval |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` owner <br/>`LookupasStaticLookupSource` delegate <br/> |
-|Transfer approved |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`LookupasStaticLookupSource` owner <br/>`LookupasStaticLookupSource` destination <br/>`CompactBalance` amount <br/> |
+|Force asset status |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` owner <br/>`AccountIdLookupOfT` issuer <br/>`AccountIdLookupOfT` admin <br/>`AccountIdLookupOfT` freezer <br/>`CompactBalance` min_balance <br/>`bool` is_sufficient <br/>`bool` is_frozen <br/> |
+|Approve transfer |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` delegate <br/>`CompactBalance` amount <br/> |
+|Cancel approval |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` delegate <br/> |
+|Force cancel approval |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` owner <br/>`AccountIdLookupOfT` delegate <br/> |
+|Transfer approved |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu32` id <br/>`AccountIdLookupOfT` owner <br/>`AccountIdLookupOfT` destination <br/>`CompactBalance` amount <br/> |
 |Touch |    | :heavy_check_mark: |   | `Compactu32` id <br/> |
 |Refund |    | :heavy_check_mark: |   | `Compactu32` id <br/>`bool` allow_burn <br/> |
 
@@ -196,22 +196,22 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Create |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`LookupasStaticLookupSource` admin <br/> |
-|Force create |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`LookupasStaticLookupSource` owner <br/>`bool` free_holding <br/> |
+|Create |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`AccountIdLookupOfT` admin <br/> |
+|Force create |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`AccountIdLookupOfT` owner <br/>`bool` free_holding <br/> |
 |Destroy |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`DestroyWitness` witness <br/> |
-|Mint |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`LookupasStaticLookupSource` owner <br/> |
-|Burn |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`OptionLookupasStaticLookupSource` check_owner <br/> |
-|Transfer |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`LookupasStaticLookupSource` dest <br/> |
+|Mint |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`AccountIdLookupOfT` owner <br/> |
+|Burn |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`OptionAccountIdLookupOfT` check_owner <br/> |
+|Transfer |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`AccountIdLookupOfT` dest <br/> |
 |Redeposit |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`VecItemId` items <br/> |
 |Freeze |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/> |
 |Thaw |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/> |
 |Freeze collection |    | :heavy_check_mark: |   | `CollectionId` collection <br/> |
 |Thaw collection |    | :heavy_check_mark: |   | `CollectionId` collection <br/> |
-|Transfer ownership |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`LookupasStaticLookupSource` owner <br/> |
-|Set team |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`LookupasStaticLookupSource` issuer <br/>`LookupasStaticLookupSource` admin <br/>`LookupasStaticLookupSource` freezer <br/> |
-|Approve transfer |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`LookupasStaticLookupSource` delegate <br/> |
-|Cancel approval |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`OptionLookupasStaticLookupSource` maybe_check_delegate <br/> |
-|Force item status |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`LookupasStaticLookupSource` owner <br/>`LookupasStaticLookupSource` issuer <br/>`LookupasStaticLookupSource` admin <br/>`LookupasStaticLookupSource` freezer <br/>`bool` free_holding <br/>`bool` is_frozen <br/> |
+|Transfer ownership |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`AccountIdLookupOfT` owner <br/> |
+|Set team |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`AccountIdLookupOfT` issuer <br/>`AccountIdLookupOfT` admin <br/>`AccountIdLookupOfT` freezer <br/> |
+|Approve transfer |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`AccountIdLookupOfT` delegate <br/> |
+|Cancel approval |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`OptionAccountIdLookupOfT` maybe_check_delegate <br/> |
+|Force item status |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`AccountIdLookupOfT` owner <br/>`AccountIdLookupOfT` issuer <br/>`AccountIdLookupOfT` admin <br/>`AccountIdLookupOfT` freezer <br/>`bool` free_holding <br/>`bool` is_frozen <br/> |
 |Set attribute |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`OptionItemId` maybe_item <br/>`BoundedVecu8` key <br/>`BoundedVecu8` value <br/> |
 |Clear attribute |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`OptionItemId` maybe_item <br/>`BoundedVecu8` key <br/> |
 |Set metadata |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`BoundedVecu8` data <br/>`bool` is_frozen <br/> |
@@ -220,6 +220,6 @@ Please:
 |Clear collection metadata |    | :heavy_check_mark: |   | `CollectionId` collection <br/> |
 |Set accept ownership |    | :heavy_check_mark: |   | `OptionCollectionId` maybe_collection <br/> |
 |Set collection max supply |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`u32` max_supply <br/> |
-|Set price |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`OptionItemPrice` price <br/>`OptionLookupasStaticLookupSource` whitelisted_buyer <br/> |
+|Set price |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`OptionItemPrice` price <br/>`OptionAccountIdLookupOfT` whitelisted_buyer <br/> |
 |Buy item |    | :heavy_check_mark: |   | `CollectionId` collection <br/>`ItemId` item <br/>`ItemPrice` bid_price <br/> |
 
