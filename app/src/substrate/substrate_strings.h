@@ -32,6 +32,7 @@ static const char* STR_MO_MULTISIG = "Multisig";
 static const char* STR_MO_PROXY = "Proxy";
 static const char* STR_MO_ASSETS = "Assets";
 static const char* STR_MO_UNIQUES = "Uniques";
+static const char* STR_MO_POLKADOTXCM = "Polkadotxcm";
 
 // Methods names
 static const char* STR_ME_FILL_BLOCK = "Fill block";
@@ -114,6 +115,10 @@ static const char* STR_ME_SET_ACCEPT_OWNERSHIP = "Set accept ownership";
 static const char* STR_ME_SET_COLLECTION_MAX_SUPPLY = "Set collection max supply";
 static const char* STR_ME_SET_PRICE = "Set price";
 static const char* STR_ME_BUY_ITEM = "Buy item";
+static const char* STR_ME_CREATE_PURE = "Create pure";
+static const char* STR_ME_KILL_PURE = "Kill pure";
+static const char* STR_ME_RESERVE_TRANSFER_ASSETS = "Reserve transfer assets";
+static const char* STR_ME_LIMITED_RESERVE_TRANSFER_ASSETS = "Limited reserve transfer assets";
 
 // Items names
 static const char* STR_IT_ratio = "Ratio";
@@ -186,6 +191,12 @@ static const char* STR_IT_max_supply = "Max supply";
 static const char* STR_IT_price = "Price";
 static const char* STR_IT_whitelisted_buyer = "Whitelisted buyer";
 static const char* STR_IT_bid_price = "Bid price";
+static const char* STR_IT_message = "Message";
+static const char* STR_IT_assets = "Assets";
+static const char* STR_IT_fee_asset_item = "Fee asset item";
+static const char* STR_IT_location = "Location";
+static const char* STR_IT_xcm_version = "Xcm version";
+static const char* STR_IT_maybe_xcm_version = "Maybe xcm version";
 
 #ifdef __cplusplus
 }
