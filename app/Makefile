@@ -60,14 +60,14 @@ $(info ************ FULL PARSER ENABLED ************)
 endif
 
 ifndef COIN
-COIN=KSM
+COIN=STATEMINE
 endif
 
 include $(CURDIR)/Makefile.version
 
 $(info COIN  = [$(COIN)])
 
-ifeq ($(COIN),KSM)
+ifeq ($(COIN),STATEMINE)
 # Main app configuration
 DEFINES += APP_STANDARD
 ifneq ($(TARGET_NAME),TARGET_NANOS)
@@ -76,7 +76,7 @@ endif
 APPNAME = "Statemine"
 APPPATH = "44'/434'"
 
-else ifeq ($(COIN),KSM_XL)
+else ifeq ($(COIN),STATEMINE_XL)
 # XL app configuration
 DEFINES += APP_STANDARD SUBSTRATE_PARSER_FULL
 APPNAME = "Statemine XL"
@@ -252,9 +252,9 @@ dep/%.d: %.c Makefile
 .PHONY: listvariants
 listvariants:
 ifeq ($(TARGET_NAME),TARGET_NANOS)
-	@echo VARIANTS COIN KSM KSM_XL
+	@echo VARIANTS COIN STATEMINE STATEMINE_XL
 else
-	@echo VARIANTS COIN KSM
+	@echo VARIANTS COIN STATEMINE
 endif
 
 .PHONY: version
