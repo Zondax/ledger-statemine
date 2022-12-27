@@ -121,6 +121,7 @@ static const char* STR_ME_SET_ACCEPT_OWNERSHIP = "Set accept ownership";
 static const char* STR_ME_SET_COLLECTION_MAX_SUPPLY = "Set collection max supply";
 static const char* STR_ME_SET_PRICE = "Set price";
 static const char* STR_ME_BUY_ITEM = "Buy item";
+static const char* STR_ME_WITH_WEIGHT = "With weight";
 
 // Items names
 static const char* STR_IT_ratio = "Ratio";
@@ -198,6 +199,7 @@ static const char* STR_IT_max_supply = "Max supply";
 static const char* STR_IT_price = "Price";
 static const char* STR_IT_whitelisted_buyer = "Whitelisted buyer";
 static const char* STR_IT_bid_price = "Bid price";
+static const char* STR_IT_weight = "Weight";
 
 #ifdef __cplusplus
 }
