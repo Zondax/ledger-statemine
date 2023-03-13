@@ -71,6 +71,13 @@ typedef struct {
 
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+#define PD_CALL_POLKADOTXCM_TELEPORT_ASSETS_V11 1
+typedef struct {
+    pd_BoxVersionedMultiLocation_V11_t dest;
+    pd_BoxVersionedMultiLocation_V11_t beneficiary;
+    pd_BoxVersionedMultiAssets_V11_t assets;
+    pd_u32_t fee_asset_item;
+} pd_polkadotxcm_teleport_assets_V11_t;
 #define PD_CALL_POLKADOTXCM_RESERVE_TRANSFER_ASSETS_V11 2
 typedef struct {
     pd_BoxVersionedMultiLocation_V11_t dest;
@@ -86,6 +93,14 @@ typedef struct {
     pd_u32_t fee_asset_item;
     pd_WeightLimit_V11_t weight_limit;
 } pd_polkadotxcm_limited_reserve_transfer_assets_V11_t;
+#define PD_CALL_POLKADOTXCM_LIMITED_TELEPORT_ASSETS_V11 9
+typedef struct {
+    pd_BoxVersionedMultiLocation_V11_t dest;
+    pd_BoxVersionedMultiLocation_V11_t beneficiary;
+    pd_BoxVersionedMultiAssets_V11_t assets;
+    pd_u32_t fee_asset_item;
+    pd_WeightLimit_V11_t weight_limit;
+} pd_polkadotxcm_limited_teleport_assets_V11_t;
 #endif
 
 #define PD_CALL_TIMESTAMP_SET_V11 0
@@ -458,8 +473,10 @@ typedef union {
     pd_utility_batch_all_V11_t utility_batch_all_V11;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+    pd_polkadotxcm_teleport_assets_V11_t polkadotxcm_teleport_assets_V11;
     pd_polkadotxcm_reserve_transfer_assets_V11_t polkadotxcm_reserve_transfer_assets_V11;
     pd_polkadotxcm_limited_reserve_transfer_assets_V11_t polkadotxcm_limited_reserve_transfer_assets_V11;
+    pd_polkadotxcm_limited_teleport_assets_V11_t polkadotxcm_limited_teleport_assets_V11;
 #endif
     pd_timestamp_set_V11_t timestamp_set_V11;
     pd_balances_force_unreserve_V11_t balances_force_unreserve_V11;

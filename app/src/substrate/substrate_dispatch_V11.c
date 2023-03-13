@@ -85,6 +85,15 @@ __Z_INLINE parser_error_t _readMethod_utility_batch_all_V11(
 
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+__Z_INLINE parser_error_t _readMethod_polkadotxcm_teleport_assets_V11(
+    parser_context_t* c, pd_polkadotxcm_teleport_assets_V11_t* m)
+{
+    CHECK_ERROR(_readBoxVersionedMultiLocation_V11(c, &m->dest))
+    CHECK_ERROR(_readBoxVersionedMultiLocation_V11(c, &m->beneficiary))
+    CHECK_ERROR(_readBoxVersionedMultiAssets_V11(c, &m->assets))
+    CHECK_ERROR(_readu32(c, &m->fee_asset_item))
+    return parser_ok;
+}
 __Z_INLINE parser_error_t _readMethod_polkadotxcm_reserve_transfer_assets_V11(
     parser_context_t* c, pd_polkadotxcm_reserve_transfer_assets_V11_t* m)
 {
@@ -96,6 +105,16 @@ __Z_INLINE parser_error_t _readMethod_polkadotxcm_reserve_transfer_assets_V11(
 }
 __Z_INLINE parser_error_t _readMethod_polkadotxcm_limited_reserve_transfer_assets_V11(
     parser_context_t* c, pd_polkadotxcm_limited_reserve_transfer_assets_V11_t* m)
+{
+    CHECK_ERROR(_readBoxVersionedMultiLocation_V11(c, &m->dest))
+    CHECK_ERROR(_readBoxVersionedMultiLocation_V11(c, &m->beneficiary))
+    CHECK_ERROR(_readBoxVersionedMultiAssets_V11(c, &m->assets))
+    CHECK_ERROR(_readu32(c, &m->fee_asset_item))
+    CHECK_ERROR(_readWeightLimit_V11(c, &m->weight_limit))
+    return parser_ok;
+}
+__Z_INLINE parser_error_t _readMethod_polkadotxcm_limited_teleport_assets_V11(
+    parser_context_t* c, pd_polkadotxcm_limited_teleport_assets_V11_t* m)
 {
     CHECK_ERROR(_readBoxVersionedMultiLocation_V11(c, &m->dest))
     CHECK_ERROR(_readBoxVersionedMultiLocation_V11(c, &m->beneficiary))
@@ -915,11 +934,17 @@ parser_error_t _readMethod_V11(
 
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+    case 7937: /* module 31 call 1 */
+        CHECK_ERROR(_readMethod_polkadotxcm_teleport_assets_V11(c, &method->basic.polkadotxcm_teleport_assets_V11))
+        break;
     case 7938: /* module 31 call 2 */
         CHECK_ERROR(_readMethod_polkadotxcm_reserve_transfer_assets_V11(c, &method->basic.polkadotxcm_reserve_transfer_assets_V11))
         break;
     case 7944: /* module 31 call 8 */
         CHECK_ERROR(_readMethod_polkadotxcm_limited_reserve_transfer_assets_V11(c, &method->basic.polkadotxcm_limited_reserve_transfer_assets_V11))
+        break;
+    case 7945: /* module 31 call 9 */
+        CHECK_ERROR(_readMethod_polkadotxcm_limited_teleport_assets_V11(c, &method->basic.polkadotxcm_limited_teleport_assets_V11))
         break;
 #endif
     case 0: /* module 0 call 0 */
@@ -1287,10 +1312,14 @@ const char* _getMethod_Name_V11_ParserFull(uint16_t callPrivIdx)
     switch (callPrivIdx) {
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+    case 7937: /* module 31 call 1 */
+        return STR_ME_TELEPORT_ASSETS;
     case 7938: /* module 31 call 2 */
         return STR_ME_RESERVE_TRANSFER_ASSETS;
     case 7944: /* module 31 call 8 */
         return STR_ME_LIMITED_RESERVE_TRANSFER_ASSETS;
+    case 7945: /* module 31 call 9 */
+        return STR_ME_LIMITED_TELEPORT_ASSETS;
 #endif
     case 0: /* module 0 call 0 */
         return STR_ME_REMARK;
@@ -1509,9 +1538,13 @@ uint8_t _getMethod_NumItems_V11(uint8_t moduleIdx, uint8_t callIdx)
         return 1;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+    case 7937: /* module 31 call 1 */
+        return 4;
     case 7938: /* module 31 call 2 */
         return 4;
     case 7944: /* module 31 call 8 */
+        return 5;
+    case 7945: /* module 31 call 9 */
         return 5;
 #endif
     case 0: /* module 0 call 0 */
@@ -1781,6 +1814,19 @@ const char* _getMethod_ItemName_V11(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
         }
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+    case 7937: /* module 31 call 1 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_dest;
+        case 1:
+            return STR_IT_beneficiary;
+        case 2:
+            return STR_IT_assets;
+        case 3:
+            return STR_IT_fee_asset_item;
+        default:
+            return NULL;
+        }
     case 7938: /* module 31 call 2 */
         switch (itemIdx) {
         case 0:
@@ -1795,6 +1841,21 @@ const char* _getMethod_ItemName_V11(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
             return NULL;
         }
     case 7944: /* module 31 call 8 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_dest;
+        case 1:
+            return STR_IT_beneficiary;
+        case 2:
+            return STR_IT_assets;
+        case 3:
+            return STR_IT_fee_asset_item;
+        case 4:
+            return STR_IT_weight_limit;
+        default:
+            return NULL;
+        }
+    case 7945: /* module 31 call 9 */
         switch (itemIdx) {
         case 0:
             return STR_IT_dest;
@@ -2825,6 +2886,31 @@ parser_error_t _getMethod_ItemValue_V11(
         }
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+    case 7937: /* module 31 call 1 */
+        switch (itemIdx) {
+        case 0: /* polkadotxcm_teleport_assets_V11 - dest */;
+            return _toStringBoxVersionedMultiLocation_V11(
+                &m->basic.polkadotxcm_teleport_assets_V11.dest,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* polkadotxcm_teleport_assets_V11 - beneficiary */;
+            return _toStringBoxVersionedMultiLocation_V11(
+                &m->basic.polkadotxcm_teleport_assets_V11.beneficiary,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* polkadotxcm_teleport_assets_V11 - assets */;
+            return _toStringBoxVersionedMultiAssets_V11(
+                &m->basic.polkadotxcm_teleport_assets_V11.assets,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* polkadotxcm_teleport_assets_V11 - fee_asset_item */;
+            return _toStringu32(
+                &m->basic.polkadotxcm_teleport_assets_V11.fee_asset_item,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
     case 7938: /* module 31 call 2 */
         switch (itemIdx) {
         case 0: /* polkadotxcm_reserve_transfer_assets_V11 - dest */;
@@ -2875,6 +2961,36 @@ parser_error_t _getMethod_ItemValue_V11(
         case 4: /* polkadotxcm_limited_reserve_transfer_assets_V11 - weight_limit */;
             return _toStringWeightLimit_V11(
                 &m->basic.polkadotxcm_limited_reserve_transfer_assets_V11.weight_limit,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 7945: /* module 31 call 9 */
+        switch (itemIdx) {
+        case 0: /* polkadotxcm_limited_teleport_assets_V11 - dest */;
+            return _toStringBoxVersionedMultiLocation_V11(
+                &m->basic.polkadotxcm_limited_teleport_assets_V11.dest,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* polkadotxcm_limited_teleport_assets_V11 - beneficiary */;
+            return _toStringBoxVersionedMultiLocation_V11(
+                &m->basic.polkadotxcm_limited_teleport_assets_V11.beneficiary,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* polkadotxcm_limited_teleport_assets_V11 - assets */;
+            return _toStringBoxVersionedMultiAssets_V11(
+                &m->basic.polkadotxcm_limited_teleport_assets_V11.assets,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* polkadotxcm_limited_teleport_assets_V11 - fee_asset_item */;
+            return _toStringu32(
+                &m->basic.polkadotxcm_limited_teleport_assets_V11.fee_asset_item,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 4: /* polkadotxcm_limited_teleport_assets_V11 - weight_limit */;
+            return _toStringWeightLimit_V11(
+                &m->basic.polkadotxcm_limited_teleport_assets_V11.weight_limit,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4454,8 +4570,10 @@ bool _getMethod_IsNestingSupported_V11(uint8_t moduleIdx, uint8_t callIdx)
     case 7686: // XcmpQueue:Update threshold weight
     case 7687: // XcmpQueue:Update weight restrict decay
     case 7688: // XcmpQueue:Update xcmp max individual weight
+    case 7937: // PolkadotXcm:Teleport assets
     case 7938: // PolkadotXcm:Reserve transfer assets
     case 7944: // PolkadotXcm:Limited reserve transfer assets
+    case 7945: // PolkadotXcm:Limited teleport assets
     case 8448: // DmpQueue:Service overweight
     case 10240: // Utility:Batch
     case 10242: // Utility:Batch all
