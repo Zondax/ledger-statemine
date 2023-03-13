@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Statemine 11.9360.x
+# Statemine 12.9381.x
 
 ## System
 
@@ -69,12 +69,6 @@ Please:
 | Transfer all        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountIdLookupOfT`dest<br/>`bool`keep_alive<br/>                                         |
 | Force unreserve     |                    | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountIdLookupOfT`who<br/>`Balance`amount<br/>                                           |
 
-## Authorship
-
-| Name       | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                  |
-| ---------- | ------ | --------- | --------- | ------- | -------------------------- |
-| Set uncles |        |           |           |         | `VecHeader`new_uncles<br/> |
-
 ## CollatorSelection
 
 | Name                   | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                |
@@ -94,38 +88,38 @@ Please:
 
 ## XcmpQueue
 
-| Name                              | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                               |
-| --------------------------------- | ------ | ------------------ | ------------------ | ------- | ------------------------------------------------------- |
-| Service overweight                |        | :heavy_check_mark: | :heavy_check_mark: |         | `OverweightIndex`index<br/>`XcmWeight`weight_limit<br/> |
-| Suspend xcm execution             |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                         |
-| Resume xcm execution              |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                         |
-| Update suspend threshold          |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                         |
-| Update drop threshold             |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                         |
-| Update resume threshold           |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                         |
-| Update threshold weight           |        | :heavy_check_mark: | :heavy_check_mark: |         | `XcmWeight`new\_<br/>                                   |
-| Update weight restrict decay      |        | :heavy_check_mark: | :heavy_check_mark: |         | `XcmWeight`new\_<br/>                                   |
-| Update xcmp max individual weight |        | :heavy_check_mark: | :heavy_check_mark: |         | `XcmWeight`new\_<br/>                                   |
+| Name                              | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                            |
+| --------------------------------- | ------ | ------------------ | ------------------ | ------- | ---------------------------------------------------- |
+| Service overweight                |        | :heavy_check_mark: | :heavy_check_mark: |         | `OverweightIndex`index<br/>`Weight`weight_limit<br/> |
+| Suspend xcm execution             |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                      |
+| Resume xcm execution              |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                      |
+| Update suspend threshold          |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                      |
+| Update drop threshold             |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                      |
+| Update resume threshold           |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                      |
+| Update threshold weight           |        | :heavy_check_mark: | :heavy_check_mark: |         | `Weight`new\_<br/>                                   |
+| Update weight restrict decay      |        | :heavy_check_mark: | :heavy_check_mark: |         | `Weight`new\_<br/>                                   |
+| Update xcmp max individual weight |        | :heavy_check_mark: | :heavy_check_mark: |         | `Weight`new\_<br/>                                   |
 
 ## PolkadotXcm
 
 | Name                             | Nano S | Nano S XL | Nano SP/X          | Nesting | Arguments                                                                                                                                                                 |
 | -------------------------------- | ------ | --------- | ------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Send                             |        |           |                    |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedXcmTuple`message<br/>                                                                                                    |
-| Teleport assets                  |        |           |                    |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>                               |
+| Teleport assets                  |        |           | :heavy_check_mark: |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>                               |
 | Reserve transfer assets          |        |           | :heavy_check_mark: |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>                               |
-| Execute                          |        |           |                    |         | `BoxVersionedXcmTasSysConfigRuntimeCall`message<br/>`XcmWeight`max_weight<br/>                                                                                            |
+| Execute                          |        |           |                    |         | `BoxVersionedXcmTasSysConfigRuntimeCall`message<br/>`Weight`max_weight<br/>                                                                                               |
 | Force xcm version                |        |           |                    |         | `BoxMultiLocation`location<br/>`XcmVersion`xcm_version<br/>                                                                                                               |
 | Force default xcm version        |        |           |                    |         | `OptionXcmVersion`maybe_xcm_version<br/>                                                                                                                                  |
 | Force subscribe version notify   |        |           |                    |         | `BoxVersionedMultiLocation`location<br/>                                                                                                                                  |
 | Force unsubscribe version notify |        |           |                    |         | `BoxVersionedMultiLocation`location<br/>                                                                                                                                  |
 | Limited reserve transfer assets  |        |           | :heavy_check_mark: |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>`WeightLimit`weight_limit<br/> |
-| Limited teleport assets          |        |           |                    |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>`WeightLimit`weight_limit<br/> |
+| Limited teleport assets          |        |           | :heavy_check_mark: |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>`WeightLimit`weight_limit<br/> |
 
 ## DmpQueue
 
-| Name               | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                               |
-| ------------------ | ------ | ------------------ | ------------------ | ------- | ------------------------------------------------------- |
-| Service overweight |        | :heavy_check_mark: | :heavy_check_mark: |         | `OverweightIndex`index<br/>`XcmWeight`weight_limit<br/> |
+| Name               | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                            |
+| ------------------ | ------ | ------------------ | ------------------ | ------- | ---------------------------------------------------- |
+| Service overweight |        | :heavy_check_mark: | :heavy_check_mark: |         | `OverweightIndex`index<br/>`Weight`weight_limit<br/> |
 
 ## Utility
 
@@ -155,8 +149,8 @@ Please:
 | Add proxy           |        | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountIdLookupOfT`delegate<br/>`ProxyType`proxy_type<br/>`BlockNumber`delay<br/>                                         |
 | Remove proxy        |        | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountIdLookupOfT`delegate<br/>`ProxyType`proxy_type<br/>`BlockNumber`delay<br/>                                         |
 | Remove proxies      |        | :heavy_check_mark: | :heavy_check_mark: |                    |                                                                                                                            |
-| Create pure         |        | :heavy_check_mark: | :heavy_check_mark: |                    | `ProxyType`proxy_type<br/>`BlockNumber`delay<br/>`u16`index<br/>                                                           |
-| Kill pure           |        | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountIdLookupOfT`spawner<br/>`ProxyType`proxy_type<br/>`u16`index<br/>`Compactu32`height<br/>`Compactu32`ext_index<br/> |
+| Create pure         |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `ProxyType`proxy_type<br/>`BlockNumber`delay<br/>`u16`index<br/>                                                           |
+| Kill pure           |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`spawner<br/>`ProxyType`proxy_type<br/>`u16`index<br/>`Compactu32`height<br/>`Compactu32`ext_index<br/> |
 | Announce            |        | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountIdLookupOfT`real<br/>`CallHashOf`call_hash<br/>                                                                    |
 | Remove announcement |        | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountIdLookupOfT`real<br/>`CallHashOf`call_hash<br/>                                                                    |
 | Reject announcement |        | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountIdLookupOfT`delegate<br/>`CallHashOf`call_hash<br/>                                                                |
