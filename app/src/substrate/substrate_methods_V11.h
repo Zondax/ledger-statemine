@@ -216,22 +216,6 @@ typedef struct {
 typedef struct {
 } pd_proxy_remove_proxies_V11_t;
 
-#define PD_CALL_PROXY_CREATE_PURE_V11 4
-typedef struct {
-    pd_ProxyType_t proxy_type;
-    pd_BlockNumber_t delay;
-    pd_u16_t index;
-} pd_proxy_create_pure_V11_t;
-
-#define PD_CALL_PROXY_KILL_PURE_V11 5
-typedef struct {
-    pd_AccountIdLookupOfT_t spawner;
-    pd_ProxyType_t proxy_type;
-    pd_u16_t index;
-    pd_Compactu32_t height;
-    pd_Compactu32_t ext_index;
-} pd_proxy_kill_pure_V11_t;
-
 #define PD_CALL_PROXY_ANNOUNCE_V11 6
 typedef struct {
     pd_AccountIdLookupOfT_t real;
@@ -500,8 +484,6 @@ typedef union {
     pd_proxy_add_proxy_V11_t proxy_add_proxy_V11;
     pd_proxy_remove_proxy_V11_t proxy_remove_proxy_V11;
     pd_proxy_remove_proxies_V11_t proxy_remove_proxies_V11;
-    pd_proxy_create_pure_V11_t proxy_create_pure_V11;
-    pd_proxy_kill_pure_V11_t proxy_kill_pure_V11;
     pd_proxy_announce_V11_t proxy_announce_V11;
     pd_proxy_remove_announcement_V11_t proxy_remove_announcement_V11;
     pd_proxy_reject_announcement_V11_t proxy_reject_announcement_V11;
@@ -633,6 +615,22 @@ typedef struct {
     pd_OptionProxyType_t force_proxy_type;
     pd_Call_t call;
 } pd_proxy_proxy_V11_t;
+
+#define PD_CALL_PROXY_CREATE_PURE_V11 4
+typedef struct {
+    pd_ProxyType_t proxy_type;
+    pd_BlockNumber_t delay;
+    pd_u16_t index;
+} pd_proxy_create_pure_V11_t;
+
+#define PD_CALL_PROXY_KILL_PURE_V11 5
+typedef struct {
+    pd_AccountIdLookupOfT_t spawner;
+    pd_ProxyType_t proxy_type;
+    pd_u16_t index;
+    pd_Compactu32_t height;
+    pd_Compactu32_t ext_index;
+} pd_proxy_kill_pure_V11_t;
 
 #define PD_CALL_ASSETS_CREATE_V11 0
 typedef struct {
@@ -808,6 +806,8 @@ typedef union {
     pd_multisig_approve_as_multi_V11_t multisig_approve_as_multi_V11;
     pd_multisig_cancel_as_multi_V11_t multisig_cancel_as_multi_V11;
     pd_proxy_proxy_V11_t proxy_proxy_V11;
+    pd_proxy_create_pure_V11_t proxy_create_pure_V11;
+    pd_proxy_kill_pure_V11_t proxy_kill_pure_V11;
     pd_assets_create_V11_t assets_create_V11;
     pd_assets_force_create_V11_t assets_force_create_V11;
     pd_assets_mint_V11_t assets_mint_V11;

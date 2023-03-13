@@ -1047,10 +1047,10 @@ parser_error_t _readMethod_V11(
         CHECK_ERROR(_readMethod_proxy_remove_proxies_V11(c, &method->basic.proxy_remove_proxies_V11))
         break;
     case 10756: /* module 42 call 4 */
-        CHECK_ERROR(_readMethod_proxy_create_pure_V11(c, &method->basic.proxy_create_pure_V11))
+        CHECK_ERROR(_readMethod_proxy_create_pure_V11(c, &method->nested.proxy_create_pure_V11))
         break;
     case 10757: /* module 42 call 5 */
-        CHECK_ERROR(_readMethod_proxy_kill_pure_V11(c, &method->basic.proxy_kill_pure_V11))
+        CHECK_ERROR(_readMethod_proxy_kill_pure_V11(c, &method->nested.proxy_kill_pure_V11))
         break;
     case 10758: /* module 42 call 6 */
         CHECK_ERROR(_readMethod_proxy_announce_V11(c, &method->basic.proxy_announce_V11))
@@ -3426,17 +3426,17 @@ parser_error_t _getMethod_ItemValue_V11(
         switch (itemIdx) {
         case 0: /* proxy_create_pure_V11 - proxy_type */;
             return _toStringProxyType(
-                &m->basic.proxy_create_pure_V11.proxy_type,
+                &m->nested.proxy_create_pure_V11.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_create_pure_V11 - delay */;
             return _toStringBlockNumber(
-                &m->basic.proxy_create_pure_V11.delay,
+                &m->nested.proxy_create_pure_V11.delay,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* proxy_create_pure_V11 - index */;
             return _toStringu16(
-                &m->basic.proxy_create_pure_V11.index,
+                &m->nested.proxy_create_pure_V11.index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3446,27 +3446,27 @@ parser_error_t _getMethod_ItemValue_V11(
         switch (itemIdx) {
         case 0: /* proxy_kill_pure_V11 - spawner */;
             return _toStringAccountIdLookupOfT(
-                &m->basic.proxy_kill_pure_V11.spawner,
+                &m->nested.proxy_kill_pure_V11.spawner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_kill_pure_V11 - proxy_type */;
             return _toStringProxyType(
-                &m->basic.proxy_kill_pure_V11.proxy_type,
+                &m->nested.proxy_kill_pure_V11.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* proxy_kill_pure_V11 - index */;
             return _toStringu16(
-                &m->basic.proxy_kill_pure_V11.index,
+                &m->nested.proxy_kill_pure_V11.index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 3: /* proxy_kill_pure_V11 - height */;
             return _toStringCompactu32(
-                &m->basic.proxy_kill_pure_V11.height,
+                &m->nested.proxy_kill_pure_V11.height,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 4: /* proxy_kill_pure_V11 - ext_index */;
             return _toStringCompactu32(
-                &m->basic.proxy_kill_pure_V11.ext_index,
+                &m->nested.proxy_kill_pure_V11.ext_index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4582,8 +4582,6 @@ bool _getMethod_IsNestingSupported_V11(uint8_t moduleIdx, uint8_t callIdx)
     case 10753: // Proxy:Add proxy
     case 10754: // Proxy:Remove proxy
     case 10755: // Proxy:Remove proxies
-    case 10756: // Proxy:Create pure
-    case 10757: // Proxy:Kill pure
     case 10758: // Proxy:Announce
     case 10759: // Proxy:Remove announcement
     case 10760: // Proxy:Reject announcement
