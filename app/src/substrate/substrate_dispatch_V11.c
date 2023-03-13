@@ -25,7 +25,7 @@
 __Z_INLINE parser_error_t _readMethod_balances_transfer_V11(
     parser_context_t* c, pd_balances_transfer_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -33,8 +33,8 @@ __Z_INLINE parser_error_t _readMethod_balances_transfer_V11(
 __Z_INLINE parser_error_t _readMethod_balances_force_transfer_V11(
     parser_context_t* c, pd_balances_force_transfer_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->source))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->source))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -42,7 +42,7 @@ __Z_INLINE parser_error_t _readMethod_balances_force_transfer_V11(
 __Z_INLINE parser_error_t _readMethod_balances_transfer_keep_alive_V11(
     parser_context_t* c, pd_balances_transfer_keep_alive_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -50,7 +50,7 @@ __Z_INLINE parser_error_t _readMethod_balances_transfer_keep_alive_V11(
 __Z_INLINE parser_error_t _readMethod_balances_transfer_all_V11(
     parser_context_t* c, pd_balances_transfer_all_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readbool(c, &m->keep_alive))
     return parser_ok;
 }
@@ -58,7 +58,7 @@ __Z_INLINE parser_error_t _readMethod_balances_transfer_all_V11(
 __Z_INLINE parser_error_t _readMethod_session_set_keys_V11(
     parser_context_t* c, pd_session_set_keys_V11_t* m)
 {
-    CHECK_ERROR(_readKeys_V11(c, &m->keys))
+    CHECK_ERROR(_readKeys(c, &m->keys))
     CHECK_ERROR(_readBytes(c, &m->proof))
     return parser_ok;
 }
@@ -150,7 +150,7 @@ __Z_INLINE parser_error_t _readMethod_timestamp_set_V11(
 __Z_INLINE parser_error_t _readMethod_balances_set_balance_V11(
     parser_context_t* c, pd_balances_set_balance_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->who))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     CHECK_ERROR(_readCompactBalance(c, &m->new_free))
     CHECK_ERROR(_readCompactBalance(c, &m->new_reserved))
     return parser_ok;
@@ -159,7 +159,7 @@ __Z_INLINE parser_error_t _readMethod_balances_set_balance_V11(
 __Z_INLINE parser_error_t _readMethod_balances_force_unreserve_V11(
     parser_context_t* c, pd_balances_force_unreserve_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->who))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     CHECK_ERROR(_readBalance(c, &m->amount))
     return parser_ok;
 }
@@ -167,7 +167,7 @@ __Z_INLINE parser_error_t _readMethod_balances_force_unreserve_V11(
 __Z_INLINE parser_error_t _readMethod_collatorselection_set_invulnerables_V11(
     parser_context_t* c, pd_collatorselection_set_invulnerables_V11_t* m)
 {
-    CHECK_ERROR(_readVecAccountId_V11(c, &m->new_))
+    CHECK_ERROR(_readVecAccountId(c, &m->new_))
     return parser_ok;
 }
 
@@ -200,8 +200,8 @@ __Z_INLINE parser_error_t _readMethod_collatorselection_leave_intent_V11(
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_service_overweight_V11(
     parser_context_t* c, pd_xcmpqueue_service_overweight_V11_t* m)
 {
-    CHECK_ERROR(_readOverweightIndex_V11(c, &m->index))
-    CHECK_ERROR(_readXcmWeight_V11(c, &m->weight_limit))
+    CHECK_ERROR(_readOverweightIndex(c, &m->index))
+    CHECK_ERROR(_readXcmWeight(c, &m->weight_limit))
     return parser_ok;
 }
 
@@ -241,29 +241,29 @@ __Z_INLINE parser_error_t _readMethod_xcmpqueue_update_resume_threshold_V11(
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_update_threshold_weight_V11(
     parser_context_t* c, pd_xcmpqueue_update_threshold_weight_V11_t* m)
 {
-    CHECK_ERROR(_readXcmWeight_V11(c, &m->new_))
+    CHECK_ERROR(_readXcmWeight(c, &m->new_))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_update_weight_restrict_decay_V11(
     parser_context_t* c, pd_xcmpqueue_update_weight_restrict_decay_V11_t* m)
 {
-    CHECK_ERROR(_readXcmWeight_V11(c, &m->new_))
+    CHECK_ERROR(_readXcmWeight(c, &m->new_))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_update_xcmp_max_individual_weight_V11(
     parser_context_t* c, pd_xcmpqueue_update_xcmp_max_individual_weight_V11_t* m)
 {
-    CHECK_ERROR(_readXcmWeight_V11(c, &m->new_))
+    CHECK_ERROR(_readXcmWeight(c, &m->new_))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_dmpqueue_service_overweight_V11(
     parser_context_t* c, pd_dmpqueue_service_overweight_V11_t* m)
 {
-    CHECK_ERROR(_readOverweightIndex_V11(c, &m->index))
-    CHECK_ERROR(_readXcmWeight_V11(c, &m->weight_limit))
+    CHECK_ERROR(_readOverweightIndex(c, &m->index))
+    CHECK_ERROR(_readXcmWeight(c, &m->weight_limit))
     return parser_ok;
 }
 
@@ -278,14 +278,14 @@ __Z_INLINE parser_error_t _readMethod_utility_with_weight_V11(
     parser_context_t* c, pd_utility_with_weight_V11_t* m)
 {
     CHECK_ERROR(_readCall(c, &m->call))
-    CHECK_ERROR(_readWeight_V11(c, &m->weight))
+    CHECK_ERROR(_readWeight(c, &m->weight))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_multisig_as_multi_threshold_1_V11(
     parser_context_t* c, pd_multisig_as_multi_threshold_1_V11_t* m)
 {
-    CHECK_ERROR(_readVecAccountId_V11(c, &m->other_signatories))
+    CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
     CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
@@ -294,10 +294,10 @@ __Z_INLINE parser_error_t _readMethod_multisig_as_multi_V11(
     parser_context_t* c, pd_multisig_as_multi_V11_t* m)
 {
     CHECK_ERROR(_readu16(c, &m->threshold))
-    CHECK_ERROR(_readVecAccountId_V11(c, &m->other_signatories))
-    CHECK_ERROR(_readOptionTimepoint_V11(c, &m->maybe_timepoint))
+    CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
+    CHECK_ERROR(_readOptionTimepoint(c, &m->maybe_timepoint))
     CHECK_ERROR(_readCall(c, &m->call))
-    CHECK_ERROR(_readWeight_V11(c, &m->max_weight))
+    CHECK_ERROR(_readWeight(c, &m->max_weight))
     return parser_ok;
 }
 
@@ -305,10 +305,10 @@ __Z_INLINE parser_error_t _readMethod_multisig_approve_as_multi_V11(
     parser_context_t* c, pd_multisig_approve_as_multi_V11_t* m)
 {
     CHECK_ERROR(_readu16(c, &m->threshold))
-    CHECK_ERROR(_readVecAccountId_V11(c, &m->other_signatories))
-    CHECK_ERROR(_readOptionTimepoint_V11(c, &m->maybe_timepoint))
+    CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
+    CHECK_ERROR(_readOptionTimepoint(c, &m->maybe_timepoint))
     CHECK_ERROR(_readH256(c, &m->call_hash))
-    CHECK_ERROR(_readWeight_V11(c, &m->max_weight))
+    CHECK_ERROR(_readWeight(c, &m->max_weight))
     return parser_ok;
 }
 
@@ -316,8 +316,8 @@ __Z_INLINE parser_error_t _readMethod_multisig_cancel_as_multi_V11(
     parser_context_t* c, pd_multisig_cancel_as_multi_V11_t* m)
 {
     CHECK_ERROR(_readu16(c, &m->threshold))
-    CHECK_ERROR(_readVecAccountId_V11(c, &m->other_signatories))
-    CHECK_ERROR(_readTimepoint_V11(c, &m->timepoint))
+    CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
+    CHECK_ERROR(_readTimepoint(c, &m->timepoint))
     CHECK_ERROR(_readH256(c, &m->call_hash))
     return parser_ok;
 }
@@ -325,8 +325,8 @@ __Z_INLINE parser_error_t _readMethod_multisig_cancel_as_multi_V11(
 __Z_INLINE parser_error_t _readMethod_proxy_proxy_V11(
     parser_context_t* c, pd_proxy_proxy_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->real))
-    CHECK_ERROR(_readOptionProxyType_V11(c, &m->force_proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readOptionProxyType(c, &m->force_proxy_type))
     CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
@@ -334,8 +334,8 @@ __Z_INLINE parser_error_t _readMethod_proxy_proxy_V11(
 __Z_INLINE parser_error_t _readMethod_proxy_add_proxy_V11(
     parser_context_t* c, pd_proxy_add_proxy_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->delegate))
-    CHECK_ERROR(_readProxyType_V11(c, &m->proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
     CHECK_ERROR(_readBlockNumber(c, &m->delay))
     return parser_ok;
 }
@@ -343,8 +343,8 @@ __Z_INLINE parser_error_t _readMethod_proxy_add_proxy_V11(
 __Z_INLINE parser_error_t _readMethod_proxy_remove_proxy_V11(
     parser_context_t* c, pd_proxy_remove_proxy_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->delegate))
-    CHECK_ERROR(_readProxyType_V11(c, &m->proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
     CHECK_ERROR(_readBlockNumber(c, &m->delay))
     return parser_ok;
 }
@@ -358,7 +358,7 @@ __Z_INLINE parser_error_t _readMethod_proxy_remove_proxies_V11(
 __Z_INLINE parser_error_t _readMethod_proxy_create_pure_V11(
     parser_context_t* c, pd_proxy_create_pure_V11_t* m)
 {
-    CHECK_ERROR(_readProxyType_V11(c, &m->proxy_type))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
     CHECK_ERROR(_readBlockNumber(c, &m->delay))
     CHECK_ERROR(_readu16(c, &m->index))
     return parser_ok;
@@ -367,8 +367,8 @@ __Z_INLINE parser_error_t _readMethod_proxy_create_pure_V11(
 __Z_INLINE parser_error_t _readMethod_proxy_kill_pure_V11(
     parser_context_t* c, pd_proxy_kill_pure_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->spawner))
-    CHECK_ERROR(_readProxyType_V11(c, &m->proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->spawner))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
     CHECK_ERROR(_readu16(c, &m->index))
     CHECK_ERROR(_readCompactu32(c, &m->height))
     CHECK_ERROR(_readCompactu32(c, &m->ext_index))
@@ -378,33 +378,33 @@ __Z_INLINE parser_error_t _readMethod_proxy_kill_pure_V11(
 __Z_INLINE parser_error_t _readMethod_proxy_announce_V11(
     parser_context_t* c, pd_proxy_announce_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->real))
-    CHECK_ERROR(_readCallHashOf_V11(c, &m->call_hash))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readCallHashOf(c, &m->call_hash))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_proxy_remove_announcement_V11(
     parser_context_t* c, pd_proxy_remove_announcement_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->real))
-    CHECK_ERROR(_readCallHashOf_V11(c, &m->call_hash))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readCallHashOf(c, &m->call_hash))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_proxy_reject_announcement_V11(
     parser_context_t* c, pd_proxy_reject_announcement_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->delegate))
-    CHECK_ERROR(_readCallHashOf_V11(c, &m->call_hash))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readCallHashOf(c, &m->call_hash))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_proxy_proxy_announced_V11(
     parser_context_t* c, pd_proxy_proxy_announced_V11_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->delegate))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->real))
-    CHECK_ERROR(_readOptionProxyType_V11(c, &m->force_proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readOptionProxyType(c, &m->force_proxy_type))
     CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
@@ -413,7 +413,7 @@ __Z_INLINE parser_error_t _readMethod_assets_create_V11(
     parser_context_t* c, pd_assets_create_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->admin))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->admin))
     CHECK_ERROR(_readBalance(c, &m->min_balance))
     return parser_ok;
 }
@@ -422,7 +422,7 @@ __Z_INLINE parser_error_t _readMethod_assets_force_create_V11(
     parser_context_t* c, pd_assets_force_create_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->owner))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
     CHECK_ERROR(_readbool(c, &m->is_sufficient))
     CHECK_ERROR(_readCompactBalance(c, &m->min_balance))
     return parser_ok;
@@ -460,7 +460,7 @@ __Z_INLINE parser_error_t _readMethod_assets_mint_V11(
     parser_context_t* c, pd_assets_mint_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->beneficiary))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->beneficiary))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -469,7 +469,7 @@ __Z_INLINE parser_error_t _readMethod_assets_burn_V11(
     parser_context_t* c, pd_assets_burn_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->who))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -478,7 +478,7 @@ __Z_INLINE parser_error_t _readMethod_assets_transfer_V11(
     parser_context_t* c, pd_assets_transfer_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->target))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->target))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -487,7 +487,7 @@ __Z_INLINE parser_error_t _readMethod_assets_transfer_keep_alive_V11(
     parser_context_t* c, pd_assets_transfer_keep_alive_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->target))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->target))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -496,8 +496,8 @@ __Z_INLINE parser_error_t _readMethod_assets_force_transfer_V11(
     parser_context_t* c, pd_assets_force_transfer_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->source))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->source))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -506,7 +506,7 @@ __Z_INLINE parser_error_t _readMethod_assets_freeze_V11(
     parser_context_t* c, pd_assets_freeze_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->who))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     return parser_ok;
 }
 
@@ -514,7 +514,7 @@ __Z_INLINE parser_error_t _readMethod_assets_thaw_V11(
     parser_context_t* c, pd_assets_thaw_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->who))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     return parser_ok;
 }
 
@@ -536,7 +536,7 @@ __Z_INLINE parser_error_t _readMethod_assets_transfer_ownership_V11(
     parser_context_t* c, pd_assets_transfer_ownership_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->owner))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
     return parser_ok;
 }
 
@@ -544,9 +544,9 @@ __Z_INLINE parser_error_t _readMethod_assets_set_team_V11(
     parser_context_t* c, pd_assets_set_team_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->issuer))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->admin))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->freezer))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->issuer))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->admin))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->freezer))
     return parser_ok;
 }
 
@@ -589,10 +589,10 @@ __Z_INLINE parser_error_t _readMethod_assets_force_asset_status_V11(
     parser_context_t* c, pd_assets_force_asset_status_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->owner))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->issuer))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->admin))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->freezer))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->issuer))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->admin))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->freezer))
     CHECK_ERROR(_readCompactBalance(c, &m->min_balance))
     CHECK_ERROR(_readbool(c, &m->is_sufficient))
     CHECK_ERROR(_readbool(c, &m->is_frozen))
@@ -603,7 +603,7 @@ __Z_INLINE parser_error_t _readMethod_assets_approve_transfer_V11(
     parser_context_t* c, pd_assets_approve_transfer_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->delegate))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -612,7 +612,7 @@ __Z_INLINE parser_error_t _readMethod_assets_cancel_approval_V11(
     parser_context_t* c, pd_assets_cancel_approval_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->delegate))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
     return parser_ok;
 }
 
@@ -620,8 +620,8 @@ __Z_INLINE parser_error_t _readMethod_assets_force_cancel_approval_V11(
     parser_context_t* c, pd_assets_force_cancel_approval_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->owner))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->delegate))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
     return parser_ok;
 }
 
@@ -629,8 +629,8 @@ __Z_INLINE parser_error_t _readMethod_assets_transfer_approved_V11(
     parser_context_t* c, pd_assets_transfer_approved_V11_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->owner))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->destination))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->destination))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -653,16 +653,16 @@ __Z_INLINE parser_error_t _readMethod_assets_refund_V11(
 __Z_INLINE parser_error_t _readMethod_uniques_create_V11(
     parser_context_t* c, pd_uniques_create_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->admin))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->admin))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_force_create_V11(
     parser_context_t* c, pd_uniques_force_create_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->owner))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
     CHECK_ERROR(_readbool(c, &m->free_holding))
     return parser_ok;
 }
@@ -670,120 +670,120 @@ __Z_INLINE parser_error_t _readMethod_uniques_force_create_V11(
 __Z_INLINE parser_error_t _readMethod_uniques_destroy_V11(
     parser_context_t* c, pd_uniques_destroy_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readDestroyWitness_V11(c, &m->witness))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readDestroyWitness(c, &m->witness))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_mint_V11(
     parser_context_t* c, pd_uniques_mint_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readItemId_V11(c, &m->item))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->owner))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_burn_V11(
     parser_context_t* c, pd_uniques_burn_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readItemId_V11(c, &m->item))
-    CHECK_ERROR(_readOptionAccountIdLookupOfT_V11(c, &m->check_owner))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readOptionAccountIdLookupOfT(c, &m->check_owner))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_transfer_V11(
     parser_context_t* c, pd_uniques_transfer_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readItemId_V11(c, &m->item))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->dest))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_redeposit_V11(
     parser_context_t* c, pd_uniques_redeposit_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readVecItemId_V11(c, &m->items))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readVecItemId(c, &m->items))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_freeze_V11(
     parser_context_t* c, pd_uniques_freeze_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readItemId_V11(c, &m->item))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_thaw_V11(
     parser_context_t* c, pd_uniques_thaw_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readItemId_V11(c, &m->item))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_freeze_collection_V11(
     parser_context_t* c, pd_uniques_freeze_collection_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_thaw_collection_V11(
     parser_context_t* c, pd_uniques_thaw_collection_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_transfer_ownership_V11(
     parser_context_t* c, pd_uniques_transfer_ownership_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->owner))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_set_team_V11(
     parser_context_t* c, pd_uniques_set_team_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->issuer))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->admin))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->freezer))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->issuer))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->admin))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->freezer))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_approve_transfer_V11(
     parser_context_t* c, pd_uniques_approve_transfer_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readItemId_V11(c, &m->item))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->delegate))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_cancel_approval_V11(
     parser_context_t* c, pd_uniques_cancel_approval_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readItemId_V11(c, &m->item))
-    CHECK_ERROR(_readOptionAccountIdLookupOfT_V11(c, &m->maybe_check_delegate))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readOptionAccountIdLookupOfT(c, &m->maybe_check_delegate))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_force_item_status_V11(
     parser_context_t* c, pd_uniques_force_item_status_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->owner))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->issuer))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->admin))
-    CHECK_ERROR(_readAccountIdLookupOfT_V11(c, &m->freezer))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->issuer))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->admin))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->freezer))
     CHECK_ERROR(_readbool(c, &m->free_holding))
     CHECK_ERROR(_readbool(c, &m->is_frozen))
     return parser_ok;
@@ -792,28 +792,28 @@ __Z_INLINE parser_error_t _readMethod_uniques_force_item_status_V11(
 __Z_INLINE parser_error_t _readMethod_uniques_set_attribute_V11(
     parser_context_t* c, pd_uniques_set_attribute_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readOptionItemId_V11(c, &m->maybe_item))
-    CHECK_ERROR(_readBoundedVecu8_V11(c, &m->key))
-    CHECK_ERROR(_readBoundedVecu8_V11(c, &m->value))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readOptionItemId(c, &m->maybe_item))
+    CHECK_ERROR(_readBoundedVecu8(c, &m->key))
+    CHECK_ERROR(_readBoundedVecu8(c, &m->value))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_clear_attribute_V11(
     parser_context_t* c, pd_uniques_clear_attribute_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readOptionItemId_V11(c, &m->maybe_item))
-    CHECK_ERROR(_readBoundedVecu8_V11(c, &m->key))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readOptionItemId(c, &m->maybe_item))
+    CHECK_ERROR(_readBoundedVecu8(c, &m->key))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_set_metadata_V11(
     parser_context_t* c, pd_uniques_set_metadata_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readItemId_V11(c, &m->item))
-    CHECK_ERROR(_readBoundedVecu8_V11(c, &m->data))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readBoundedVecu8(c, &m->data))
     CHECK_ERROR(_readbool(c, &m->is_frozen))
     return parser_ok;
 }
@@ -821,16 +821,16 @@ __Z_INLINE parser_error_t _readMethod_uniques_set_metadata_V11(
 __Z_INLINE parser_error_t _readMethod_uniques_clear_metadata_V11(
     parser_context_t* c, pd_uniques_clear_metadata_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readItemId_V11(c, &m->item))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_set_collection_metadata_V11(
     parser_context_t* c, pd_uniques_set_collection_metadata_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readBoundedVecu8_V11(c, &m->data))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readBoundedVecu8(c, &m->data))
     CHECK_ERROR(_readbool(c, &m->is_frozen))
     return parser_ok;
 }
@@ -838,21 +838,21 @@ __Z_INLINE parser_error_t _readMethod_uniques_set_collection_metadata_V11(
 __Z_INLINE parser_error_t _readMethod_uniques_clear_collection_metadata_V11(
     parser_context_t* c, pd_uniques_clear_collection_metadata_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_set_accept_ownership_V11(
     parser_context_t* c, pd_uniques_set_accept_ownership_V11_t* m)
 {
-    CHECK_ERROR(_readOptionCollectionId_V11(c, &m->maybe_collection))
+    CHECK_ERROR(_readOptionCollectionId(c, &m->maybe_collection))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_set_collection_max_supply_V11(
     parser_context_t* c, pd_uniques_set_collection_max_supply_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
     CHECK_ERROR(_readu32(c, &m->max_supply))
     return parser_ok;
 }
@@ -860,19 +860,19 @@ __Z_INLINE parser_error_t _readMethod_uniques_set_collection_max_supply_V11(
 __Z_INLINE parser_error_t _readMethod_uniques_set_price_V11(
     parser_context_t* c, pd_uniques_set_price_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readItemId_V11(c, &m->item))
-    CHECK_ERROR(_readOptionItemPrice_V11(c, &m->price))
-    CHECK_ERROR(_readOptionAccountIdLookupOfT_V11(c, &m->whitelisted_buyer))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readOptionItemPrice(c, &m->price))
+    CHECK_ERROR(_readOptionAccountIdLookupOfT(c, &m->whitelisted_buyer))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_uniques_buy_item_V11(
     parser_context_t* c, pd_uniques_buy_item_V11_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V11(c, &m->collection))
-    CHECK_ERROR(_readItemId_V11(c, &m->item))
-    CHECK_ERROR(_readItemPrice_V11(c, &m->bid_price))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readItemPrice(c, &m->bid_price))
     return parser_ok;
 }
 
@@ -2721,7 +2721,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 2560: /* module 10 call 0 */
         switch (itemIdx) {
         case 0: /* balances_transfer_V11 - dest */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.balances_transfer_V11.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -2736,12 +2736,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 2562: /* module 10 call 2 */
         switch (itemIdx) {
         case 0: /* balances_force_transfer_V11 - source */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.balances_force_transfer_V11.source,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* balances_force_transfer_V11 - dest */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.balances_force_transfer_V11.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -2756,7 +2756,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 2563: /* module 10 call 3 */
         switch (itemIdx) {
         case 0: /* balances_transfer_keep_alive_V11 - dest */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.balances_transfer_keep_alive_V11.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -2771,7 +2771,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 2564: /* module 10 call 4 */
         switch (itemIdx) {
         case 0: /* balances_transfer_all_V11 - dest */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.balances_transfer_all_V11.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -2786,7 +2786,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 5632: /* module 22 call 0 */
         switch (itemIdx) {
         case 0: /* session_set_keys_V11 - keys */;
-            return _toStringKeys_V11(
+            return _toStringKeys(
                 &m->basic.session_set_keys_V11.keys,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -2944,7 +2944,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 2561: /* module 10 call 1 */
         switch (itemIdx) {
         case 0: /* balances_set_balance_V11 - who */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.balances_set_balance_V11.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -2964,7 +2964,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 2565: /* module 10 call 5 */
         switch (itemIdx) {
         case 0: /* balances_force_unreserve_V11 - who */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.balances_force_unreserve_V11.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -2979,7 +2979,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 5376: /* module 21 call 0 */
         switch (itemIdx) {
         case 0: /* collatorselection_set_invulnerables_V11 - new_ */;
-            return _toStringVecAccountId_V11(
+            return _toStringVecAccountId(
                 &m->basic.collatorselection_set_invulnerables_V11.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3019,12 +3019,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 7680: /* module 30 call 0 */
         switch (itemIdx) {
         case 0: /* xcmpqueue_service_overweight_V11 - index */;
-            return _toStringOverweightIndex_V11(
+            return _toStringOverweightIndex(
                 &m->basic.xcmpqueue_service_overweight_V11.index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* xcmpqueue_service_overweight_V11 - weight_limit */;
-            return _toStringXcmWeight_V11(
+            return _toStringXcmWeight(
                 &m->basic.xcmpqueue_service_overweight_V11.weight_limit,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3074,7 +3074,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 7686: /* module 30 call 6 */
         switch (itemIdx) {
         case 0: /* xcmpqueue_update_threshold_weight_V11 - new_ */;
-            return _toStringXcmWeight_V11(
+            return _toStringXcmWeight(
                 &m->basic.xcmpqueue_update_threshold_weight_V11.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3084,7 +3084,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 7687: /* module 30 call 7 */
         switch (itemIdx) {
         case 0: /* xcmpqueue_update_weight_restrict_decay_V11 - new_ */;
-            return _toStringXcmWeight_V11(
+            return _toStringXcmWeight(
                 &m->basic.xcmpqueue_update_weight_restrict_decay_V11.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3094,7 +3094,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 7688: /* module 30 call 8 */
         switch (itemIdx) {
         case 0: /* xcmpqueue_update_xcmp_max_individual_weight_V11 - new_ */;
-            return _toStringXcmWeight_V11(
+            return _toStringXcmWeight(
                 &m->basic.xcmpqueue_update_xcmp_max_individual_weight_V11.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3104,12 +3104,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 8448: /* module 33 call 0 */
         switch (itemIdx) {
         case 0: /* dmpqueue_service_overweight_V11 - index */;
-            return _toStringOverweightIndex_V11(
+            return _toStringOverweightIndex(
                 &m->basic.dmpqueue_service_overweight_V11.index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dmpqueue_service_overweight_V11 - weight_limit */;
-            return _toStringXcmWeight_V11(
+            return _toStringXcmWeight(
                 &m->basic.dmpqueue_service_overweight_V11.weight_limit,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3134,7 +3134,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* utility_with_weight_V11 - weight */;
-            return _toStringWeight_V11(
+            return _toStringWeight(
                 &m->basic.utility_with_weight_V11.weight,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3144,7 +3144,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 10496: /* module 41 call 0 */
         switch (itemIdx) {
         case 0: /* multisig_as_multi_threshold_1_V11 - other_signatories */;
-            return _toStringVecAccountId_V11(
+            return _toStringVecAccountId(
                 &m->nested.multisig_as_multi_threshold_1_V11.other_signatories,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3164,12 +3164,12 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* multisig_as_multi_V11 - other_signatories */;
-            return _toStringVecAccountId_V11(
+            return _toStringVecAccountId(
                 &m->nested.multisig_as_multi_V11.other_signatories,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* multisig_as_multi_V11 - maybe_timepoint */;
-            return _toStringOptionTimepoint_V11(
+            return _toStringOptionTimepoint(
                 &m->nested.multisig_as_multi_V11.maybe_timepoint,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3179,7 +3179,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 4: /* multisig_as_multi_V11 - max_weight */;
-            return _toStringWeight_V11(
+            return _toStringWeight(
                 &m->nested.multisig_as_multi_V11.max_weight,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3194,12 +3194,12 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* multisig_approve_as_multi_V11 - other_signatories */;
-            return _toStringVecAccountId_V11(
+            return _toStringVecAccountId(
                 &m->nested.multisig_approve_as_multi_V11.other_signatories,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* multisig_approve_as_multi_V11 - maybe_timepoint */;
-            return _toStringOptionTimepoint_V11(
+            return _toStringOptionTimepoint(
                 &m->nested.multisig_approve_as_multi_V11.maybe_timepoint,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3209,7 +3209,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 4: /* multisig_approve_as_multi_V11 - max_weight */;
-            return _toStringWeight_V11(
+            return _toStringWeight(
                 &m->nested.multisig_approve_as_multi_V11.max_weight,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3224,12 +3224,12 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* multisig_cancel_as_multi_V11 - other_signatories */;
-            return _toStringVecAccountId_V11(
+            return _toStringVecAccountId(
                 &m->nested.multisig_cancel_as_multi_V11.other_signatories,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* multisig_cancel_as_multi_V11 - timepoint */;
-            return _toStringTimepoint_V11(
+            return _toStringTimepoint(
                 &m->nested.multisig_cancel_as_multi_V11.timepoint,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3244,12 +3244,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 10752: /* module 42 call 0 */
         switch (itemIdx) {
         case 0: /* proxy_proxy_V11 - real */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.proxy_proxy_V11.real,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_proxy_V11 - force_proxy_type */;
-            return _toStringOptionProxyType_V11(
+            return _toStringOptionProxyType(
                 &m->nested.proxy_proxy_V11.force_proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3264,12 +3264,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 10753: /* module 42 call 1 */
         switch (itemIdx) {
         case 0: /* proxy_add_proxy_V11 - delegate */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_add_proxy_V11.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_add_proxy_V11 - proxy_type */;
-            return _toStringProxyType_V11(
+            return _toStringProxyType(
                 &m->basic.proxy_add_proxy_V11.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3284,12 +3284,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 10754: /* module 42 call 2 */
         switch (itemIdx) {
         case 0: /* proxy_remove_proxy_V11 - delegate */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_remove_proxy_V11.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_remove_proxy_V11 - proxy_type */;
-            return _toStringProxyType_V11(
+            return _toStringProxyType(
                 &m->basic.proxy_remove_proxy_V11.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3309,7 +3309,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 10756: /* module 42 call 4 */
         switch (itemIdx) {
         case 0: /* proxy_create_pure_V11 - proxy_type */;
-            return _toStringProxyType_V11(
+            return _toStringProxyType(
                 &m->basic.proxy_create_pure_V11.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3329,12 +3329,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 10757: /* module 42 call 5 */
         switch (itemIdx) {
         case 0: /* proxy_kill_pure_V11 - spawner */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_kill_pure_V11.spawner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_kill_pure_V11 - proxy_type */;
-            return _toStringProxyType_V11(
+            return _toStringProxyType(
                 &m->basic.proxy_kill_pure_V11.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3359,12 +3359,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 10758: /* module 42 call 6 */
         switch (itemIdx) {
         case 0: /* proxy_announce_V11 - real */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_announce_V11.real,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_announce_V11 - call_hash */;
-            return _toStringCallHashOf_V11(
+            return _toStringCallHashOf(
                 &m->basic.proxy_announce_V11.call_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3374,12 +3374,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 10759: /* module 42 call 7 */
         switch (itemIdx) {
         case 0: /* proxy_remove_announcement_V11 - real */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_remove_announcement_V11.real,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_remove_announcement_V11 - call_hash */;
-            return _toStringCallHashOf_V11(
+            return _toStringCallHashOf(
                 &m->basic.proxy_remove_announcement_V11.call_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3389,12 +3389,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 10760: /* module 42 call 8 */
         switch (itemIdx) {
         case 0: /* proxy_reject_announcement_V11 - delegate */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_reject_announcement_V11.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_reject_announcement_V11 - call_hash */;
-            return _toStringCallHashOf_V11(
+            return _toStringCallHashOf(
                 &m->basic.proxy_reject_announcement_V11.call_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3404,17 +3404,17 @@ parser_error_t _getMethod_ItemValue_V11(
     case 10761: /* module 42 call 9 */
         switch (itemIdx) {
         case 0: /* proxy_proxy_announced_V11 - delegate */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_proxy_announced_V11.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_proxy_announced_V11 - real */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_proxy_announced_V11.real,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* proxy_proxy_announced_V11 - force_proxy_type */;
-            return _toStringOptionProxyType_V11(
+            return _toStringOptionProxyType(
                 &m->basic.proxy_proxy_announced_V11.force_proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3434,7 +3434,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_create_V11 - admin */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_create_V11.admin,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3454,7 +3454,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_force_create_V11 - owner */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_force_create_V11.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3519,7 +3519,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_mint_V11 - beneficiary */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_mint_V11.beneficiary,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3539,7 +3539,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_burn_V11 - who */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_burn_V11.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3559,7 +3559,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_transfer_V11 - target */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_transfer_V11.target,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3579,7 +3579,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_transfer_keep_alive_V11 - target */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_transfer_keep_alive_V11.target,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3599,12 +3599,12 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_force_transfer_V11 - source */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_force_transfer_V11.source,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* assets_force_transfer_V11 - dest */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_force_transfer_V11.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3624,7 +3624,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_freeze_V11 - who */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_freeze_V11.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3639,7 +3639,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_thaw_V11 - who */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_thaw_V11.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3674,7 +3674,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_transfer_ownership_V11 - owner */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_transfer_ownership_V11.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3689,17 +3689,17 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_set_team_V11 - issuer */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_set_team_V11.issuer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* assets_set_team_V11 - admin */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_set_team_V11.admin,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 3: /* assets_set_team_V11 - freezer */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_set_team_V11.freezer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3789,22 +3789,22 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_force_asset_status_V11 - owner */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_force_asset_status_V11.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* assets_force_asset_status_V11 - issuer */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_force_asset_status_V11.issuer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 3: /* assets_force_asset_status_V11 - admin */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_force_asset_status_V11.admin,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 4: /* assets_force_asset_status_V11 - freezer */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_force_asset_status_V11.freezer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3834,7 +3834,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_approve_transfer_V11 - delegate */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_approve_transfer_V11.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3854,7 +3854,7 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_cancel_approval_V11 - delegate */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_cancel_approval_V11.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3869,12 +3869,12 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_force_cancel_approval_V11 - owner */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_force_cancel_approval_V11.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* assets_force_cancel_approval_V11 - delegate */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_force_cancel_approval_V11.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3889,12 +3889,12 @@ parser_error_t _getMethod_ItemValue_V11(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* assets_transfer_approved_V11 - owner */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_transfer_approved_V11.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* assets_transfer_approved_V11 - destination */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.assets_transfer_approved_V11.destination,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3934,12 +3934,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13056: /* module 51 call 0 */
         switch (itemIdx) {
         case 0: /* uniques_create_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_create_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_create_V11 - admin */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_create_V11.admin,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3949,12 +3949,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13057: /* module 51 call 1 */
         switch (itemIdx) {
         case 0: /* uniques_force_create_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_force_create_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_force_create_V11 - owner */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_force_create_V11.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3969,12 +3969,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13058: /* module 51 call 2 */
         switch (itemIdx) {
         case 0: /* uniques_destroy_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_destroy_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_destroy_V11 - witness */;
-            return _toStringDestroyWitness_V11(
+            return _toStringDestroyWitness(
                 &m->basic.uniques_destroy_V11.witness,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3984,17 +3984,17 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13059: /* module 51 call 3 */
         switch (itemIdx) {
         case 0: /* uniques_mint_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_mint_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_mint_V11 - item */;
-            return _toStringItemId_V11(
+            return _toStringItemId(
                 &m->basic.uniques_mint_V11.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* uniques_mint_V11 - owner */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_mint_V11.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4004,17 +4004,17 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13060: /* module 51 call 4 */
         switch (itemIdx) {
         case 0: /* uniques_burn_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_burn_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_burn_V11 - item */;
-            return _toStringItemId_V11(
+            return _toStringItemId(
                 &m->basic.uniques_burn_V11.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* uniques_burn_V11 - check_owner */;
-            return _toStringOptionAccountIdLookupOfT_V11(
+            return _toStringOptionAccountIdLookupOfT(
                 &m->basic.uniques_burn_V11.check_owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4024,17 +4024,17 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13061: /* module 51 call 5 */
         switch (itemIdx) {
         case 0: /* uniques_transfer_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_transfer_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_transfer_V11 - item */;
-            return _toStringItemId_V11(
+            return _toStringItemId(
                 &m->basic.uniques_transfer_V11.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* uniques_transfer_V11 - dest */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_transfer_V11.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4044,12 +4044,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13062: /* module 51 call 6 */
         switch (itemIdx) {
         case 0: /* uniques_redeposit_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_redeposit_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_redeposit_V11 - items */;
-            return _toStringVecItemId_V11(
+            return _toStringVecItemId(
                 &m->basic.uniques_redeposit_V11.items,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4059,12 +4059,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13063: /* module 51 call 7 */
         switch (itemIdx) {
         case 0: /* uniques_freeze_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_freeze_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_freeze_V11 - item */;
-            return _toStringItemId_V11(
+            return _toStringItemId(
                 &m->basic.uniques_freeze_V11.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4074,12 +4074,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13064: /* module 51 call 8 */
         switch (itemIdx) {
         case 0: /* uniques_thaw_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_thaw_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_thaw_V11 - item */;
-            return _toStringItemId_V11(
+            return _toStringItemId(
                 &m->basic.uniques_thaw_V11.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4089,7 +4089,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13065: /* module 51 call 9 */
         switch (itemIdx) {
         case 0: /* uniques_freeze_collection_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_freeze_collection_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4099,7 +4099,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13066: /* module 51 call 10 */
         switch (itemIdx) {
         case 0: /* uniques_thaw_collection_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_thaw_collection_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4109,12 +4109,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13067: /* module 51 call 11 */
         switch (itemIdx) {
         case 0: /* uniques_transfer_ownership_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_transfer_ownership_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_transfer_ownership_V11 - owner */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_transfer_ownership_V11.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4124,22 +4124,22 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13068: /* module 51 call 12 */
         switch (itemIdx) {
         case 0: /* uniques_set_team_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_set_team_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_set_team_V11 - issuer */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_set_team_V11.issuer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* uniques_set_team_V11 - admin */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_set_team_V11.admin,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 3: /* uniques_set_team_V11 - freezer */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_set_team_V11.freezer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4149,17 +4149,17 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13069: /* module 51 call 13 */
         switch (itemIdx) {
         case 0: /* uniques_approve_transfer_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_approve_transfer_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_approve_transfer_V11 - item */;
-            return _toStringItemId_V11(
+            return _toStringItemId(
                 &m->basic.uniques_approve_transfer_V11.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* uniques_approve_transfer_V11 - delegate */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_approve_transfer_V11.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4169,17 +4169,17 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13070: /* module 51 call 14 */
         switch (itemIdx) {
         case 0: /* uniques_cancel_approval_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_cancel_approval_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_cancel_approval_V11 - item */;
-            return _toStringItemId_V11(
+            return _toStringItemId(
                 &m->basic.uniques_cancel_approval_V11.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* uniques_cancel_approval_V11 - maybe_check_delegate */;
-            return _toStringOptionAccountIdLookupOfT_V11(
+            return _toStringOptionAccountIdLookupOfT(
                 &m->basic.uniques_cancel_approval_V11.maybe_check_delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4189,27 +4189,27 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13071: /* module 51 call 15 */
         switch (itemIdx) {
         case 0: /* uniques_force_item_status_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_force_item_status_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_force_item_status_V11 - owner */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_force_item_status_V11.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* uniques_force_item_status_V11 - issuer */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_force_item_status_V11.issuer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 3: /* uniques_force_item_status_V11 - admin */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_force_item_status_V11.admin,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 4: /* uniques_force_item_status_V11 - freezer */;
-            return _toStringAccountIdLookupOfT_V11(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.uniques_force_item_status_V11.freezer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4229,22 +4229,22 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13072: /* module 51 call 16 */
         switch (itemIdx) {
         case 0: /* uniques_set_attribute_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_set_attribute_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_set_attribute_V11 - maybe_item */;
-            return _toStringOptionItemId_V11(
+            return _toStringOptionItemId(
                 &m->basic.uniques_set_attribute_V11.maybe_item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* uniques_set_attribute_V11 - key */;
-            return _toStringBoundedVecu8_V11(
+            return _toStringBoundedVecu8(
                 &m->basic.uniques_set_attribute_V11.key,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 3: /* uniques_set_attribute_V11 - value */;
-            return _toStringBoundedVecu8_V11(
+            return _toStringBoundedVecu8(
                 &m->basic.uniques_set_attribute_V11.value,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4254,17 +4254,17 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13073: /* module 51 call 17 */
         switch (itemIdx) {
         case 0: /* uniques_clear_attribute_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_clear_attribute_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_clear_attribute_V11 - maybe_item */;
-            return _toStringOptionItemId_V11(
+            return _toStringOptionItemId(
                 &m->basic.uniques_clear_attribute_V11.maybe_item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* uniques_clear_attribute_V11 - key */;
-            return _toStringBoundedVecu8_V11(
+            return _toStringBoundedVecu8(
                 &m->basic.uniques_clear_attribute_V11.key,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4274,17 +4274,17 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13074: /* module 51 call 18 */
         switch (itemIdx) {
         case 0: /* uniques_set_metadata_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_set_metadata_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_set_metadata_V11 - item */;
-            return _toStringItemId_V11(
+            return _toStringItemId(
                 &m->basic.uniques_set_metadata_V11.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* uniques_set_metadata_V11 - data */;
-            return _toStringBoundedVecu8_V11(
+            return _toStringBoundedVecu8(
                 &m->basic.uniques_set_metadata_V11.data,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4299,12 +4299,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13075: /* module 51 call 19 */
         switch (itemIdx) {
         case 0: /* uniques_clear_metadata_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_clear_metadata_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_clear_metadata_V11 - item */;
-            return _toStringItemId_V11(
+            return _toStringItemId(
                 &m->basic.uniques_clear_metadata_V11.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4314,12 +4314,12 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13076: /* module 51 call 20 */
         switch (itemIdx) {
         case 0: /* uniques_set_collection_metadata_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_set_collection_metadata_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_set_collection_metadata_V11 - data */;
-            return _toStringBoundedVecu8_V11(
+            return _toStringBoundedVecu8(
                 &m->basic.uniques_set_collection_metadata_V11.data,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4334,7 +4334,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13077: /* module 51 call 21 */
         switch (itemIdx) {
         case 0: /* uniques_clear_collection_metadata_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_clear_collection_metadata_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4344,7 +4344,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13078: /* module 51 call 22 */
         switch (itemIdx) {
         case 0: /* uniques_set_accept_ownership_V11 - maybe_collection */;
-            return _toStringOptionCollectionId_V11(
+            return _toStringOptionCollectionId(
                 &m->basic.uniques_set_accept_ownership_V11.maybe_collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4354,7 +4354,7 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13079: /* module 51 call 23 */
         switch (itemIdx) {
         case 0: /* uniques_set_collection_max_supply_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_set_collection_max_supply_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4369,22 +4369,22 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13080: /* module 51 call 24 */
         switch (itemIdx) {
         case 0: /* uniques_set_price_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_set_price_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_set_price_V11 - item */;
-            return _toStringItemId_V11(
+            return _toStringItemId(
                 &m->basic.uniques_set_price_V11.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* uniques_set_price_V11 - price */;
-            return _toStringOptionItemPrice_V11(
+            return _toStringOptionItemPrice(
                 &m->basic.uniques_set_price_V11.price,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 3: /* uniques_set_price_V11 - whitelisted_buyer */;
-            return _toStringOptionAccountIdLookupOfT_V11(
+            return _toStringOptionAccountIdLookupOfT(
                 &m->basic.uniques_set_price_V11.whitelisted_buyer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4394,17 +4394,17 @@ parser_error_t _getMethod_ItemValue_V11(
     case 13081: /* module 51 call 25 */
         switch (itemIdx) {
         case 0: /* uniques_buy_item_V11 - collection */;
-            return _toStringCollectionId_V11(
+            return _toStringCollectionId(
                 &m->basic.uniques_buy_item_V11.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* uniques_buy_item_V11 - item */;
-            return _toStringItemId_V11(
+            return _toStringItemId(
                 &m->basic.uniques_buy_item_V11.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* uniques_buy_item_V11 - bid_price */;
-            return _toStringItemPrice_V11(
+            return _toStringItemPrice(
                 &m->basic.uniques_buy_item_V11.bid_price,
                 outValue, outValueLen,
                 pageIdx, pageCount);
