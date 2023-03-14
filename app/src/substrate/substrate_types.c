@@ -774,6 +774,13 @@ parser_error_t _readCall(parser_context_t* c, pd_Call_t* v)
     return parser_ok;
 }
 
+parser_error_t _readChargeAssetIdOf(parser_context_t* c, pd_ChargeAssetIdOf_t* v)
+{
+    CHECK_INPUT()
+    CHECK_ERROR(_readUInt32(c, &v->value))
+    return parser_ok;
+}
+
 parser_error_t _readCollectionId(parser_context_t* c, pd_CollectionId_t* v)
 {
     CHECK_INPUT()
@@ -929,16 +936,6 @@ parser_error_t _readKeys(parser_context_t* c, pd_Keys_t* v) {
     GEN_DEF_READARRAY(32)
 }
 
-parser_error_t _readOptionChargeAssetIdOf(parser_context_t* c, pd_OptionChargeAssetIdOf_t* v)
-{
-    CHECK_INPUT()
-    CHECK_ERROR(_readUInt8(c, &v->some))
-    if (v->some > 0) {
-        CHECK_ERROR(_readu32(c, &v->value))
-    }
-    return parser_ok;
-}
-
 parser_error_t _readOverweightIndex(parser_context_t* c, pd_OverweightIndex_t* v)
 {
     CHECK_INPUT()
@@ -996,6 +993,15 @@ parser_error_t _readOptionTimepoint(parser_context_t* c, pd_OptionTimepoint_t* v
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readTimepoint(c, &v->contained))
+    }
+    return parser_ok;
+}
+
+parser_error_t _readOptionChargeAssetIdOf(parser_context_t* c, pd_OptionChargeAssetIdOf_t* v)
+{
+    CHECK_ERROR(_readUInt8(c, &v->some))
+    if (v->some > 0) {
+        CHECK_ERROR(_readChargeAssetIdOf(c, &v->contained))
     }
     return parser_ok;
 }
@@ -3054,6 +3060,16 @@ parser_error_t _toStringCall(
     return parser_display_idx_out_of_range;
 }
 
+parser_error_t _toStringChargeAssetIdOf(
+    const pd_ChargeAssetIdOf_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    return _toStringu32(&v->value, outValue, outValueLen, pageIdx, pageCount);
+}
+
 parser_error_t _toStringCollectionId(
     const pd_CollectionId_t* v,
     char* outValue,
@@ -3415,24 +3431,6 @@ parser_error_t _toStringKeys(
     GEN_DEF_TOSTRING_ARRAY(32)
 }
 
-parser_error_t _toStringOptionChargeAssetIdOf(
-    const pd_OptionChargeAssetIdOf_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    CLEAN_AND_CHECK()
-
-    *pageCount = 1;
-    if (v->some == 0) {
-        snprintf(outValue, outValueLen, "0");
-        return parser_ok;
-    }
-    CHECK_ERROR(_toStringu32(&v->value, outValue, outValueLen, pageIdx, pageCount));
-    return parser_ok;
-}
-
 parser_error_t _toStringOverweightIndex(
     const pd_OverweightIndex_t* v,
     char* outValue,
@@ -3557,6 +3555,27 @@ parser_error_t _toStringOptionTimepoint(
     *pageCount = 1;
     if (v->some > 0) {
         CHECK_ERROR(_toStringTimepoint(
+            &v->contained,
+            outValue, outValueLen,
+            pageIdx, pageCount));
+    } else {
+        snprintf(outValue, outValueLen, "None");
+    }
+    return parser_ok;
+}
+
+parser_error_t _toStringOptionChargeAssetIdOf(
+    const pd_OptionChargeAssetIdOf_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+
+    *pageCount = 1;
+    if (v->some > 0) {
+        CHECK_ERROR(_toStringChargeAssetIdOf(
             &v->contained,
             outValue, outValueLen,
             pageIdx, pageCount));

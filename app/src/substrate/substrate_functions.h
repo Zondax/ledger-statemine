@@ -82,6 +82,7 @@ parser_error_t _readMultiAssetV0(parser_context_t* c, pd_MultiAssetV0_t* v);
 parser_error_t _readMultiAssetV1(parser_context_t* c, pd_MultiAssetV1_t* v);
 parser_error_t _readAccountIdLookupOfT(parser_context_t* c, pd_AccountIdLookupOfT_t* v);
 parser_error_t _readCall(parser_context_t* c, pd_Call_t* v);
+parser_error_t _readChargeAssetIdOf(parser_context_t* c, pd_ChargeAssetIdOf_t* v);
 parser_error_t _readCollectionId(parser_context_t* c, pd_CollectionId_t* v);
 parser_error_t _readItemId(parser_context_t* c, pd_ItemId_t* v);
 parser_error_t _readItemPrice(parser_context_t* c, pd_ItemPrice_t* v);
@@ -502,6 +503,13 @@ parser_error_t _toStringAccountIdLookupOfT(
 
 parser_error_t _toStringCall(
     const pd_Call_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringChargeAssetIdOf(
+    const pd_ChargeAssetIdOf_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

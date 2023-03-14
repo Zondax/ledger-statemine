@@ -454,6 +454,10 @@ typedef struct {
 
 typedef struct {
     uint32_t value;
+} pd_ChargeAssetIdOf_t;
+
+typedef struct {
+    uint32_t value;
 } pd_CollectionId_t;
 
 typedef struct {
@@ -563,7 +567,7 @@ typedef struct {
 
 typedef struct {
     uint8_t some;
-    uint32_t value;
+    pd_ChargeAssetIdOf_t contained;
 } pd_OptionChargeAssetIdOf_t;
 
 typedef struct {
