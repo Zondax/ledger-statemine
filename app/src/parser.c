@@ -40,7 +40,6 @@ void __assert_fail(const char * assertion, const char * file, unsigned int line,
 #define FIELD_ERA_PERIOD    6
 #define FIELD_BLOCK_HASH    7
 
-
 #define EXPERT_FIELDS_TOTAL_COUNT 5
 
 parser_error_t parser_parse(parser_context_t *ctx, const uint8_t *data, size_t dataLen, parser_tx_t *tx_obj) {
@@ -221,19 +220,14 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
         }
 
         if (displayIdx == FIELD_ASSET_ID) {
-            snprintf(outKey, outKeyLen, "AssetId");
-            err = _toStringOptionChargeAssetIdOf(&ctx->tx_obj->assetId,
-                                          outVal, outValLen,
-                                          pageIdx, pageCount);
-            if (err != parser_ok) return err;
-            number_inplace_trimming(outVal, 1);
+            snprintf(outKey, outKeyLen, "Fee paying asset");
+            err = _toStringOptionChargeAssetIdOf(&ctx->tx_obj->assetId, outVal, outValLen, pageIdx, pageCount);
             return err;
         }
 
         if (!parser_show_expert_fields()) {
             displayIdx++;
         }
-
 
         if (displayIdx == FIELD_ERA_PHASE && parser_show_expert_fields()) {
             snprintf(outKey, outKeyLen, "Era Phase");

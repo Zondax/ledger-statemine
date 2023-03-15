@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2022 Zondax AG
+ *  (c) 2019 - 2023 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -35,7 +35,6 @@ static const char* STR_MO_ASSETS = "Assets";
 static const char* STR_MO_UNIQUES = "Uniques";
 
 // Methods names
-static const char* STR_ME_FILL_BLOCK = "Fill block";
 static const char* STR_ME_REMARK = "Remark";
 static const char* STR_ME_SET_HEAP_PAGES = "Set heap pages";
 static const char* STR_ME_SET_CODE = "Set code";
@@ -64,11 +63,14 @@ static const char* STR_ME_UPDATE_RESUME_THRESHOLD = "Update resume threshold";
 static const char* STR_ME_UPDATE_THRESHOLD_WEIGHT = "Update threshold weight";
 static const char* STR_ME_UPDATE_WEIGHT_RESTRICT_DECAY = "Update weight restrict decay";
 static const char* STR_ME_UPDATE_XCMP_MAX_INDIVIDUAL_WEIGHT = "Update xcmp max individual weight";
+static const char* STR_ME_TELEPORT_ASSETS = "Teleport assets";
 static const char* STR_ME_RESERVE_TRANSFER_ASSETS = "Reserve transfer assets";
 static const char* STR_ME_LIMITED_RESERVE_TRANSFER_ASSETS = "Limited reserve transfer assets";
+static const char* STR_ME_LIMITED_TELEPORT_ASSETS = "Limited teleport assets";
 static const char* STR_ME_BATCH = "Batch";
 static const char* STR_ME_BATCH_ALL = "Batch all";
 static const char* STR_ME_FORCE_BATCH = "Force batch";
+static const char* STR_ME_WITH_WEIGHT = "With weight";
 static const char* STR_ME_AS_MULTI_THRESHOLD_1 = "As multi threshold 1";
 static const char* STR_ME_AS_MULTI = "As multi";
 static const char* STR_ME_APPROVE_AS_MULTI = "Approve as multi";
@@ -121,10 +123,8 @@ static const char* STR_ME_SET_ACCEPT_OWNERSHIP = "Set accept ownership";
 static const char* STR_ME_SET_COLLECTION_MAX_SUPPLY = "Set collection max supply";
 static const char* STR_ME_SET_PRICE = "Set price";
 static const char* STR_ME_BUY_ITEM = "Buy item";
-static const char* STR_ME_WITH_WEIGHT = "With weight";
 
 // Items names
-static const char* STR_IT_ratio = "Ratio";
 static const char* STR_IT_remark = "Remark";
 static const char* STR_IT_pages = "Pages";
 static const char* STR_IT_code = "Code";
@@ -157,6 +157,7 @@ static const char* STR_IT_maybe_xcm_version = "Maybe xcm version";
 static const char* STR_IT_calls = "Calls";
 static const char* STR_IT_call = "Call";
 static const char* STR_IT_as_origin = "As origin";
+static const char* STR_IT_weight = "Weight";
 static const char* STR_IT_other_signatories = "Other signatories";
 static const char* STR_IT_threshold = "Threshold";
 static const char* STR_IT_maybe_timepoint = "Maybe timepoint";
@@ -199,7 +200,6 @@ static const char* STR_IT_max_supply = "Max supply";
 static const char* STR_IT_price = "Price";
 static const char* STR_IT_whitelisted_buyer = "Whitelisted buyer";
 static const char* STR_IT_bid_price = "Bid price";
-static const char* STR_IT_weight = "Weight";
 
 #ifdef __cplusplus
 }

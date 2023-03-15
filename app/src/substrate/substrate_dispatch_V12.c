@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2022 Zondax AG
+ *  (c) 2019 - 2023 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  *  limitations under the License.
  ********************************************************************************/
 
-#include "substrate_dispatch_V10.h"
+#include "substrate_dispatch_V12.h"
 #include "substrate_strings.h"
 #include "zxmacros.h"
 #include <stdint.h>
@@ -22,62 +22,62 @@
 #include "bolos_target.h"
 #endif
 
-__Z_INLINE parser_error_t _readMethod_balances_transfer_V10(
-    parser_context_t* c, pd_balances_transfer_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_balances_transfer_V12(
+    parser_context_t* c, pd_balances_transfer_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_balances_force_transfer_V10(
-    parser_context_t* c, pd_balances_force_transfer_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_balances_force_transfer_V12(
+    parser_context_t* c, pd_balances_force_transfer_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->source))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->source))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_balances_transfer_keep_alive_V10(
-    parser_context_t* c, pd_balances_transfer_keep_alive_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_balances_transfer_keep_alive_V12(
+    parser_context_t* c, pd_balances_transfer_keep_alive_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_balances_transfer_all_V10(
-    parser_context_t* c, pd_balances_transfer_all_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_balances_transfer_all_V12(
+    parser_context_t* c, pd_balances_transfer_all_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readbool(c, &m->keep_alive))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_session_set_keys_V10(
-    parser_context_t* c, pd_session_set_keys_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_session_set_keys_V12(
+    parser_context_t* c, pd_session_set_keys_V12_t* m)
 {
-    CHECK_ERROR(_readKeys_V10(c, &m->keys))
+    CHECK_ERROR(_readKeys(c, &m->keys))
     CHECK_ERROR(_readBytes(c, &m->proof))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_session_purge_keys_V10(
-    parser_context_t* c, pd_session_purge_keys_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_session_purge_keys_V12(
+    parser_context_t* c, pd_session_purge_keys_V12_t* m)
 {
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_utility_batch_V10(
-    parser_context_t* c, pd_utility_batch_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_utility_batch_V12(
+    parser_context_t* c, pd_utility_batch_V12_t* m)
 {
     CHECK_ERROR(_readVecCall(c, &m->calls))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_utility_batch_all_V10(
-    parser_context_t* c, pd_utility_batch_all_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_utility_batch_all_V12(
+    parser_context_t* c, pd_utility_batch_all_V12_t* m)
 {
     CHECK_ERROR(_readVecCall(c, &m->calls))
     return parser_ok;
@@ -85,472 +85,492 @@ __Z_INLINE parser_error_t _readMethod_utility_batch_all_V10(
 
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
-__Z_INLINE parser_error_t _readMethod_polkadotxcm_reserve_transfer_assets_V10(
-    parser_context_t* c, pd_polkadotxcm_reserve_transfer_assets_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_polkadotxcm_teleport_assets_V12(
+    parser_context_t* c, pd_polkadotxcm_teleport_assets_V12_t* m)
 {
-    CHECK_ERROR(_readBoxVersionedMultiLocation_V10(c, &m->dest))
-    CHECK_ERROR(_readBoxVersionedMultiLocation_V10(c, &m->beneficiary))
-    CHECK_ERROR(_readBoxVersionedMultiAssets_V10(c, &m->assets))
+    CHECK_ERROR(_readBoxVersionedMultiLocation(c, &m->dest))
+    CHECK_ERROR(_readBoxVersionedMultiLocation(c, &m->beneficiary))
+    CHECK_ERROR(_readBoxVersionedMultiAssets(c, &m->assets))
     CHECK_ERROR(_readu32(c, &m->fee_asset_item))
     return parser_ok;
 }
-__Z_INLINE parser_error_t _readMethod_polkadotxcm_limited_reserve_transfer_assets_V10(
-    parser_context_t* c, pd_polkadotxcm_limited_reserve_transfer_assets_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_polkadotxcm_reserve_transfer_assets_V12(
+    parser_context_t* c, pd_polkadotxcm_reserve_transfer_assets_V12_t* m)
 {
-    CHECK_ERROR(_readBoxVersionedMultiLocation_V10(c, &m->dest))
-    CHECK_ERROR(_readBoxVersionedMultiLocation_V10(c, &m->beneficiary))
-    CHECK_ERROR(_readBoxVersionedMultiAssets_V10(c, &m->assets))
+    CHECK_ERROR(_readBoxVersionedMultiLocation(c, &m->dest))
+    CHECK_ERROR(_readBoxVersionedMultiLocation(c, &m->beneficiary))
+    CHECK_ERROR(_readBoxVersionedMultiAssets(c, &m->assets))
     CHECK_ERROR(_readu32(c, &m->fee_asset_item))
-    CHECK_ERROR(_readWeightLimit_V10(c, &m->weight_limit))
+    return parser_ok;
+}
+__Z_INLINE parser_error_t _readMethod_polkadotxcm_limited_reserve_transfer_assets_V12(
+    parser_context_t* c, pd_polkadotxcm_limited_reserve_transfer_assets_V12_t* m)
+{
+    CHECK_ERROR(_readBoxVersionedMultiLocation(c, &m->dest))
+    CHECK_ERROR(_readBoxVersionedMultiLocation(c, &m->beneficiary))
+    CHECK_ERROR(_readBoxVersionedMultiAssets(c, &m->assets))
+    CHECK_ERROR(_readu32(c, &m->fee_asset_item))
+    CHECK_ERROR(_readWeightLimit(c, &m->weight_limit))
+    return parser_ok;
+}
+__Z_INLINE parser_error_t _readMethod_polkadotxcm_limited_teleport_assets_V12(
+    parser_context_t* c, pd_polkadotxcm_limited_teleport_assets_V12_t* m)
+{
+    CHECK_ERROR(_readBoxVersionedMultiLocation(c, &m->dest))
+    CHECK_ERROR(_readBoxVersionedMultiLocation(c, &m->beneficiary))
+    CHECK_ERROR(_readBoxVersionedMultiAssets(c, &m->assets))
+    CHECK_ERROR(_readu32(c, &m->fee_asset_item))
+    CHECK_ERROR(_readWeightLimit(c, &m->weight_limit))
     return parser_ok;
 }
 #endif
-__Z_INLINE parser_error_t _readMethod_system_fill_block_V10(
-    parser_context_t* c, pd_system_fill_block_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_system_remark_V12(
+    parser_context_t* c, pd_system_remark_V12_t* m)
 {
-    CHECK_ERROR(_readPerbill_V10(c, &m->ratio))
+    CHECK_ERROR(_readBytes(c, &m->remark))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_system_remark_V10(
-    parser_context_t* c, pd_system_remark_V10_t* m)
-{
-    CHECK_ERROR(_readVecu8(c, &m->remark))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_system_set_heap_pages_V10(
-    parser_context_t* c, pd_system_set_heap_pages_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_system_set_heap_pages_V12(
+    parser_context_t* c, pd_system_set_heap_pages_V12_t* m)
 {
     CHECK_ERROR(_readu64(c, &m->pages))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_system_set_code_V10(
-    parser_context_t* c, pd_system_set_code_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_system_set_code_V12(
+    parser_context_t* c, pd_system_set_code_V12_t* m)
 {
     CHECK_ERROR(_readVecu8(c, &m->code))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_system_set_code_without_checks_V10(
-    parser_context_t* c, pd_system_set_code_without_checks_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_system_set_code_without_checks_V12(
+    parser_context_t* c, pd_system_set_code_without_checks_V12_t* m)
 {
     CHECK_ERROR(_readVecu8(c, &m->code))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_system_remark_with_event_V10(
-    parser_context_t* c, pd_system_remark_with_event_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_system_remark_with_event_V12(
+    parser_context_t* c, pd_system_remark_with_event_V12_t* m)
 {
-    CHECK_ERROR(_readVecu8(c, &m->remark))
+    CHECK_ERROR(_readBytes(c, &m->remark))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_timestamp_set_V10(
-    parser_context_t* c, pd_timestamp_set_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_timestamp_set_V12(
+    parser_context_t* c, pd_timestamp_set_V12_t* m)
 {
     CHECK_ERROR(_readCompactu64(c, &m->now))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_balances_set_balance_V10(
-    parser_context_t* c, pd_balances_set_balance_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_balances_set_balance_V12(
+    parser_context_t* c, pd_balances_set_balance_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->who))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     CHECK_ERROR(_readCompactBalance(c, &m->new_free))
     CHECK_ERROR(_readCompactBalance(c, &m->new_reserved))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_balances_force_unreserve_V10(
-    parser_context_t* c, pd_balances_force_unreserve_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_balances_force_unreserve_V12(
+    parser_context_t* c, pd_balances_force_unreserve_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->who))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     CHECK_ERROR(_readBalance(c, &m->amount))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_collatorselection_set_invulnerables_V10(
-    parser_context_t* c, pd_collatorselection_set_invulnerables_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_collatorselection_set_invulnerables_V12(
+    parser_context_t* c, pd_collatorselection_set_invulnerables_V12_t* m)
 {
-    CHECK_ERROR(_readVecAccountId_V10(c, &m->new_))
+    CHECK_ERROR(_readVecAccountId(c, &m->new_))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_collatorselection_set_desired_candidates_V10(
-    parser_context_t* c, pd_collatorselection_set_desired_candidates_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_collatorselection_set_desired_candidates_V12(
+    parser_context_t* c, pd_collatorselection_set_desired_candidates_V12_t* m)
 {
     CHECK_ERROR(_readu32(c, &m->max))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_collatorselection_set_candidacy_bond_V10(
-    parser_context_t* c, pd_collatorselection_set_candidacy_bond_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_collatorselection_set_candidacy_bond_V12(
+    parser_context_t* c, pd_collatorselection_set_candidacy_bond_V12_t* m)
 {
     CHECK_ERROR(_readBalance(c, &m->bond))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_collatorselection_register_as_candidate_V10(
-    parser_context_t* c, pd_collatorselection_register_as_candidate_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_collatorselection_register_as_candidate_V12(
+    parser_context_t* c, pd_collatorselection_register_as_candidate_V12_t* m)
 {
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_collatorselection_leave_intent_V10(
-    parser_context_t* c, pd_collatorselection_leave_intent_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_collatorselection_leave_intent_V12(
+    parser_context_t* c, pd_collatorselection_leave_intent_V12_t* m)
 {
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_xcmpqueue_service_overweight_V10(
-    parser_context_t* c, pd_xcmpqueue_service_overweight_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_xcmpqueue_service_overweight_V12(
+    parser_context_t* c, pd_xcmpqueue_service_overweight_V12_t* m)
 {
-    CHECK_ERROR(_readOverweightIndex_V10(c, &m->index))
-    CHECK_ERROR(_readXcmWeight_V10(c, &m->weight_limit))
+    CHECK_ERROR(_readOverweightIndex(c, &m->index))
+    CHECK_ERROR(_readWeight(c, &m->weight_limit))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_xcmpqueue_suspend_xcm_execution_V10(
-    parser_context_t* c, pd_xcmpqueue_suspend_xcm_execution_V10_t* m)
-{
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_xcmpqueue_resume_xcm_execution_V10(
-    parser_context_t* c, pd_xcmpqueue_resume_xcm_execution_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_xcmpqueue_suspend_xcm_execution_V12(
+    parser_context_t* c, pd_xcmpqueue_suspend_xcm_execution_V12_t* m)
 {
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_xcmpqueue_update_suspend_threshold_V10(
-    parser_context_t* c, pd_xcmpqueue_update_suspend_threshold_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_xcmpqueue_resume_xcm_execution_V12(
+    parser_context_t* c, pd_xcmpqueue_resume_xcm_execution_V12_t* m)
 {
-    CHECK_ERROR(_readu32(c, &m->new_))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_xcmpqueue_update_drop_threshold_V10(
-    parser_context_t* c, pd_xcmpqueue_update_drop_threshold_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_xcmpqueue_update_suspend_threshold_V12(
+    parser_context_t* c, pd_xcmpqueue_update_suspend_threshold_V12_t* m)
 {
     CHECK_ERROR(_readu32(c, &m->new_))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_xcmpqueue_update_resume_threshold_V10(
-    parser_context_t* c, pd_xcmpqueue_update_resume_threshold_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_xcmpqueue_update_drop_threshold_V12(
+    parser_context_t* c, pd_xcmpqueue_update_drop_threshold_V12_t* m)
 {
     CHECK_ERROR(_readu32(c, &m->new_))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_xcmpqueue_update_threshold_weight_V10(
-    parser_context_t* c, pd_xcmpqueue_update_threshold_weight_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_xcmpqueue_update_resume_threshold_V12(
+    parser_context_t* c, pd_xcmpqueue_update_resume_threshold_V12_t* m)
 {
-    CHECK_ERROR(_readXcmWeight_V10(c, &m->new_))
+    CHECK_ERROR(_readu32(c, &m->new_))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_xcmpqueue_update_weight_restrict_decay_V10(
-    parser_context_t* c, pd_xcmpqueue_update_weight_restrict_decay_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_xcmpqueue_update_threshold_weight_V12(
+    parser_context_t* c, pd_xcmpqueue_update_threshold_weight_V12_t* m)
 {
-    CHECK_ERROR(_readXcmWeight_V10(c, &m->new_))
+    CHECK_ERROR(_readWeight(c, &m->new_))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_xcmpqueue_update_xcmp_max_individual_weight_V10(
-    parser_context_t* c, pd_xcmpqueue_update_xcmp_max_individual_weight_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_xcmpqueue_update_weight_restrict_decay_V12(
+    parser_context_t* c, pd_xcmpqueue_update_weight_restrict_decay_V12_t* m)
 {
-    CHECK_ERROR(_readXcmWeight_V10(c, &m->new_))
+    CHECK_ERROR(_readWeight(c, &m->new_))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_dmpqueue_service_overweight_V10(
-    parser_context_t* c, pd_dmpqueue_service_overweight_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_xcmpqueue_update_xcmp_max_individual_weight_V12(
+    parser_context_t* c, pd_xcmpqueue_update_xcmp_max_individual_weight_V12_t* m)
 {
-    CHECK_ERROR(_readOverweightIndex_V10(c, &m->index))
-    CHECK_ERROR(_readXcmWeight_V10(c, &m->weight_limit))
+    CHECK_ERROR(_readWeight(c, &m->new_))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_utility_force_batch_V10(
-    parser_context_t* c, pd_utility_force_batch_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_dmpqueue_service_overweight_V12(
+    parser_context_t* c, pd_dmpqueue_service_overweight_V12_t* m)
+{
+    CHECK_ERROR(_readOverweightIndex(c, &m->index))
+    CHECK_ERROR(_readWeight(c, &m->weight_limit))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_utility_force_batch_V12(
+    parser_context_t* c, pd_utility_force_batch_V12_t* m)
 {
     CHECK_ERROR(_readVecCall(c, &m->calls))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_multisig_as_multi_threshold_1_V10(
-    parser_context_t* c, pd_multisig_as_multi_threshold_1_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_utility_with_weight_V12(
+    parser_context_t* c, pd_utility_with_weight_V12_t* m)
 {
-    CHECK_ERROR(_readVecAccountId_V10(c, &m->other_signatories))
+    CHECK_ERROR(_readCall(c, &m->call))
+    CHECK_ERROR(_readWeight(c, &m->weight))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_multisig_as_multi_threshold_1_V12(
+    parser_context_t* c, pd_multisig_as_multi_threshold_1_V12_t* m)
+{
+    CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
     CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_multisig_as_multi_V10(
-    parser_context_t* c, pd_multisig_as_multi_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_multisig_as_multi_V12(
+    parser_context_t* c, pd_multisig_as_multi_V12_t* m)
 {
     CHECK_ERROR(_readu16(c, &m->threshold))
-    CHECK_ERROR(_readVecAccountId_V10(c, &m->other_signatories))
-    CHECK_ERROR(_readOptionTimepoint_V10(c, &m->maybe_timepoint))
+    CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
+    CHECK_ERROR(_readOptionTimepoint(c, &m->maybe_timepoint))
     CHECK_ERROR(_readCall(c, &m->call))
-    CHECK_ERROR(_readWeight_V10(c, &m->max_weight))
+    CHECK_ERROR(_readWeight(c, &m->max_weight))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_multisig_approve_as_multi_V10(
-    parser_context_t* c, pd_multisig_approve_as_multi_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_multisig_approve_as_multi_V12(
+    parser_context_t* c, pd_multisig_approve_as_multi_V12_t* m)
 {
     CHECK_ERROR(_readu16(c, &m->threshold))
-    CHECK_ERROR(_readVecAccountId_V10(c, &m->other_signatories))
-    CHECK_ERROR(_readOptionTimepoint_V10(c, &m->maybe_timepoint))
+    CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
+    CHECK_ERROR(_readOptionTimepoint(c, &m->maybe_timepoint))
     CHECK_ERROR(_readH256(c, &m->call_hash))
-    CHECK_ERROR(_readWeight_V10(c, &m->max_weight))
+    CHECK_ERROR(_readWeight(c, &m->max_weight))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_multisig_cancel_as_multi_V10(
-    parser_context_t* c, pd_multisig_cancel_as_multi_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_multisig_cancel_as_multi_V12(
+    parser_context_t* c, pd_multisig_cancel_as_multi_V12_t* m)
 {
     CHECK_ERROR(_readu16(c, &m->threshold))
-    CHECK_ERROR(_readVecAccountId_V10(c, &m->other_signatories))
-    CHECK_ERROR(_readTimepoint_V10(c, &m->timepoint))
+    CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
+    CHECK_ERROR(_readTimepoint(c, &m->timepoint))
     CHECK_ERROR(_readH256(c, &m->call_hash))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_proxy_proxy_V10(
-    parser_context_t* c, pd_proxy_proxy_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_proxy_proxy_V12(
+    parser_context_t* c, pd_proxy_proxy_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->real))
-    CHECK_ERROR(_readOptionProxyType_V10(c, &m->force_proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readOptionProxyType(c, &m->force_proxy_type))
     CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_proxy_add_proxy_V10(
-    parser_context_t* c, pd_proxy_add_proxy_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_proxy_add_proxy_V12(
+    parser_context_t* c, pd_proxy_add_proxy_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->delegate))
-    CHECK_ERROR(_readProxyType_V10(c, &m->proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
     CHECK_ERROR(_readBlockNumber(c, &m->delay))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_proxy_remove_proxy_V10(
-    parser_context_t* c, pd_proxy_remove_proxy_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_proxy_remove_proxy_V12(
+    parser_context_t* c, pd_proxy_remove_proxy_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->delegate))
-    CHECK_ERROR(_readProxyType_V10(c, &m->proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
     CHECK_ERROR(_readBlockNumber(c, &m->delay))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_proxy_remove_proxies_V10(
-    parser_context_t* c, pd_proxy_remove_proxies_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_proxy_remove_proxies_V12(
+    parser_context_t* c, pd_proxy_remove_proxies_V12_t* m)
 {
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_proxy_create_pure_V10(
-    parser_context_t* c, pd_proxy_create_pure_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_proxy_create_pure_V12(
+    parser_context_t* c, pd_proxy_create_pure_V12_t* m)
 {
-    CHECK_ERROR(_readProxyType_V10(c, &m->proxy_type))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
     CHECK_ERROR(_readBlockNumber(c, &m->delay))
     CHECK_ERROR(_readu16(c, &m->index))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_proxy_kill_pure_V10(
-    parser_context_t* c, pd_proxy_kill_pure_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_proxy_kill_pure_V12(
+    parser_context_t* c, pd_proxy_kill_pure_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->spawner))
-    CHECK_ERROR(_readProxyType_V10(c, &m->proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->spawner))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
     CHECK_ERROR(_readu16(c, &m->index))
     CHECK_ERROR(_readCompactu32(c, &m->height))
     CHECK_ERROR(_readCompactu32(c, &m->ext_index))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_proxy_announce_V10(
-    parser_context_t* c, pd_proxy_announce_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_proxy_announce_V12(
+    parser_context_t* c, pd_proxy_announce_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->real))
-    CHECK_ERROR(_readCallHashOf_V10(c, &m->call_hash))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readCallHashOf(c, &m->call_hash))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_proxy_remove_announcement_V10(
-    parser_context_t* c, pd_proxy_remove_announcement_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_proxy_remove_announcement_V12(
+    parser_context_t* c, pd_proxy_remove_announcement_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->real))
-    CHECK_ERROR(_readCallHashOf_V10(c, &m->call_hash))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readCallHashOf(c, &m->call_hash))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_proxy_reject_announcement_V10(
-    parser_context_t* c, pd_proxy_reject_announcement_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_proxy_reject_announcement_V12(
+    parser_context_t* c, pd_proxy_reject_announcement_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->delegate))
-    CHECK_ERROR(_readCallHashOf_V10(c, &m->call_hash))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readCallHashOf(c, &m->call_hash))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_proxy_proxy_announced_V10(
-    parser_context_t* c, pd_proxy_proxy_announced_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_proxy_proxy_announced_V12(
+    parser_context_t* c, pd_proxy_proxy_announced_V12_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->delegate))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->real))
-    CHECK_ERROR(_readOptionProxyType_V10(c, &m->force_proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readOptionProxyType(c, &m->force_proxy_type))
     CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_create_V10(
-    parser_context_t* c, pd_assets_create_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_create_V12(
+    parser_context_t* c, pd_assets_create_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->admin))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->admin))
     CHECK_ERROR(_readBalance(c, &m->min_balance))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_force_create_V10(
-    parser_context_t* c, pd_assets_force_create_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_force_create_V12(
+    parser_context_t* c, pd_assets_force_create_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->owner))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
     CHECK_ERROR(_readbool(c, &m->is_sufficient))
     CHECK_ERROR(_readCompactBalance(c, &m->min_balance))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_start_destroy_V10(
-    parser_context_t* c, pd_assets_start_destroy_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_start_destroy_V12(
+    parser_context_t* c, pd_assets_start_destroy_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_destroy_accounts_V10(
-    parser_context_t* c, pd_assets_destroy_accounts_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_destroy_accounts_V12(
+    parser_context_t* c, pd_assets_destroy_accounts_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_destroy_approvals_V10(
-    parser_context_t* c, pd_assets_destroy_approvals_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_destroy_approvals_V12(
+    parser_context_t* c, pd_assets_destroy_approvals_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_finish_destroy_V10(
-    parser_context_t* c, pd_assets_finish_destroy_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_finish_destroy_V12(
+    parser_context_t* c, pd_assets_finish_destroy_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_mint_V10(
-    parser_context_t* c, pd_assets_mint_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_mint_V12(
+    parser_context_t* c, pd_assets_mint_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->beneficiary))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->beneficiary))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_burn_V10(
-    parser_context_t* c, pd_assets_burn_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_burn_V12(
+    parser_context_t* c, pd_assets_burn_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->who))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_transfer_V10(
-    parser_context_t* c, pd_assets_transfer_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_transfer_V12(
+    parser_context_t* c, pd_assets_transfer_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->target))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->target))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_transfer_keep_alive_V10(
-    parser_context_t* c, pd_assets_transfer_keep_alive_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_transfer_keep_alive_V12(
+    parser_context_t* c, pd_assets_transfer_keep_alive_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->target))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->target))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_force_transfer_V10(
-    parser_context_t* c, pd_assets_force_transfer_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_force_transfer_V12(
+    parser_context_t* c, pd_assets_force_transfer_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->source))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->source))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_freeze_V10(
-    parser_context_t* c, pd_assets_freeze_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_freeze_V12(
+    parser_context_t* c, pd_assets_freeze_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->who))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_thaw_V10(
-    parser_context_t* c, pd_assets_thaw_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_thaw_V12(
+    parser_context_t* c, pd_assets_thaw_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->who))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_freeze_asset_V10(
-    parser_context_t* c, pd_assets_freeze_asset_V10_t* m)
-{
-    CHECK_ERROR(_readCompactu32(c, &m->id))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_assets_thaw_asset_V10(
-    parser_context_t* c, pd_assets_thaw_asset_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_freeze_asset_V12(
+    parser_context_t* c, pd_assets_freeze_asset_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_transfer_ownership_V10(
-    parser_context_t* c, pd_assets_transfer_ownership_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_thaw_asset_V12(
+    parser_context_t* c, pd_assets_thaw_asset_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->owner))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_set_team_V10(
-    parser_context_t* c, pd_assets_set_team_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_transfer_ownership_V12(
+    parser_context_t* c, pd_assets_transfer_ownership_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->issuer))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->admin))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->freezer))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_set_metadata_V10(
-    parser_context_t* c, pd_assets_set_metadata_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_set_team_V12(
+    parser_context_t* c, pd_assets_set_team_V12_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->id))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->issuer))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->admin))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->freezer))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_assets_set_metadata_V12(
+    parser_context_t* c, pd_assets_set_metadata_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
     CHECK_ERROR(_readVecu8(c, &m->name))
@@ -559,15 +579,15 @@ __Z_INLINE parser_error_t _readMethod_assets_set_metadata_V10(
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_clear_metadata_V10(
-    parser_context_t* c, pd_assets_clear_metadata_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_clear_metadata_V12(
+    parser_context_t* c, pd_assets_clear_metadata_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_force_set_metadata_V10(
-    parser_context_t* c, pd_assets_force_set_metadata_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_force_set_metadata_V12(
+    parser_context_t* c, pd_assets_force_set_metadata_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
     CHECK_ERROR(_readVecu8(c, &m->name))
@@ -577,628 +597,634 @@ __Z_INLINE parser_error_t _readMethod_assets_force_set_metadata_V10(
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_force_clear_metadata_V10(
-    parser_context_t* c, pd_assets_force_clear_metadata_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_force_clear_metadata_V12(
+    parser_context_t* c, pd_assets_force_clear_metadata_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_force_asset_status_V10(
-    parser_context_t* c, pd_assets_force_asset_status_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_force_asset_status_V12(
+    parser_context_t* c, pd_assets_force_asset_status_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->owner))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->issuer))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->admin))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->freezer))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->issuer))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->admin))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->freezer))
     CHECK_ERROR(_readCompactBalance(c, &m->min_balance))
     CHECK_ERROR(_readbool(c, &m->is_sufficient))
     CHECK_ERROR(_readbool(c, &m->is_frozen))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_approve_transfer_V10(
-    parser_context_t* c, pd_assets_approve_transfer_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_approve_transfer_V12(
+    parser_context_t* c, pd_assets_approve_transfer_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->delegate))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_cancel_approval_V10(
-    parser_context_t* c, pd_assets_cancel_approval_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_cancel_approval_V12(
+    parser_context_t* c, pd_assets_cancel_approval_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->delegate))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_force_cancel_approval_V10(
-    parser_context_t* c, pd_assets_force_cancel_approval_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_force_cancel_approval_V12(
+    parser_context_t* c, pd_assets_force_cancel_approval_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->owner))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->delegate))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_transfer_approved_V10(
-    parser_context_t* c, pd_assets_transfer_approved_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_transfer_approved_V12(
+    parser_context_t* c, pd_assets_transfer_approved_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->owner))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->destination))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->destination))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_touch_V10(
-    parser_context_t* c, pd_assets_touch_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_touch_V12(
+    parser_context_t* c, pd_assets_touch_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_assets_refund_V10(
-    parser_context_t* c, pd_assets_refund_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_refund_V12(
+    parser_context_t* c, pd_assets_refund_V12_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
     CHECK_ERROR(_readbool(c, &m->allow_burn))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_create_V10(
-    parser_context_t* c, pd_uniques_create_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_create_V12(
+    parser_context_t* c, pd_uniques_create_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->admin))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->admin))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_force_create_V10(
-    parser_context_t* c, pd_uniques_force_create_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_force_create_V12(
+    parser_context_t* c, pd_uniques_force_create_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->owner))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
     CHECK_ERROR(_readbool(c, &m->free_holding))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_destroy_V10(
-    parser_context_t* c, pd_uniques_destroy_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_destroy_V12(
+    parser_context_t* c, pd_uniques_destroy_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readDestroyWitness_V10(c, &m->witness))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readDestroyWitness(c, &m->witness))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_mint_V10(
-    parser_context_t* c, pd_uniques_mint_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_mint_V12(
+    parser_context_t* c, pd_uniques_mint_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readItemId_V10(c, &m->item))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->owner))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_burn_V10(
-    parser_context_t* c, pd_uniques_burn_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_burn_V12(
+    parser_context_t* c, pd_uniques_burn_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readItemId_V10(c, &m->item))
-    CHECK_ERROR(_readOptionAccountIdLookupOfT_V10(c, &m->check_owner))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readOptionAccountIdLookupOfT(c, &m->check_owner))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_transfer_V10(
-    parser_context_t* c, pd_uniques_transfer_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_transfer_V12(
+    parser_context_t* c, pd_uniques_transfer_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readItemId_V10(c, &m->item))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->dest))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_redeposit_V10(
-    parser_context_t* c, pd_uniques_redeposit_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_redeposit_V12(
+    parser_context_t* c, pd_uniques_redeposit_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readVecItemId_V10(c, &m->items))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readVecItemId(c, &m->items))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_freeze_V10(
-    parser_context_t* c, pd_uniques_freeze_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_freeze_V12(
+    parser_context_t* c, pd_uniques_freeze_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readItemId_V10(c, &m->item))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_thaw_V10(
-    parser_context_t* c, pd_uniques_thaw_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_thaw_V12(
+    parser_context_t* c, pd_uniques_thaw_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readItemId_V10(c, &m->item))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_freeze_collection_V10(
-    parser_context_t* c, pd_uniques_freeze_collection_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_freeze_collection_V12(
+    parser_context_t* c, pd_uniques_freeze_collection_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_thaw_collection_V10(
-    parser_context_t* c, pd_uniques_thaw_collection_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_thaw_collection_V12(
+    parser_context_t* c, pd_uniques_thaw_collection_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_transfer_ownership_V10(
-    parser_context_t* c, pd_uniques_transfer_ownership_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_transfer_ownership_V12(
+    parser_context_t* c, pd_uniques_transfer_ownership_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->owner))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_set_team_V10(
-    parser_context_t* c, pd_uniques_set_team_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_set_team_V12(
+    parser_context_t* c, pd_uniques_set_team_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->issuer))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->admin))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->freezer))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->issuer))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->admin))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->freezer))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_approve_transfer_V10(
-    parser_context_t* c, pd_uniques_approve_transfer_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_approve_transfer_V12(
+    parser_context_t* c, pd_uniques_approve_transfer_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readItemId_V10(c, &m->item))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->delegate))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_cancel_approval_V10(
-    parser_context_t* c, pd_uniques_cancel_approval_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_cancel_approval_V12(
+    parser_context_t* c, pd_uniques_cancel_approval_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readItemId_V10(c, &m->item))
-    CHECK_ERROR(_readOptionAccountIdLookupOfT_V10(c, &m->maybe_check_delegate))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readOptionAccountIdLookupOfT(c, &m->maybe_check_delegate))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_force_item_status_V10(
-    parser_context_t* c, pd_uniques_force_item_status_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_force_item_status_V12(
+    parser_context_t* c, pd_uniques_force_item_status_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->owner))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->issuer))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->admin))
-    CHECK_ERROR(_readAccountIdLookupOfT_V10(c, &m->freezer))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->owner))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->issuer))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->admin))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->freezer))
     CHECK_ERROR(_readbool(c, &m->free_holding))
     CHECK_ERROR(_readbool(c, &m->is_frozen))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_set_attribute_V10(
-    parser_context_t* c, pd_uniques_set_attribute_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_set_attribute_V12(
+    parser_context_t* c, pd_uniques_set_attribute_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readOptionItemId_V10(c, &m->maybe_item))
-    CHECK_ERROR(_readBoundedVecu8_V10(c, &m->key))
-    CHECK_ERROR(_readBoundedVecu8_V10(c, &m->value))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readOptionItemId(c, &m->maybe_item))
+    CHECK_ERROR(_readBoundedVecu8(c, &m->key))
+    CHECK_ERROR(_readBoundedVecu8(c, &m->value))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_clear_attribute_V10(
-    parser_context_t* c, pd_uniques_clear_attribute_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_clear_attribute_V12(
+    parser_context_t* c, pd_uniques_clear_attribute_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readOptionItemId_V10(c, &m->maybe_item))
-    CHECK_ERROR(_readBoundedVecu8_V10(c, &m->key))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readOptionItemId(c, &m->maybe_item))
+    CHECK_ERROR(_readBoundedVecu8(c, &m->key))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_set_metadata_V10(
-    parser_context_t* c, pd_uniques_set_metadata_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_set_metadata_V12(
+    parser_context_t* c, pd_uniques_set_metadata_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readItemId_V10(c, &m->item))
-    CHECK_ERROR(_readBoundedVecu8_V10(c, &m->data))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readBoundedVecu8(c, &m->data))
     CHECK_ERROR(_readbool(c, &m->is_frozen))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_clear_metadata_V10(
-    parser_context_t* c, pd_uniques_clear_metadata_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_clear_metadata_V12(
+    parser_context_t* c, pd_uniques_clear_metadata_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readItemId_V10(c, &m->item))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_set_collection_metadata_V10(
-    parser_context_t* c, pd_uniques_set_collection_metadata_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_set_collection_metadata_V12(
+    parser_context_t* c, pd_uniques_set_collection_metadata_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readBoundedVecu8_V10(c, &m->data))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readBoundedVecu8(c, &m->data))
     CHECK_ERROR(_readbool(c, &m->is_frozen))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_clear_collection_metadata_V10(
-    parser_context_t* c, pd_uniques_clear_collection_metadata_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_clear_collection_metadata_V12(
+    parser_context_t* c, pd_uniques_clear_collection_metadata_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_set_accept_ownership_V10(
-    parser_context_t* c, pd_uniques_set_accept_ownership_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_set_accept_ownership_V12(
+    parser_context_t* c, pd_uniques_set_accept_ownership_V12_t* m)
 {
-    CHECK_ERROR(_readOptionCollectionId_V10(c, &m->maybe_collection))
+    CHECK_ERROR(_readOptionCollectionId(c, &m->maybe_collection))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_set_collection_max_supply_V10(
-    parser_context_t* c, pd_uniques_set_collection_max_supply_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_set_collection_max_supply_V12(
+    parser_context_t* c, pd_uniques_set_collection_max_supply_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
     CHECK_ERROR(_readu32(c, &m->max_supply))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_set_price_V10(
-    parser_context_t* c, pd_uniques_set_price_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_set_price_V12(
+    parser_context_t* c, pd_uniques_set_price_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readItemId_V10(c, &m->item))
-    CHECK_ERROR(_readOptionItemPrice_V10(c, &m->price))
-    CHECK_ERROR(_readOptionAccountIdLookupOfT_V10(c, &m->whitelisted_buyer))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readOptionItemPrice(c, &m->price))
+    CHECK_ERROR(_readOptionAccountIdLookupOfT(c, &m->whitelisted_buyer))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_uniques_buy_item_V10(
-    parser_context_t* c, pd_uniques_buy_item_V10_t* m)
+__Z_INLINE parser_error_t _readMethod_uniques_buy_item_V12(
+    parser_context_t* c, pd_uniques_buy_item_V12_t* m)
 {
-    CHECK_ERROR(_readCollectionId_V10(c, &m->collection))
-    CHECK_ERROR(_readItemId_V10(c, &m->item))
-    CHECK_ERROR(_readItemPrice_V10(c, &m->bid_price))
+    CHECK_ERROR(_readCollectionId(c, &m->collection))
+    CHECK_ERROR(_readItemId(c, &m->item))
+    CHECK_ERROR(_readItemPrice(c, &m->bid_price))
     return parser_ok;
 }
 
 #endif
 
-parser_error_t _readMethod_V10(
+parser_error_t _readMethod_V12(
     parser_context_t* c,
     uint8_t moduleIdx,
     uint8_t callIdx,
-    pd_Method_V10_t* method)
+    pd_Method_V12_t* method)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 
     switch (callPrivIdx) {
 
     case 2560: /* module 10 call 0 */
-        CHECK_ERROR(_readMethod_balances_transfer_V10(c, &method->nested.balances_transfer_V10))
+        CHECK_ERROR(_readMethod_balances_transfer_V12(c, &method->nested.balances_transfer_V12))
         break;
     case 2562: /* module 10 call 2 */
-        CHECK_ERROR(_readMethod_balances_force_transfer_V10(c, &method->nested.balances_force_transfer_V10))
+        CHECK_ERROR(_readMethod_balances_force_transfer_V12(c, &method->nested.balances_force_transfer_V12))
         break;
     case 2563: /* module 10 call 3 */
-        CHECK_ERROR(_readMethod_balances_transfer_keep_alive_V10(c, &method->nested.balances_transfer_keep_alive_V10))
+        CHECK_ERROR(_readMethod_balances_transfer_keep_alive_V12(c, &method->nested.balances_transfer_keep_alive_V12))
         break;
     case 2564: /* module 10 call 4 */
-        CHECK_ERROR(_readMethod_balances_transfer_all_V10(c, &method->basic.balances_transfer_all_V10))
+        CHECK_ERROR(_readMethod_balances_transfer_all_V12(c, &method->basic.balances_transfer_all_V12))
         break;
     case 5632: /* module 22 call 0 */
-        CHECK_ERROR(_readMethod_session_set_keys_V10(c, &method->basic.session_set_keys_V10))
+        CHECK_ERROR(_readMethod_session_set_keys_V12(c, &method->basic.session_set_keys_V12))
         break;
     case 5633: /* module 22 call 1 */
-        CHECK_ERROR(_readMethod_session_purge_keys_V10(c, &method->basic.session_purge_keys_V10))
+        CHECK_ERROR(_readMethod_session_purge_keys_V12(c, &method->basic.session_purge_keys_V12))
         break;
     case 10240: /* module 40 call 0 */
-        CHECK_ERROR(_readMethod_utility_batch_V10(c, &method->basic.utility_batch_V10))
+        CHECK_ERROR(_readMethod_utility_batch_V12(c, &method->basic.utility_batch_V12))
         break;
     case 10242: /* module 40 call 2 */
-        CHECK_ERROR(_readMethod_utility_batch_all_V10(c, &method->basic.utility_batch_all_V10))
+        CHECK_ERROR(_readMethod_utility_batch_all_V12(c, &method->basic.utility_batch_all_V12))
         break;
 
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+    case 7937: /* module 31 call 1 */
+        CHECK_ERROR(_readMethod_polkadotxcm_teleport_assets_V12(c, &method->basic.polkadotxcm_teleport_assets_V12))
+        break;
     case 7938: /* module 31 call 2 */
-        CHECK_ERROR(_readMethod_polkadotxcm_reserve_transfer_assets_V10(c, &method->basic.polkadotxcm_reserve_transfer_assets_V10))
+        CHECK_ERROR(_readMethod_polkadotxcm_reserve_transfer_assets_V12(c, &method->basic.polkadotxcm_reserve_transfer_assets_V12))
         break;
     case 7944: /* module 31 call 8 */
-        CHECK_ERROR(_readMethod_polkadotxcm_limited_reserve_transfer_assets_V10(c, &method->basic.polkadotxcm_limited_reserve_transfer_assets_V10))
+        CHECK_ERROR(_readMethod_polkadotxcm_limited_reserve_transfer_assets_V12(c, &method->basic.polkadotxcm_limited_reserve_transfer_assets_V12))
+        break;
+    case 7945: /* module 31 call 9 */
+        CHECK_ERROR(_readMethod_polkadotxcm_limited_teleport_assets_V12(c, &method->basic.polkadotxcm_limited_teleport_assets_V12))
         break;
 #endif
     case 0: /* module 0 call 0 */
-        CHECK_ERROR(_readMethod_system_fill_block_V10(c, &method->nested.system_fill_block_V10))
+        CHECK_ERROR(_readMethod_system_remark_V12(c, &method->nested.system_remark_V12))
         break;
     case 1: /* module 0 call 1 */
-        CHECK_ERROR(_readMethod_system_remark_V10(c, &method->nested.system_remark_V10))
+        CHECK_ERROR(_readMethod_system_set_heap_pages_V12(c, &method->nested.system_set_heap_pages_V12))
         break;
     case 2: /* module 0 call 2 */
-        CHECK_ERROR(_readMethod_system_set_heap_pages_V10(c, &method->nested.system_set_heap_pages_V10))
+        CHECK_ERROR(_readMethod_system_set_code_V12(c, &method->nested.system_set_code_V12))
         break;
     case 3: /* module 0 call 3 */
-        CHECK_ERROR(_readMethod_system_set_code_V10(c, &method->nested.system_set_code_V10))
+        CHECK_ERROR(_readMethod_system_set_code_without_checks_V12(c, &method->nested.system_set_code_without_checks_V12))
         break;
-    case 4: /* module 0 call 4 */
-        CHECK_ERROR(_readMethod_system_set_code_without_checks_V10(c, &method->nested.system_set_code_without_checks_V10))
-        break;
-    case 8: /* module 0 call 8 */
-        CHECK_ERROR(_readMethod_system_remark_with_event_V10(c, &method->nested.system_remark_with_event_V10))
+    case 7: /* module 0 call 7 */
+        CHECK_ERROR(_readMethod_system_remark_with_event_V12(c, &method->nested.system_remark_with_event_V12))
         break;
     case 768: /* module 3 call 0 */
-        CHECK_ERROR(_readMethod_timestamp_set_V10(c, &method->basic.timestamp_set_V10))
+        CHECK_ERROR(_readMethod_timestamp_set_V12(c, &method->basic.timestamp_set_V12))
         break;
     case 2561: /* module 10 call 1 */
-        CHECK_ERROR(_readMethod_balances_set_balance_V10(c, &method->nested.balances_set_balance_V10))
+        CHECK_ERROR(_readMethod_balances_set_balance_V12(c, &method->nested.balances_set_balance_V12))
         break;
     case 2565: /* module 10 call 5 */
-        CHECK_ERROR(_readMethod_balances_force_unreserve_V10(c, &method->basic.balances_force_unreserve_V10))
+        CHECK_ERROR(_readMethod_balances_force_unreserve_V12(c, &method->basic.balances_force_unreserve_V12))
         break;
     case 5376: /* module 21 call 0 */
-        CHECK_ERROR(_readMethod_collatorselection_set_invulnerables_V10(c, &method->basic.collatorselection_set_invulnerables_V10))
+        CHECK_ERROR(_readMethod_collatorselection_set_invulnerables_V12(c, &method->basic.collatorselection_set_invulnerables_V12))
         break;
     case 5377: /* module 21 call 1 */
-        CHECK_ERROR(_readMethod_collatorselection_set_desired_candidates_V10(c, &method->basic.collatorselection_set_desired_candidates_V10))
+        CHECK_ERROR(_readMethod_collatorselection_set_desired_candidates_V12(c, &method->basic.collatorselection_set_desired_candidates_V12))
         break;
     case 5378: /* module 21 call 2 */
-        CHECK_ERROR(_readMethod_collatorselection_set_candidacy_bond_V10(c, &method->basic.collatorselection_set_candidacy_bond_V10))
+        CHECK_ERROR(_readMethod_collatorselection_set_candidacy_bond_V12(c, &method->basic.collatorselection_set_candidacy_bond_V12))
         break;
     case 5379: /* module 21 call 3 */
-        CHECK_ERROR(_readMethod_collatorselection_register_as_candidate_V10(c, &method->basic.collatorselection_register_as_candidate_V10))
+        CHECK_ERROR(_readMethod_collatorselection_register_as_candidate_V12(c, &method->basic.collatorselection_register_as_candidate_V12))
         break;
     case 5380: /* module 21 call 4 */
-        CHECK_ERROR(_readMethod_collatorselection_leave_intent_V10(c, &method->basic.collatorselection_leave_intent_V10))
+        CHECK_ERROR(_readMethod_collatorselection_leave_intent_V12(c, &method->basic.collatorselection_leave_intent_V12))
         break;
     case 7680: /* module 30 call 0 */
-        CHECK_ERROR(_readMethod_xcmpqueue_service_overweight_V10(c, &method->basic.xcmpqueue_service_overweight_V10))
+        CHECK_ERROR(_readMethod_xcmpqueue_service_overweight_V12(c, &method->basic.xcmpqueue_service_overweight_V12))
         break;
     case 7681: /* module 30 call 1 */
-        CHECK_ERROR(_readMethod_xcmpqueue_suspend_xcm_execution_V10(c, &method->basic.xcmpqueue_suspend_xcm_execution_V10))
+        CHECK_ERROR(_readMethod_xcmpqueue_suspend_xcm_execution_V12(c, &method->basic.xcmpqueue_suspend_xcm_execution_V12))
         break;
     case 7682: /* module 30 call 2 */
-        CHECK_ERROR(_readMethod_xcmpqueue_resume_xcm_execution_V10(c, &method->basic.xcmpqueue_resume_xcm_execution_V10))
+        CHECK_ERROR(_readMethod_xcmpqueue_resume_xcm_execution_V12(c, &method->basic.xcmpqueue_resume_xcm_execution_V12))
         break;
     case 7683: /* module 30 call 3 */
-        CHECK_ERROR(_readMethod_xcmpqueue_update_suspend_threshold_V10(c, &method->basic.xcmpqueue_update_suspend_threshold_V10))
+        CHECK_ERROR(_readMethod_xcmpqueue_update_suspend_threshold_V12(c, &method->basic.xcmpqueue_update_suspend_threshold_V12))
         break;
     case 7684: /* module 30 call 4 */
-        CHECK_ERROR(_readMethod_xcmpqueue_update_drop_threshold_V10(c, &method->basic.xcmpqueue_update_drop_threshold_V10))
+        CHECK_ERROR(_readMethod_xcmpqueue_update_drop_threshold_V12(c, &method->basic.xcmpqueue_update_drop_threshold_V12))
         break;
     case 7685: /* module 30 call 5 */
-        CHECK_ERROR(_readMethod_xcmpqueue_update_resume_threshold_V10(c, &method->basic.xcmpqueue_update_resume_threshold_V10))
+        CHECK_ERROR(_readMethod_xcmpqueue_update_resume_threshold_V12(c, &method->basic.xcmpqueue_update_resume_threshold_V12))
         break;
     case 7686: /* module 30 call 6 */
-        CHECK_ERROR(_readMethod_xcmpqueue_update_threshold_weight_V10(c, &method->basic.xcmpqueue_update_threshold_weight_V10))
+        CHECK_ERROR(_readMethod_xcmpqueue_update_threshold_weight_V12(c, &method->basic.xcmpqueue_update_threshold_weight_V12))
         break;
     case 7687: /* module 30 call 7 */
-        CHECK_ERROR(_readMethod_xcmpqueue_update_weight_restrict_decay_V10(c, &method->basic.xcmpqueue_update_weight_restrict_decay_V10))
+        CHECK_ERROR(_readMethod_xcmpqueue_update_weight_restrict_decay_V12(c, &method->basic.xcmpqueue_update_weight_restrict_decay_V12))
         break;
     case 7688: /* module 30 call 8 */
-        CHECK_ERROR(_readMethod_xcmpqueue_update_xcmp_max_individual_weight_V10(c, &method->basic.xcmpqueue_update_xcmp_max_individual_weight_V10))
+        CHECK_ERROR(_readMethod_xcmpqueue_update_xcmp_max_individual_weight_V12(c, &method->basic.xcmpqueue_update_xcmp_max_individual_weight_V12))
         break;
     case 8448: /* module 33 call 0 */
-        CHECK_ERROR(_readMethod_dmpqueue_service_overweight_V10(c, &method->basic.dmpqueue_service_overweight_V10))
+        CHECK_ERROR(_readMethod_dmpqueue_service_overweight_V12(c, &method->basic.dmpqueue_service_overweight_V12))
         break;
     case 10244: /* module 40 call 4 */
-        CHECK_ERROR(_readMethod_utility_force_batch_V10(c, &method->basic.utility_force_batch_V10))
+        CHECK_ERROR(_readMethod_utility_force_batch_V12(c, &method->basic.utility_force_batch_V12))
+        break;
+    case 10245: /* module 40 call 5 */
+        CHECK_ERROR(_readMethod_utility_with_weight_V12(c, &method->basic.utility_with_weight_V12))
         break;
     case 10496: /* module 41 call 0 */
-        CHECK_ERROR(_readMethod_multisig_as_multi_threshold_1_V10(c, &method->nested.multisig_as_multi_threshold_1_V10))
+        CHECK_ERROR(_readMethod_multisig_as_multi_threshold_1_V12(c, &method->nested.multisig_as_multi_threshold_1_V12))
         break;
     case 10497: /* module 41 call 1 */
-        CHECK_ERROR(_readMethod_multisig_as_multi_V10(c, &method->nested.multisig_as_multi_V10))
+        CHECK_ERROR(_readMethod_multisig_as_multi_V12(c, &method->nested.multisig_as_multi_V12))
         break;
     case 10498: /* module 41 call 2 */
-        CHECK_ERROR(_readMethod_multisig_approve_as_multi_V10(c, &method->nested.multisig_approve_as_multi_V10))
+        CHECK_ERROR(_readMethod_multisig_approve_as_multi_V12(c, &method->nested.multisig_approve_as_multi_V12))
         break;
     case 10499: /* module 41 call 3 */
-        CHECK_ERROR(_readMethod_multisig_cancel_as_multi_V10(c, &method->nested.multisig_cancel_as_multi_V10))
+        CHECK_ERROR(_readMethod_multisig_cancel_as_multi_V12(c, &method->nested.multisig_cancel_as_multi_V12))
         break;
     case 10752: /* module 42 call 0 */
-        CHECK_ERROR(_readMethod_proxy_proxy_V10(c, &method->nested.proxy_proxy_V10))
+        CHECK_ERROR(_readMethod_proxy_proxy_V12(c, &method->nested.proxy_proxy_V12))
         break;
     case 10753: /* module 42 call 1 */
-        CHECK_ERROR(_readMethod_proxy_add_proxy_V10(c, &method->basic.proxy_add_proxy_V10))
+        CHECK_ERROR(_readMethod_proxy_add_proxy_V12(c, &method->basic.proxy_add_proxy_V12))
         break;
     case 10754: /* module 42 call 2 */
-        CHECK_ERROR(_readMethod_proxy_remove_proxy_V10(c, &method->basic.proxy_remove_proxy_V10))
+        CHECK_ERROR(_readMethod_proxy_remove_proxy_V12(c, &method->basic.proxy_remove_proxy_V12))
         break;
     case 10755: /* module 42 call 3 */
-        CHECK_ERROR(_readMethod_proxy_remove_proxies_V10(c, &method->basic.proxy_remove_proxies_V10))
+        CHECK_ERROR(_readMethod_proxy_remove_proxies_V12(c, &method->basic.proxy_remove_proxies_V12))
         break;
     case 10756: /* module 42 call 4 */
-        CHECK_ERROR(_readMethod_proxy_create_pure_V10(c, &method->basic.proxy_create_pure_V10))
+        CHECK_ERROR(_readMethod_proxy_create_pure_V12(c, &method->nested.proxy_create_pure_V12))
         break;
     case 10757: /* module 42 call 5 */
-        CHECK_ERROR(_readMethod_proxy_kill_pure_V10(c, &method->basic.proxy_kill_pure_V10))
+        CHECK_ERROR(_readMethod_proxy_kill_pure_V12(c, &method->nested.proxy_kill_pure_V12))
         break;
     case 10758: /* module 42 call 6 */
-        CHECK_ERROR(_readMethod_proxy_announce_V10(c, &method->basic.proxy_announce_V10))
+        CHECK_ERROR(_readMethod_proxy_announce_V12(c, &method->basic.proxy_announce_V12))
         break;
     case 10759: /* module 42 call 7 */
-        CHECK_ERROR(_readMethod_proxy_remove_announcement_V10(c, &method->basic.proxy_remove_announcement_V10))
+        CHECK_ERROR(_readMethod_proxy_remove_announcement_V12(c, &method->basic.proxy_remove_announcement_V12))
         break;
     case 10760: /* module 42 call 8 */
-        CHECK_ERROR(_readMethod_proxy_reject_announcement_V10(c, &method->basic.proxy_reject_announcement_V10))
+        CHECK_ERROR(_readMethod_proxy_reject_announcement_V12(c, &method->basic.proxy_reject_announcement_V12))
         break;
     case 10761: /* module 42 call 9 */
-        CHECK_ERROR(_readMethod_proxy_proxy_announced_V10(c, &method->basic.proxy_proxy_announced_V10))
+        CHECK_ERROR(_readMethod_proxy_proxy_announced_V12(c, &method->basic.proxy_proxy_announced_V12))
         break;
     case 12800: /* module 50 call 0 */
-        CHECK_ERROR(_readMethod_assets_create_V10(c, &method->nested.assets_create_V10))
+        CHECK_ERROR(_readMethod_assets_create_V12(c, &method->nested.assets_create_V12))
         break;
     case 12801: /* module 50 call 1 */
-        CHECK_ERROR(_readMethod_assets_force_create_V10(c, &method->nested.assets_force_create_V10))
+        CHECK_ERROR(_readMethod_assets_force_create_V12(c, &method->nested.assets_force_create_V12))
         break;
     case 12802: /* module 50 call 2 */
-        CHECK_ERROR(_readMethod_assets_start_destroy_V10(c, &method->basic.assets_start_destroy_V10))
+        CHECK_ERROR(_readMethod_assets_start_destroy_V12(c, &method->basic.assets_start_destroy_V12))
         break;
     case 12803: /* module 50 call 3 */
-        CHECK_ERROR(_readMethod_assets_destroy_accounts_V10(c, &method->basic.assets_destroy_accounts_V10))
+        CHECK_ERROR(_readMethod_assets_destroy_accounts_V12(c, &method->basic.assets_destroy_accounts_V12))
         break;
     case 12804: /* module 50 call 4 */
-        CHECK_ERROR(_readMethod_assets_destroy_approvals_V10(c, &method->basic.assets_destroy_approvals_V10))
+        CHECK_ERROR(_readMethod_assets_destroy_approvals_V12(c, &method->basic.assets_destroy_approvals_V12))
         break;
     case 12805: /* module 50 call 5 */
-        CHECK_ERROR(_readMethod_assets_finish_destroy_V10(c, &method->basic.assets_finish_destroy_V10))
+        CHECK_ERROR(_readMethod_assets_finish_destroy_V12(c, &method->basic.assets_finish_destroy_V12))
         break;
     case 12806: /* module 50 call 6 */
-        CHECK_ERROR(_readMethod_assets_mint_V10(c, &method->nested.assets_mint_V10))
+        CHECK_ERROR(_readMethod_assets_mint_V12(c, &method->nested.assets_mint_V12))
         break;
     case 12807: /* module 50 call 7 */
-        CHECK_ERROR(_readMethod_assets_burn_V10(c, &method->nested.assets_burn_V10))
+        CHECK_ERROR(_readMethod_assets_burn_V12(c, &method->nested.assets_burn_V12))
         break;
     case 12808: /* module 50 call 8 */
-        CHECK_ERROR(_readMethod_assets_transfer_V10(c, &method->nested.assets_transfer_V10))
+        CHECK_ERROR(_readMethod_assets_transfer_V12(c, &method->nested.assets_transfer_V12))
         break;
     case 12809: /* module 50 call 9 */
-        CHECK_ERROR(_readMethod_assets_transfer_keep_alive_V10(c, &method->nested.assets_transfer_keep_alive_V10))
+        CHECK_ERROR(_readMethod_assets_transfer_keep_alive_V12(c, &method->nested.assets_transfer_keep_alive_V12))
         break;
     case 12810: /* module 50 call 10 */
-        CHECK_ERROR(_readMethod_assets_force_transfer_V10(c, &method->nested.assets_force_transfer_V10))
+        CHECK_ERROR(_readMethod_assets_force_transfer_V12(c, &method->nested.assets_force_transfer_V12))
         break;
     case 12811: /* module 50 call 11 */
-        CHECK_ERROR(_readMethod_assets_freeze_V10(c, &method->nested.assets_freeze_V10))
+        CHECK_ERROR(_readMethod_assets_freeze_V12(c, &method->nested.assets_freeze_V12))
         break;
     case 12812: /* module 50 call 12 */
-        CHECK_ERROR(_readMethod_assets_thaw_V10(c, &method->nested.assets_thaw_V10))
+        CHECK_ERROR(_readMethod_assets_thaw_V12(c, &method->nested.assets_thaw_V12))
         break;
     case 12813: /* module 50 call 13 */
-        CHECK_ERROR(_readMethod_assets_freeze_asset_V10(c, &method->nested.assets_freeze_asset_V10))
+        CHECK_ERROR(_readMethod_assets_freeze_asset_V12(c, &method->nested.assets_freeze_asset_V12))
         break;
     case 12814: /* module 50 call 14 */
-        CHECK_ERROR(_readMethod_assets_thaw_asset_V10(c, &method->nested.assets_thaw_asset_V10))
+        CHECK_ERROR(_readMethod_assets_thaw_asset_V12(c, &method->nested.assets_thaw_asset_V12))
         break;
     case 12815: /* module 50 call 15 */
-        CHECK_ERROR(_readMethod_assets_transfer_ownership_V10(c, &method->nested.assets_transfer_ownership_V10))
+        CHECK_ERROR(_readMethod_assets_transfer_ownership_V12(c, &method->nested.assets_transfer_ownership_V12))
         break;
     case 12816: /* module 50 call 16 */
-        CHECK_ERROR(_readMethod_assets_set_team_V10(c, &method->nested.assets_set_team_V10))
+        CHECK_ERROR(_readMethod_assets_set_team_V12(c, &method->nested.assets_set_team_V12))
         break;
     case 12817: /* module 50 call 17 */
-        CHECK_ERROR(_readMethod_assets_set_metadata_V10(c, &method->nested.assets_set_metadata_V10))
+        CHECK_ERROR(_readMethod_assets_set_metadata_V12(c, &method->nested.assets_set_metadata_V12))
         break;
     case 12818: /* module 50 call 18 */
-        CHECK_ERROR(_readMethod_assets_clear_metadata_V10(c, &method->nested.assets_clear_metadata_V10))
+        CHECK_ERROR(_readMethod_assets_clear_metadata_V12(c, &method->nested.assets_clear_metadata_V12))
         break;
     case 12819: /* module 50 call 19 */
-        CHECK_ERROR(_readMethod_assets_force_set_metadata_V10(c, &method->nested.assets_force_set_metadata_V10))
+        CHECK_ERROR(_readMethod_assets_force_set_metadata_V12(c, &method->nested.assets_force_set_metadata_V12))
         break;
     case 12820: /* module 50 call 20 */
-        CHECK_ERROR(_readMethod_assets_force_clear_metadata_V10(c, &method->nested.assets_force_clear_metadata_V10))
+        CHECK_ERROR(_readMethod_assets_force_clear_metadata_V12(c, &method->nested.assets_force_clear_metadata_V12))
         break;
     case 12821: /* module 50 call 21 */
-        CHECK_ERROR(_readMethod_assets_force_asset_status_V10(c, &method->nested.assets_force_asset_status_V10))
+        CHECK_ERROR(_readMethod_assets_force_asset_status_V12(c, &method->nested.assets_force_asset_status_V12))
         break;
     case 12822: /* module 50 call 22 */
-        CHECK_ERROR(_readMethod_assets_approve_transfer_V10(c, &method->nested.assets_approve_transfer_V10))
+        CHECK_ERROR(_readMethod_assets_approve_transfer_V12(c, &method->nested.assets_approve_transfer_V12))
         break;
     case 12823: /* module 50 call 23 */
-        CHECK_ERROR(_readMethod_assets_cancel_approval_V10(c, &method->nested.assets_cancel_approval_V10))
+        CHECK_ERROR(_readMethod_assets_cancel_approval_V12(c, &method->nested.assets_cancel_approval_V12))
         break;
     case 12824: /* module 50 call 24 */
-        CHECK_ERROR(_readMethod_assets_force_cancel_approval_V10(c, &method->nested.assets_force_cancel_approval_V10))
+        CHECK_ERROR(_readMethod_assets_force_cancel_approval_V12(c, &method->nested.assets_force_cancel_approval_V12))
         break;
     case 12825: /* module 50 call 25 */
-        CHECK_ERROR(_readMethod_assets_transfer_approved_V10(c, &method->nested.assets_transfer_approved_V10))
+        CHECK_ERROR(_readMethod_assets_transfer_approved_V12(c, &method->nested.assets_transfer_approved_V12))
         break;
     case 12826: /* module 50 call 26 */
-        CHECK_ERROR(_readMethod_assets_touch_V10(c, &method->basic.assets_touch_V10))
+        CHECK_ERROR(_readMethod_assets_touch_V12(c, &method->basic.assets_touch_V12))
         break;
     case 12827: /* module 50 call 27 */
-        CHECK_ERROR(_readMethod_assets_refund_V10(c, &method->basic.assets_refund_V10))
+        CHECK_ERROR(_readMethod_assets_refund_V12(c, &method->basic.assets_refund_V12))
         break;
     case 13056: /* module 51 call 0 */
-        CHECK_ERROR(_readMethod_uniques_create_V10(c, &method->basic.uniques_create_V10))
+        CHECK_ERROR(_readMethod_uniques_create_V12(c, &method->basic.uniques_create_V12))
         break;
     case 13057: /* module 51 call 1 */
-        CHECK_ERROR(_readMethod_uniques_force_create_V10(c, &method->basic.uniques_force_create_V10))
+        CHECK_ERROR(_readMethod_uniques_force_create_V12(c, &method->basic.uniques_force_create_V12))
         break;
     case 13058: /* module 51 call 2 */
-        CHECK_ERROR(_readMethod_uniques_destroy_V10(c, &method->basic.uniques_destroy_V10))
+        CHECK_ERROR(_readMethod_uniques_destroy_V12(c, &method->basic.uniques_destroy_V12))
         break;
     case 13059: /* module 51 call 3 */
-        CHECK_ERROR(_readMethod_uniques_mint_V10(c, &method->basic.uniques_mint_V10))
+        CHECK_ERROR(_readMethod_uniques_mint_V12(c, &method->basic.uniques_mint_V12))
         break;
     case 13060: /* module 51 call 4 */
-        CHECK_ERROR(_readMethod_uniques_burn_V10(c, &method->basic.uniques_burn_V10))
+        CHECK_ERROR(_readMethod_uniques_burn_V12(c, &method->basic.uniques_burn_V12))
         break;
     case 13061: /* module 51 call 5 */
-        CHECK_ERROR(_readMethod_uniques_transfer_V10(c, &method->basic.uniques_transfer_V10))
+        CHECK_ERROR(_readMethod_uniques_transfer_V12(c, &method->basic.uniques_transfer_V12))
         break;
     case 13062: /* module 51 call 6 */
-        CHECK_ERROR(_readMethod_uniques_redeposit_V10(c, &method->basic.uniques_redeposit_V10))
+        CHECK_ERROR(_readMethod_uniques_redeposit_V12(c, &method->basic.uniques_redeposit_V12))
         break;
     case 13063: /* module 51 call 7 */
-        CHECK_ERROR(_readMethod_uniques_freeze_V10(c, &method->basic.uniques_freeze_V10))
+        CHECK_ERROR(_readMethod_uniques_freeze_V12(c, &method->basic.uniques_freeze_V12))
         break;
     case 13064: /* module 51 call 8 */
-        CHECK_ERROR(_readMethod_uniques_thaw_V10(c, &method->basic.uniques_thaw_V10))
+        CHECK_ERROR(_readMethod_uniques_thaw_V12(c, &method->basic.uniques_thaw_V12))
         break;
     case 13065: /* module 51 call 9 */
-        CHECK_ERROR(_readMethod_uniques_freeze_collection_V10(c, &method->basic.uniques_freeze_collection_V10))
+        CHECK_ERROR(_readMethod_uniques_freeze_collection_V12(c, &method->basic.uniques_freeze_collection_V12))
         break;
     case 13066: /* module 51 call 10 */
-        CHECK_ERROR(_readMethod_uniques_thaw_collection_V10(c, &method->basic.uniques_thaw_collection_V10))
+        CHECK_ERROR(_readMethod_uniques_thaw_collection_V12(c, &method->basic.uniques_thaw_collection_V12))
         break;
     case 13067: /* module 51 call 11 */
-        CHECK_ERROR(_readMethod_uniques_transfer_ownership_V10(c, &method->basic.uniques_transfer_ownership_V10))
+        CHECK_ERROR(_readMethod_uniques_transfer_ownership_V12(c, &method->basic.uniques_transfer_ownership_V12))
         break;
     case 13068: /* module 51 call 12 */
-        CHECK_ERROR(_readMethod_uniques_set_team_V10(c, &method->basic.uniques_set_team_V10))
+        CHECK_ERROR(_readMethod_uniques_set_team_V12(c, &method->basic.uniques_set_team_V12))
         break;
     case 13069: /* module 51 call 13 */
-        CHECK_ERROR(_readMethod_uniques_approve_transfer_V10(c, &method->basic.uniques_approve_transfer_V10))
+        CHECK_ERROR(_readMethod_uniques_approve_transfer_V12(c, &method->basic.uniques_approve_transfer_V12))
         break;
     case 13070: /* module 51 call 14 */
-        CHECK_ERROR(_readMethod_uniques_cancel_approval_V10(c, &method->basic.uniques_cancel_approval_V10))
+        CHECK_ERROR(_readMethod_uniques_cancel_approval_V12(c, &method->basic.uniques_cancel_approval_V12))
         break;
     case 13071: /* module 51 call 15 */
-        CHECK_ERROR(_readMethod_uniques_force_item_status_V10(c, &method->basic.uniques_force_item_status_V10))
+        CHECK_ERROR(_readMethod_uniques_force_item_status_V12(c, &method->basic.uniques_force_item_status_V12))
         break;
     case 13072: /* module 51 call 16 */
-        CHECK_ERROR(_readMethod_uniques_set_attribute_V10(c, &method->basic.uniques_set_attribute_V10))
+        CHECK_ERROR(_readMethod_uniques_set_attribute_V12(c, &method->basic.uniques_set_attribute_V12))
         break;
     case 13073: /* module 51 call 17 */
-        CHECK_ERROR(_readMethod_uniques_clear_attribute_V10(c, &method->basic.uniques_clear_attribute_V10))
+        CHECK_ERROR(_readMethod_uniques_clear_attribute_V12(c, &method->basic.uniques_clear_attribute_V12))
         break;
     case 13074: /* module 51 call 18 */
-        CHECK_ERROR(_readMethod_uniques_set_metadata_V10(c, &method->basic.uniques_set_metadata_V10))
+        CHECK_ERROR(_readMethod_uniques_set_metadata_V12(c, &method->basic.uniques_set_metadata_V12))
         break;
     case 13075: /* module 51 call 19 */
-        CHECK_ERROR(_readMethod_uniques_clear_metadata_V10(c, &method->basic.uniques_clear_metadata_V10))
+        CHECK_ERROR(_readMethod_uniques_clear_metadata_V12(c, &method->basic.uniques_clear_metadata_V12))
         break;
     case 13076: /* module 51 call 20 */
-        CHECK_ERROR(_readMethod_uniques_set_collection_metadata_V10(c, &method->basic.uniques_set_collection_metadata_V10))
+        CHECK_ERROR(_readMethod_uniques_set_collection_metadata_V12(c, &method->basic.uniques_set_collection_metadata_V12))
         break;
     case 13077: /* module 51 call 21 */
-        CHECK_ERROR(_readMethod_uniques_clear_collection_metadata_V10(c, &method->basic.uniques_clear_collection_metadata_V10))
+        CHECK_ERROR(_readMethod_uniques_clear_collection_metadata_V12(c, &method->basic.uniques_clear_collection_metadata_V12))
         break;
     case 13078: /* module 51 call 22 */
-        CHECK_ERROR(_readMethod_uniques_set_accept_ownership_V10(c, &method->basic.uniques_set_accept_ownership_V10))
+        CHECK_ERROR(_readMethod_uniques_set_accept_ownership_V12(c, &method->basic.uniques_set_accept_ownership_V12))
         break;
     case 13079: /* module 51 call 23 */
-        CHECK_ERROR(_readMethod_uniques_set_collection_max_supply_V10(c, &method->basic.uniques_set_collection_max_supply_V10))
+        CHECK_ERROR(_readMethod_uniques_set_collection_max_supply_V12(c, &method->basic.uniques_set_collection_max_supply_V12))
         break;
     case 13080: /* module 51 call 24 */
-        CHECK_ERROR(_readMethod_uniques_set_price_V10(c, &method->basic.uniques_set_price_V10))
+        CHECK_ERROR(_readMethod_uniques_set_price_V12(c, &method->basic.uniques_set_price_V12))
         break;
     case 13081: /* module 51 call 25 */
-        CHECK_ERROR(_readMethod_uniques_buy_item_V10(c, &method->basic.uniques_buy_item_V10))
+        CHECK_ERROR(_readMethod_uniques_buy_item_V12(c, &method->basic.uniques_buy_item_V12))
         break;
 #endif
     default:
@@ -1213,7 +1239,7 @@ parser_error_t _readMethod_V10(
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 
-const char* _getMethod_ModuleName_V10(uint8_t moduleIdx)
+const char* _getMethod_ModuleName_V12(uint8_t moduleIdx)
 {
     switch (moduleIdx) {
     case 10:
@@ -1253,7 +1279,7 @@ const char* _getMethod_ModuleName_V10(uint8_t moduleIdx)
     return NULL;
 }
 
-const char* _getMethod_Name_V10(uint8_t moduleIdx, uint8_t callIdx)
+const char* _getMethod_Name_V12(uint8_t moduleIdx, uint8_t callIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 
@@ -1275,33 +1301,35 @@ const char* _getMethod_Name_V10(uint8_t moduleIdx, uint8_t callIdx)
     case 10242: /* module 40 call 2 */
         return STR_ME_BATCH_ALL;
     default:
-        return _getMethod_Name_V10_ParserFull(callPrivIdx);
+        return _getMethod_Name_V12_ParserFull(callPrivIdx);
     }
 
     return NULL;
 }
 
-const char* _getMethod_Name_V10_ParserFull(uint16_t callPrivIdx)
+const char* _getMethod_Name_V12_ParserFull(uint16_t callPrivIdx)
 {
     switch (callPrivIdx) {
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+    case 7937: /* module 31 call 1 */
+        return STR_ME_TELEPORT_ASSETS;
     case 7938: /* module 31 call 2 */
         return STR_ME_RESERVE_TRANSFER_ASSETS;
     case 7944: /* module 31 call 8 */
         return STR_ME_LIMITED_RESERVE_TRANSFER_ASSETS;
+    case 7945: /* module 31 call 9 */
+        return STR_ME_LIMITED_TELEPORT_ASSETS;
 #endif
     case 0: /* module 0 call 0 */
-        return STR_ME_FILL_BLOCK;
-    case 1: /* module 0 call 1 */
         return STR_ME_REMARK;
-    case 2: /* module 0 call 2 */
+    case 1: /* module 0 call 1 */
         return STR_ME_SET_HEAP_PAGES;
-    case 3: /* module 0 call 3 */
+    case 2: /* module 0 call 2 */
         return STR_ME_SET_CODE;
-    case 4: /* module 0 call 4 */
+    case 3: /* module 0 call 3 */
         return STR_ME_SET_CODE_WITHOUT_CHECKS;
-    case 8: /* module 0 call 8 */
+    case 7: /* module 0 call 7 */
         return STR_ME_REMARK_WITH_EVENT;
     case 768: /* module 3 call 0 */
         return STR_ME_SET;
@@ -1341,6 +1369,8 @@ const char* _getMethod_Name_V10_ParserFull(uint16_t callPrivIdx)
         return STR_ME_SERVICE_OVERWEIGHT;
     case 10244: /* module 40 call 4 */
         return STR_ME_FORCE_BATCH;
+    case 10245: /* module 40 call 5 */
+        return STR_ME_WITH_WEIGHT;
     case 10496: /* module 41 call 0 */
         return STR_ME_AS_MULTI_THRESHOLD_1;
     case 10497: /* module 41 call 1 */
@@ -1485,7 +1515,7 @@ const char* _getMethod_Name_V10_ParserFull(uint16_t callPrivIdx)
     return NULL;
 }
 
-uint8_t _getMethod_NumItems_V10(uint8_t moduleIdx, uint8_t callIdx)
+uint8_t _getMethod_NumItems_V12(uint8_t moduleIdx, uint8_t callIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 
@@ -1508,9 +1538,13 @@ uint8_t _getMethod_NumItems_V10(uint8_t moduleIdx, uint8_t callIdx)
         return 1;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+    case 7937: /* module 31 call 1 */
+        return 4;
     case 7938: /* module 31 call 2 */
         return 4;
     case 7944: /* module 31 call 8 */
+        return 5;
+    case 7945: /* module 31 call 9 */
         return 5;
 #endif
     case 0: /* module 0 call 0 */
@@ -1521,9 +1555,7 @@ uint8_t _getMethod_NumItems_V10(uint8_t moduleIdx, uint8_t callIdx)
         return 1;
     case 3: /* module 0 call 3 */
         return 1;
-    case 4: /* module 0 call 4 */
-        return 1;
-    case 8: /* module 0 call 8 */
+    case 7: /* module 0 call 7 */
         return 1;
     case 768: /* module 3 call 0 */
         return 1;
@@ -1563,6 +1595,8 @@ uint8_t _getMethod_NumItems_V10(uint8_t moduleIdx, uint8_t callIdx)
         return 2;
     case 10244: /* module 40 call 4 */
         return 1;
+    case 10245: /* module 40 call 5 */
+        return 2;
     case 10496: /* module 41 call 0 */
         return 2;
     case 10497: /* module 41 call 1 */
@@ -1707,7 +1741,7 @@ uint8_t _getMethod_NumItems_V10(uint8_t moduleIdx, uint8_t callIdx)
     return 0;
 }
 
-const char* _getMethod_ItemName_V10(uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx)
+const char* _getMethod_ItemName_V12(uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 
@@ -1780,6 +1814,19 @@ const char* _getMethod_ItemName_V10(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
         }
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+    case 7937: /* module 31 call 1 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_dest;
+        case 1:
+            return STR_IT_beneficiary;
+        case 2:
+            return STR_IT_assets;
+        case 3:
+            return STR_IT_fee_asset_item;
+        default:
+            return NULL;
+        }
     case 7938: /* module 31 call 2 */
         switch (itemIdx) {
         case 0:
@@ -1808,25 +1855,40 @@ const char* _getMethod_ItemName_V10(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
         default:
             return NULL;
         }
-#endif
-    case 0: /* module 0 call 0 */
+    case 7945: /* module 31 call 9 */
         switch (itemIdx) {
         case 0:
-            return STR_IT_ratio;
+            return STR_IT_dest;
+        case 1:
+            return STR_IT_beneficiary;
+        case 2:
+            return STR_IT_assets;
+        case 3:
+            return STR_IT_fee_asset_item;
+        case 4:
+            return STR_IT_weight_limit;
         default:
             return NULL;
         }
-    case 1: /* module 0 call 1 */
+#endif
+    case 0: /* module 0 call 0 */
         switch (itemIdx) {
         case 0:
             return STR_IT_remark;
         default:
             return NULL;
         }
-    case 2: /* module 0 call 2 */
+    case 1: /* module 0 call 1 */
         switch (itemIdx) {
         case 0:
             return STR_IT_pages;
+        default:
+            return NULL;
+        }
+    case 2: /* module 0 call 2 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_code;
         default:
             return NULL;
         }
@@ -1837,14 +1899,7 @@ const char* _getMethod_ItemName_V10(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
         default:
             return NULL;
         }
-    case 4: /* module 0 call 4 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_code;
-        default:
-            return NULL;
-        }
-    case 8: /* module 0 call 8 */
+    case 7: /* module 0 call 7 */
         switch (itemIdx) {
         case 0:
             return STR_IT_remark;
@@ -1983,6 +2038,15 @@ const char* _getMethod_ItemName_V10(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
         switch (itemIdx) {
         case 0:
             return STR_IT_calls;
+        default:
+            return NULL;
+        }
+    case 10245: /* module 40 call 5 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_call;
+        case 1:
+            return STR_IT_weight;
         default:
             return NULL;
         }
@@ -2706,8 +2770,8 @@ const char* _getMethod_ItemName_V10(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
     return NULL;
 }
 
-parser_error_t _getMethod_ItemValue_V10(
-    pd_Method_V10_t* m,
+parser_error_t _getMethod_ItemValue_V12(
+    pd_Method_V12_t* m,
     uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx,
     char* outValue, uint16_t outValueLen,
     uint8_t pageIdx, uint8_t* pageCount)
@@ -2717,14 +2781,14 @@ parser_error_t _getMethod_ItemValue_V10(
     switch (callPrivIdx) {
     case 2560: /* module 10 call 0 */
         switch (itemIdx) {
-        case 0: /* balances_transfer_V10 - dest */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.balances_transfer_V10.dest,
+        case 0: /* balances_transfer_V12 - dest */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.balances_transfer_V12.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* balances_transfer_V10 - amount */;
+        case 1: /* balances_transfer_V12 - amount */;
             return _toStringCompactBalance(
-                &m->nested.balances_transfer_V10.amount,
+                &m->nested.balances_transfer_V12.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2732,19 +2796,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 2562: /* module 10 call 2 */
         switch (itemIdx) {
-        case 0: /* balances_force_transfer_V10 - source */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.balances_force_transfer_V10.source,
+        case 0: /* balances_force_transfer_V12 - source */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.balances_force_transfer_V12.source,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* balances_force_transfer_V10 - dest */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.balances_force_transfer_V10.dest,
+        case 1: /* balances_force_transfer_V12 - dest */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.balances_force_transfer_V12.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* balances_force_transfer_V10 - amount */;
+        case 2: /* balances_force_transfer_V12 - amount */;
             return _toStringCompactBalance(
-                &m->nested.balances_force_transfer_V10.amount,
+                &m->nested.balances_force_transfer_V12.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2752,14 +2816,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 2563: /* module 10 call 3 */
         switch (itemIdx) {
-        case 0: /* balances_transfer_keep_alive_V10 - dest */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.balances_transfer_keep_alive_V10.dest,
+        case 0: /* balances_transfer_keep_alive_V12 - dest */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.balances_transfer_keep_alive_V12.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* balances_transfer_keep_alive_V10 - amount */;
+        case 1: /* balances_transfer_keep_alive_V12 - amount */;
             return _toStringCompactBalance(
-                &m->nested.balances_transfer_keep_alive_V10.amount,
+                &m->nested.balances_transfer_keep_alive_V12.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2767,14 +2831,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 2564: /* module 10 call 4 */
         switch (itemIdx) {
-        case 0: /* balances_transfer_all_V10 - dest */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.balances_transfer_all_V10.dest,
+        case 0: /* balances_transfer_all_V12 - dest */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.balances_transfer_all_V12.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* balances_transfer_all_V10 - keep_alive */;
+        case 1: /* balances_transfer_all_V12 - keep_alive */;
             return _toStringbool(
-                &m->basic.balances_transfer_all_V10.keep_alive,
+                &m->basic.balances_transfer_all_V12.keep_alive,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2782,14 +2846,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 5632: /* module 22 call 0 */
         switch (itemIdx) {
-        case 0: /* session_set_keys_V10 - keys */;
-            return _toStringKeys_V10(
-                &m->basic.session_set_keys_V10.keys,
+        case 0: /* session_set_keys_V12 - keys */;
+            return _toStringKeys(
+                &m->basic.session_set_keys_V12.keys,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* session_set_keys_V10 - proof */;
+        case 1: /* session_set_keys_V12 - proof */;
             return _toStringBytes(
-                &m->basic.session_set_keys_V10.proof,
+                &m->basic.session_set_keys_V12.proof,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2802,9 +2866,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10240: /* module 40 call 0 */
         switch (itemIdx) {
-        case 0: /* utility_batch_V10 - calls */;
+        case 0: /* utility_batch_V12 - calls */;
             return _toStringVecCall(
-                &m->basic.utility_batch_V10.calls,
+                &m->basic.utility_batch_V12.calls,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2812,9 +2876,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10242: /* module 40 call 2 */
         switch (itemIdx) {
-        case 0: /* utility_batch_all_V10 - calls */;
+        case 0: /* utility_batch_all_V12 - calls */;
             return _toStringVecCall(
-                &m->basic.utility_batch_all_V10.calls,
+                &m->basic.utility_batch_all_V12.calls,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2822,26 +2886,51 @@ parser_error_t _getMethod_ItemValue_V10(
         }
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
+    case 7937: /* module 31 call 1 */
+        switch (itemIdx) {
+        case 0: /* polkadotxcm_teleport_assets_V12 - dest */;
+            return _toStringBoxVersionedMultiLocation(
+                &m->basic.polkadotxcm_teleport_assets_V12.dest,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* polkadotxcm_teleport_assets_V12 - beneficiary */;
+            return _toStringBoxVersionedMultiLocation(
+                &m->basic.polkadotxcm_teleport_assets_V12.beneficiary,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* polkadotxcm_teleport_assets_V12 - assets */;
+            return _toStringBoxVersionedMultiAssets(
+                &m->basic.polkadotxcm_teleport_assets_V12.assets,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* polkadotxcm_teleport_assets_V12 - fee_asset_item */;
+            return _toStringu32(
+                &m->basic.polkadotxcm_teleport_assets_V12.fee_asset_item,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
     case 7938: /* module 31 call 2 */
         switch (itemIdx) {
-        case 0: /* polkadotxcm_reserve_transfer_assets_V10 - dest */;
-            return _toStringBoxVersionedMultiLocation_V10(
-                &m->basic.polkadotxcm_reserve_transfer_assets_V10.dest,
+        case 0: /* polkadotxcm_reserve_transfer_assets_V12 - dest */;
+            return _toStringBoxVersionedMultiLocation(
+                &m->basic.polkadotxcm_reserve_transfer_assets_V12.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* polkadotxcm_reserve_transfer_assets_V10 - beneficiary */;
-            return _toStringBoxVersionedMultiLocation_V10(
-                &m->basic.polkadotxcm_reserve_transfer_assets_V10.beneficiary,
+        case 1: /* polkadotxcm_reserve_transfer_assets_V12 - beneficiary */;
+            return _toStringBoxVersionedMultiLocation(
+                &m->basic.polkadotxcm_reserve_transfer_assets_V12.beneficiary,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* polkadotxcm_reserve_transfer_assets_V10 - assets */;
-            return _toStringBoxVersionedMultiAssets_V10(
-                &m->basic.polkadotxcm_reserve_transfer_assets_V10.assets,
+        case 2: /* polkadotxcm_reserve_transfer_assets_V12 - assets */;
+            return _toStringBoxVersionedMultiAssets(
+                &m->basic.polkadotxcm_reserve_transfer_assets_V12.assets,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* polkadotxcm_reserve_transfer_assets_V10 - fee_asset_item */;
+        case 3: /* polkadotxcm_reserve_transfer_assets_V12 - fee_asset_item */;
             return _toStringu32(
-                &m->basic.polkadotxcm_reserve_transfer_assets_V10.fee_asset_item,
+                &m->basic.polkadotxcm_reserve_transfer_assets_V12.fee_asset_item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2849,29 +2938,59 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 7944: /* module 31 call 8 */
         switch (itemIdx) {
-        case 0: /* polkadotxcm_limited_reserve_transfer_assets_V10 - dest */;
-            return _toStringBoxVersionedMultiLocation_V10(
-                &m->basic.polkadotxcm_limited_reserve_transfer_assets_V10.dest,
+        case 0: /* polkadotxcm_limited_reserve_transfer_assets_V12 - dest */;
+            return _toStringBoxVersionedMultiLocation(
+                &m->basic.polkadotxcm_limited_reserve_transfer_assets_V12.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* polkadotxcm_limited_reserve_transfer_assets_V10 - beneficiary */;
-            return _toStringBoxVersionedMultiLocation_V10(
-                &m->basic.polkadotxcm_limited_reserve_transfer_assets_V10.beneficiary,
+        case 1: /* polkadotxcm_limited_reserve_transfer_assets_V12 - beneficiary */;
+            return _toStringBoxVersionedMultiLocation(
+                &m->basic.polkadotxcm_limited_reserve_transfer_assets_V12.beneficiary,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* polkadotxcm_limited_reserve_transfer_assets_V10 - assets */;
-            return _toStringBoxVersionedMultiAssets_V10(
-                &m->basic.polkadotxcm_limited_reserve_transfer_assets_V10.assets,
+        case 2: /* polkadotxcm_limited_reserve_transfer_assets_V12 - assets */;
+            return _toStringBoxVersionedMultiAssets(
+                &m->basic.polkadotxcm_limited_reserve_transfer_assets_V12.assets,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* polkadotxcm_limited_reserve_transfer_assets_V10 - fee_asset_item */;
+        case 3: /* polkadotxcm_limited_reserve_transfer_assets_V12 - fee_asset_item */;
             return _toStringu32(
-                &m->basic.polkadotxcm_limited_reserve_transfer_assets_V10.fee_asset_item,
+                &m->basic.polkadotxcm_limited_reserve_transfer_assets_V12.fee_asset_item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 4: /* polkadotxcm_limited_reserve_transfer_assets_V10 - weight_limit */;
-            return _toStringWeightLimit_V10(
-                &m->basic.polkadotxcm_limited_reserve_transfer_assets_V10.weight_limit,
+        case 4: /* polkadotxcm_limited_reserve_transfer_assets_V12 - weight_limit */;
+            return _toStringWeightLimit(
+                &m->basic.polkadotxcm_limited_reserve_transfer_assets_V12.weight_limit,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 7945: /* module 31 call 9 */
+        switch (itemIdx) {
+        case 0: /* polkadotxcm_limited_teleport_assets_V12 - dest */;
+            return _toStringBoxVersionedMultiLocation(
+                &m->basic.polkadotxcm_limited_teleport_assets_V12.dest,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* polkadotxcm_limited_teleport_assets_V12 - beneficiary */;
+            return _toStringBoxVersionedMultiLocation(
+                &m->basic.polkadotxcm_limited_teleport_assets_V12.beneficiary,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* polkadotxcm_limited_teleport_assets_V12 - assets */;
+            return _toStringBoxVersionedMultiAssets(
+                &m->basic.polkadotxcm_limited_teleport_assets_V12.assets,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* polkadotxcm_limited_teleport_assets_V12 - fee_asset_item */;
+            return _toStringu32(
+                &m->basic.polkadotxcm_limited_teleport_assets_V12.fee_asset_item,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 4: /* polkadotxcm_limited_teleport_assets_V12 - weight_limit */;
+            return _toStringWeightLimit(
+                &m->basic.polkadotxcm_limited_teleport_assets_V12.weight_limit,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2880,9 +2999,9 @@ parser_error_t _getMethod_ItemValue_V10(
 #endif
     case 0: /* module 0 call 0 */
         switch (itemIdx) {
-        case 0: /* system_fill_block_V10 - ratio */;
-            return _toStringPerbill_V10(
-                &m->nested.system_fill_block_V10.ratio,
+        case 0: /* system_remark_V12 - remark */;
+            return _toStringBytes(
+                &m->nested.system_remark_V12.remark,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2890,9 +3009,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 1: /* module 0 call 1 */
         switch (itemIdx) {
-        case 0: /* system_remark_V10 - remark */;
-            return _toStringVecu8(
-                &m->nested.system_remark_V10.remark,
+        case 0: /* system_set_heap_pages_V12 - pages */;
+            return _toStringu64(
+                &m->nested.system_set_heap_pages_V12.pages,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2900,9 +3019,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 2: /* module 0 call 2 */
         switch (itemIdx) {
-        case 0: /* system_set_heap_pages_V10 - pages */;
-            return _toStringu64(
-                &m->nested.system_set_heap_pages_V10.pages,
+        case 0: /* system_set_code_V12 - code */;
+            return _toStringVecu8(
+                &m->nested.system_set_code_V12.code,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2910,29 +3029,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 3: /* module 0 call 3 */
         switch (itemIdx) {
-        case 0: /* system_set_code_V10 - code */;
+        case 0: /* system_set_code_without_checks_V12 - code */;
             return _toStringVecu8(
-                &m->nested.system_set_code_V10.code,
+                &m->nested.system_set_code_without_checks_V12.code,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
             return parser_no_data;
         }
-    case 4: /* module 0 call 4 */
+    case 7: /* module 0 call 7 */
         switch (itemIdx) {
-        case 0: /* system_set_code_without_checks_V10 - code */;
-            return _toStringVecu8(
-                &m->nested.system_set_code_without_checks_V10.code,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 8: /* module 0 call 8 */
-        switch (itemIdx) {
-        case 0: /* system_remark_with_event_V10 - remark */;
-            return _toStringVecu8(
-                &m->nested.system_remark_with_event_V10.remark,
+        case 0: /* system_remark_with_event_V12 - remark */;
+            return _toStringBytes(
+                &m->nested.system_remark_with_event_V12.remark,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2940,9 +3049,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 768: /* module 3 call 0 */
         switch (itemIdx) {
-        case 0: /* timestamp_set_V10 - now */;
+        case 0: /* timestamp_set_V12 - now */;
             return _toStringCompactu64(
-                &m->basic.timestamp_set_V10.now,
+                &m->basic.timestamp_set_V12.now,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2950,19 +3059,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 2561: /* module 10 call 1 */
         switch (itemIdx) {
-        case 0: /* balances_set_balance_V10 - who */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.balances_set_balance_V10.who,
+        case 0: /* balances_set_balance_V12 - who */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.balances_set_balance_V12.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* balances_set_balance_V10 - new_free */;
+        case 1: /* balances_set_balance_V12 - new_free */;
             return _toStringCompactBalance(
-                &m->nested.balances_set_balance_V10.new_free,
+                &m->nested.balances_set_balance_V12.new_free,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* balances_set_balance_V10 - new_reserved */;
+        case 2: /* balances_set_balance_V12 - new_reserved */;
             return _toStringCompactBalance(
-                &m->nested.balances_set_balance_V10.new_reserved,
+                &m->nested.balances_set_balance_V12.new_reserved,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2970,14 +3079,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 2565: /* module 10 call 5 */
         switch (itemIdx) {
-        case 0: /* balances_force_unreserve_V10 - who */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.balances_force_unreserve_V10.who,
+        case 0: /* balances_force_unreserve_V12 - who */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.balances_force_unreserve_V12.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* balances_force_unreserve_V10 - amount */;
+        case 1: /* balances_force_unreserve_V12 - amount */;
             return _toStringBalance(
-                &m->basic.balances_force_unreserve_V10.amount,
+                &m->basic.balances_force_unreserve_V12.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2985,9 +3094,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 5376: /* module 21 call 0 */
         switch (itemIdx) {
-        case 0: /* collatorselection_set_invulnerables_V10 - new_ */;
-            return _toStringVecAccountId_V10(
-                &m->basic.collatorselection_set_invulnerables_V10.new_,
+        case 0: /* collatorselection_set_invulnerables_V12 - new_ */;
+            return _toStringVecAccountId(
+                &m->basic.collatorselection_set_invulnerables_V12.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2995,9 +3104,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 5377: /* module 21 call 1 */
         switch (itemIdx) {
-        case 0: /* collatorselection_set_desired_candidates_V10 - max */;
+        case 0: /* collatorselection_set_desired_candidates_V12 - max */;
             return _toStringu32(
-                &m->basic.collatorselection_set_desired_candidates_V10.max,
+                &m->basic.collatorselection_set_desired_candidates_V12.max,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3005,9 +3114,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 5378: /* module 21 call 2 */
         switch (itemIdx) {
-        case 0: /* collatorselection_set_candidacy_bond_V10 - bond */;
+        case 0: /* collatorselection_set_candidacy_bond_V12 - bond */;
             return _toStringBalance(
-                &m->basic.collatorselection_set_candidacy_bond_V10.bond,
+                &m->basic.collatorselection_set_candidacy_bond_V12.bond,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3025,14 +3134,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 7680: /* module 30 call 0 */
         switch (itemIdx) {
-        case 0: /* xcmpqueue_service_overweight_V10 - index */;
-            return _toStringOverweightIndex_V10(
-                &m->basic.xcmpqueue_service_overweight_V10.index,
+        case 0: /* xcmpqueue_service_overweight_V12 - index */;
+            return _toStringOverweightIndex(
+                &m->basic.xcmpqueue_service_overweight_V12.index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* xcmpqueue_service_overweight_V10 - weight_limit */;
-            return _toStringXcmWeight_V10(
-                &m->basic.xcmpqueue_service_overweight_V10.weight_limit,
+        case 1: /* xcmpqueue_service_overweight_V12 - weight_limit */;
+            return _toStringWeight(
+                &m->basic.xcmpqueue_service_overweight_V12.weight_limit,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3050,9 +3159,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 7683: /* module 30 call 3 */
         switch (itemIdx) {
-        case 0: /* xcmpqueue_update_suspend_threshold_V10 - new_ */;
+        case 0: /* xcmpqueue_update_suspend_threshold_V12 - new_ */;
             return _toStringu32(
-                &m->basic.xcmpqueue_update_suspend_threshold_V10.new_,
+                &m->basic.xcmpqueue_update_suspend_threshold_V12.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3060,9 +3169,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 7684: /* module 30 call 4 */
         switch (itemIdx) {
-        case 0: /* xcmpqueue_update_drop_threshold_V10 - new_ */;
+        case 0: /* xcmpqueue_update_drop_threshold_V12 - new_ */;
             return _toStringu32(
-                &m->basic.xcmpqueue_update_drop_threshold_V10.new_,
+                &m->basic.xcmpqueue_update_drop_threshold_V12.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3070,9 +3179,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 7685: /* module 30 call 5 */
         switch (itemIdx) {
-        case 0: /* xcmpqueue_update_resume_threshold_V10 - new_ */;
+        case 0: /* xcmpqueue_update_resume_threshold_V12 - new_ */;
             return _toStringu32(
-                &m->basic.xcmpqueue_update_resume_threshold_V10.new_,
+                &m->basic.xcmpqueue_update_resume_threshold_V12.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3080,9 +3189,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 7686: /* module 30 call 6 */
         switch (itemIdx) {
-        case 0: /* xcmpqueue_update_threshold_weight_V10 - new_ */;
-            return _toStringXcmWeight_V10(
-                &m->basic.xcmpqueue_update_threshold_weight_V10.new_,
+        case 0: /* xcmpqueue_update_threshold_weight_V12 - new_ */;
+            return _toStringWeight(
+                &m->basic.xcmpqueue_update_threshold_weight_V12.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3090,9 +3199,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 7687: /* module 30 call 7 */
         switch (itemIdx) {
-        case 0: /* xcmpqueue_update_weight_restrict_decay_V10 - new_ */;
-            return _toStringXcmWeight_V10(
-                &m->basic.xcmpqueue_update_weight_restrict_decay_V10.new_,
+        case 0: /* xcmpqueue_update_weight_restrict_decay_V12 - new_ */;
+            return _toStringWeight(
+                &m->basic.xcmpqueue_update_weight_restrict_decay_V12.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3100,9 +3209,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 7688: /* module 30 call 8 */
         switch (itemIdx) {
-        case 0: /* xcmpqueue_update_xcmp_max_individual_weight_V10 - new_ */;
-            return _toStringXcmWeight_V10(
-                &m->basic.xcmpqueue_update_xcmp_max_individual_weight_V10.new_,
+        case 0: /* xcmpqueue_update_xcmp_max_individual_weight_V12 - new_ */;
+            return _toStringWeight(
+                &m->basic.xcmpqueue_update_xcmp_max_individual_weight_V12.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3110,14 +3219,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 8448: /* module 33 call 0 */
         switch (itemIdx) {
-        case 0: /* dmpqueue_service_overweight_V10 - index */;
-            return _toStringOverweightIndex_V10(
-                &m->basic.dmpqueue_service_overweight_V10.index,
+        case 0: /* dmpqueue_service_overweight_V12 - index */;
+            return _toStringOverweightIndex(
+                &m->basic.dmpqueue_service_overweight_V12.index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* dmpqueue_service_overweight_V10 - weight_limit */;
-            return _toStringXcmWeight_V10(
-                &m->basic.dmpqueue_service_overweight_V10.weight_limit,
+        case 1: /* dmpqueue_service_overweight_V12 - weight_limit */;
+            return _toStringWeight(
+                &m->basic.dmpqueue_service_overweight_V12.weight_limit,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3125,9 +3234,24 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10244: /* module 40 call 4 */
         switch (itemIdx) {
-        case 0: /* utility_force_batch_V10 - calls */;
+        case 0: /* utility_force_batch_V12 - calls */;
             return _toStringVecCall(
-                &m->basic.utility_force_batch_V10.calls,
+                &m->basic.utility_force_batch_V12.calls,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 10245: /* module 40 call 5 */
+        switch (itemIdx) {
+        case 0: /* utility_with_weight_V12 - call */;
+            return _toStringCall(
+                &m->basic.utility_with_weight_V12.call,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* utility_with_weight_V12 - weight */;
+            return _toStringWeight(
+                &m->basic.utility_with_weight_V12.weight,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3135,14 +3259,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10496: /* module 41 call 0 */
         switch (itemIdx) {
-        case 0: /* multisig_as_multi_threshold_1_V10 - other_signatories */;
-            return _toStringVecAccountId_V10(
-                &m->nested.multisig_as_multi_threshold_1_V10.other_signatories,
+        case 0: /* multisig_as_multi_threshold_1_V12 - other_signatories */;
+            return _toStringVecAccountId(
+                &m->nested.multisig_as_multi_threshold_1_V12.other_signatories,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* multisig_as_multi_threshold_1_V10 - call */;
+        case 1: /* multisig_as_multi_threshold_1_V12 - call */;
             return _toStringCall(
-                &m->nested.multisig_as_multi_threshold_1_V10.call,
+                &m->nested.multisig_as_multi_threshold_1_V12.call,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3150,29 +3274,29 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10497: /* module 41 call 1 */
         switch (itemIdx) {
-        case 0: /* multisig_as_multi_V10 - threshold */;
+        case 0: /* multisig_as_multi_V12 - threshold */;
             return _toStringu16(
-                &m->nested.multisig_as_multi_V10.threshold,
+                &m->nested.multisig_as_multi_V12.threshold,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* multisig_as_multi_V10 - other_signatories */;
-            return _toStringVecAccountId_V10(
-                &m->nested.multisig_as_multi_V10.other_signatories,
+        case 1: /* multisig_as_multi_V12 - other_signatories */;
+            return _toStringVecAccountId(
+                &m->nested.multisig_as_multi_V12.other_signatories,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* multisig_as_multi_V10 - maybe_timepoint */;
-            return _toStringOptionTimepoint_V10(
-                &m->nested.multisig_as_multi_V10.maybe_timepoint,
+        case 2: /* multisig_as_multi_V12 - maybe_timepoint */;
+            return _toStringOptionTimepoint(
+                &m->nested.multisig_as_multi_V12.maybe_timepoint,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* multisig_as_multi_V10 - call */;
+        case 3: /* multisig_as_multi_V12 - call */;
             return _toStringCall(
-                &m->nested.multisig_as_multi_V10.call,
+                &m->nested.multisig_as_multi_V12.call,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 4: /* multisig_as_multi_V10 - max_weight */;
-            return _toStringWeight_V10(
-                &m->nested.multisig_as_multi_V10.max_weight,
+        case 4: /* multisig_as_multi_V12 - max_weight */;
+            return _toStringWeight(
+                &m->nested.multisig_as_multi_V12.max_weight,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3180,29 +3304,29 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10498: /* module 41 call 2 */
         switch (itemIdx) {
-        case 0: /* multisig_approve_as_multi_V10 - threshold */;
+        case 0: /* multisig_approve_as_multi_V12 - threshold */;
             return _toStringu16(
-                &m->nested.multisig_approve_as_multi_V10.threshold,
+                &m->nested.multisig_approve_as_multi_V12.threshold,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* multisig_approve_as_multi_V10 - other_signatories */;
-            return _toStringVecAccountId_V10(
-                &m->nested.multisig_approve_as_multi_V10.other_signatories,
+        case 1: /* multisig_approve_as_multi_V12 - other_signatories */;
+            return _toStringVecAccountId(
+                &m->nested.multisig_approve_as_multi_V12.other_signatories,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* multisig_approve_as_multi_V10 - maybe_timepoint */;
-            return _toStringOptionTimepoint_V10(
-                &m->nested.multisig_approve_as_multi_V10.maybe_timepoint,
+        case 2: /* multisig_approve_as_multi_V12 - maybe_timepoint */;
+            return _toStringOptionTimepoint(
+                &m->nested.multisig_approve_as_multi_V12.maybe_timepoint,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* multisig_approve_as_multi_V10 - call_hash */;
+        case 3: /* multisig_approve_as_multi_V12 - call_hash */;
             return _toStringH256(
-                &m->nested.multisig_approve_as_multi_V10.call_hash,
+                &m->nested.multisig_approve_as_multi_V12.call_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 4: /* multisig_approve_as_multi_V10 - max_weight */;
-            return _toStringWeight_V10(
-                &m->nested.multisig_approve_as_multi_V10.max_weight,
+        case 4: /* multisig_approve_as_multi_V12 - max_weight */;
+            return _toStringWeight(
+                &m->nested.multisig_approve_as_multi_V12.max_weight,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3210,24 +3334,24 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10499: /* module 41 call 3 */
         switch (itemIdx) {
-        case 0: /* multisig_cancel_as_multi_V10 - threshold */;
+        case 0: /* multisig_cancel_as_multi_V12 - threshold */;
             return _toStringu16(
-                &m->nested.multisig_cancel_as_multi_V10.threshold,
+                &m->nested.multisig_cancel_as_multi_V12.threshold,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* multisig_cancel_as_multi_V10 - other_signatories */;
-            return _toStringVecAccountId_V10(
-                &m->nested.multisig_cancel_as_multi_V10.other_signatories,
+        case 1: /* multisig_cancel_as_multi_V12 - other_signatories */;
+            return _toStringVecAccountId(
+                &m->nested.multisig_cancel_as_multi_V12.other_signatories,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* multisig_cancel_as_multi_V10 - timepoint */;
-            return _toStringTimepoint_V10(
-                &m->nested.multisig_cancel_as_multi_V10.timepoint,
+        case 2: /* multisig_cancel_as_multi_V12 - timepoint */;
+            return _toStringTimepoint(
+                &m->nested.multisig_cancel_as_multi_V12.timepoint,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* multisig_cancel_as_multi_V10 - call_hash */;
+        case 3: /* multisig_cancel_as_multi_V12 - call_hash */;
             return _toStringH256(
-                &m->nested.multisig_cancel_as_multi_V10.call_hash,
+                &m->nested.multisig_cancel_as_multi_V12.call_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3235,19 +3359,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10752: /* module 42 call 0 */
         switch (itemIdx) {
-        case 0: /* proxy_proxy_V10 - real */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.proxy_proxy_V10.real,
+        case 0: /* proxy_proxy_V12 - real */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.proxy_proxy_V12.real,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* proxy_proxy_V10 - force_proxy_type */;
-            return _toStringOptionProxyType_V10(
-                &m->nested.proxy_proxy_V10.force_proxy_type,
+        case 1: /* proxy_proxy_V12 - force_proxy_type */;
+            return _toStringOptionProxyType(
+                &m->nested.proxy_proxy_V12.force_proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* proxy_proxy_V10 - call */;
+        case 2: /* proxy_proxy_V12 - call */;
             return _toStringCall(
-                &m->nested.proxy_proxy_V10.call,
+                &m->nested.proxy_proxy_V12.call,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3255,19 +3379,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10753: /* module 42 call 1 */
         switch (itemIdx) {
-        case 0: /* proxy_add_proxy_V10 - delegate */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.proxy_add_proxy_V10.delegate,
+        case 0: /* proxy_add_proxy_V12 - delegate */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.proxy_add_proxy_V12.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* proxy_add_proxy_V10 - proxy_type */;
-            return _toStringProxyType_V10(
-                &m->basic.proxy_add_proxy_V10.proxy_type,
+        case 1: /* proxy_add_proxy_V12 - proxy_type */;
+            return _toStringProxyType(
+                &m->basic.proxy_add_proxy_V12.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* proxy_add_proxy_V10 - delay */;
+        case 2: /* proxy_add_proxy_V12 - delay */;
             return _toStringBlockNumber(
-                &m->basic.proxy_add_proxy_V10.delay,
+                &m->basic.proxy_add_proxy_V12.delay,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3275,19 +3399,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10754: /* module 42 call 2 */
         switch (itemIdx) {
-        case 0: /* proxy_remove_proxy_V10 - delegate */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.proxy_remove_proxy_V10.delegate,
+        case 0: /* proxy_remove_proxy_V12 - delegate */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.proxy_remove_proxy_V12.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* proxy_remove_proxy_V10 - proxy_type */;
-            return _toStringProxyType_V10(
-                &m->basic.proxy_remove_proxy_V10.proxy_type,
+        case 1: /* proxy_remove_proxy_V12 - proxy_type */;
+            return _toStringProxyType(
+                &m->basic.proxy_remove_proxy_V12.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* proxy_remove_proxy_V10 - delay */;
+        case 2: /* proxy_remove_proxy_V12 - delay */;
             return _toStringBlockNumber(
-                &m->basic.proxy_remove_proxy_V10.delay,
+                &m->basic.proxy_remove_proxy_V12.delay,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3300,19 +3424,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10756: /* module 42 call 4 */
         switch (itemIdx) {
-        case 0: /* proxy_create_pure_V10 - proxy_type */;
-            return _toStringProxyType_V10(
-                &m->basic.proxy_create_pure_V10.proxy_type,
+        case 0: /* proxy_create_pure_V12 - proxy_type */;
+            return _toStringProxyType(
+                &m->nested.proxy_create_pure_V12.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* proxy_create_pure_V10 - delay */;
+        case 1: /* proxy_create_pure_V12 - delay */;
             return _toStringBlockNumber(
-                &m->basic.proxy_create_pure_V10.delay,
+                &m->nested.proxy_create_pure_V12.delay,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* proxy_create_pure_V10 - index */;
+        case 2: /* proxy_create_pure_V12 - index */;
             return _toStringu16(
-                &m->basic.proxy_create_pure_V10.index,
+                &m->nested.proxy_create_pure_V12.index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3320,29 +3444,29 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10757: /* module 42 call 5 */
         switch (itemIdx) {
-        case 0: /* proxy_kill_pure_V10 - spawner */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.proxy_kill_pure_V10.spawner,
+        case 0: /* proxy_kill_pure_V12 - spawner */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.proxy_kill_pure_V12.spawner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* proxy_kill_pure_V10 - proxy_type */;
-            return _toStringProxyType_V10(
-                &m->basic.proxy_kill_pure_V10.proxy_type,
+        case 1: /* proxy_kill_pure_V12 - proxy_type */;
+            return _toStringProxyType(
+                &m->nested.proxy_kill_pure_V12.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* proxy_kill_pure_V10 - index */;
+        case 2: /* proxy_kill_pure_V12 - index */;
             return _toStringu16(
-                &m->basic.proxy_kill_pure_V10.index,
+                &m->nested.proxy_kill_pure_V12.index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* proxy_kill_pure_V10 - height */;
+        case 3: /* proxy_kill_pure_V12 - height */;
             return _toStringCompactu32(
-                &m->basic.proxy_kill_pure_V10.height,
+                &m->nested.proxy_kill_pure_V12.height,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 4: /* proxy_kill_pure_V10 - ext_index */;
+        case 4: /* proxy_kill_pure_V12 - ext_index */;
             return _toStringCompactu32(
-                &m->basic.proxy_kill_pure_V10.ext_index,
+                &m->nested.proxy_kill_pure_V12.ext_index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3350,14 +3474,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10758: /* module 42 call 6 */
         switch (itemIdx) {
-        case 0: /* proxy_announce_V10 - real */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.proxy_announce_V10.real,
+        case 0: /* proxy_announce_V12 - real */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.proxy_announce_V12.real,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* proxy_announce_V10 - call_hash */;
-            return _toStringCallHashOf_V10(
-                &m->basic.proxy_announce_V10.call_hash,
+        case 1: /* proxy_announce_V12 - call_hash */;
+            return _toStringCallHashOf(
+                &m->basic.proxy_announce_V12.call_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3365,14 +3489,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10759: /* module 42 call 7 */
         switch (itemIdx) {
-        case 0: /* proxy_remove_announcement_V10 - real */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.proxy_remove_announcement_V10.real,
+        case 0: /* proxy_remove_announcement_V12 - real */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.proxy_remove_announcement_V12.real,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* proxy_remove_announcement_V10 - call_hash */;
-            return _toStringCallHashOf_V10(
-                &m->basic.proxy_remove_announcement_V10.call_hash,
+        case 1: /* proxy_remove_announcement_V12 - call_hash */;
+            return _toStringCallHashOf(
+                &m->basic.proxy_remove_announcement_V12.call_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3380,14 +3504,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10760: /* module 42 call 8 */
         switch (itemIdx) {
-        case 0: /* proxy_reject_announcement_V10 - delegate */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.proxy_reject_announcement_V10.delegate,
+        case 0: /* proxy_reject_announcement_V12 - delegate */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.proxy_reject_announcement_V12.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* proxy_reject_announcement_V10 - call_hash */;
-            return _toStringCallHashOf_V10(
-                &m->basic.proxy_reject_announcement_V10.call_hash,
+        case 1: /* proxy_reject_announcement_V12 - call_hash */;
+            return _toStringCallHashOf(
+                &m->basic.proxy_reject_announcement_V12.call_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3395,24 +3519,24 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 10761: /* module 42 call 9 */
         switch (itemIdx) {
-        case 0: /* proxy_proxy_announced_V10 - delegate */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.proxy_proxy_announced_V10.delegate,
+        case 0: /* proxy_proxy_announced_V12 - delegate */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.proxy_proxy_announced_V12.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* proxy_proxy_announced_V10 - real */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.proxy_proxy_announced_V10.real,
+        case 1: /* proxy_proxy_announced_V12 - real */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.proxy_proxy_announced_V12.real,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* proxy_proxy_announced_V10 - force_proxy_type */;
-            return _toStringOptionProxyType_V10(
-                &m->basic.proxy_proxy_announced_V10.force_proxy_type,
+        case 2: /* proxy_proxy_announced_V12 - force_proxy_type */;
+            return _toStringOptionProxyType(
+                &m->basic.proxy_proxy_announced_V12.force_proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* proxy_proxy_announced_V10 - call */;
+        case 3: /* proxy_proxy_announced_V12 - call */;
             return _toStringCall(
-                &m->basic.proxy_proxy_announced_V10.call,
+                &m->basic.proxy_proxy_announced_V12.call,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3420,19 +3544,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12800: /* module 50 call 0 */
         switch (itemIdx) {
-        case 0: /* assets_create_V10 - id */;
+        case 0: /* assets_create_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_create_V10.id,
+                &m->nested.assets_create_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_create_V10 - admin */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_create_V10.admin,
+        case 1: /* assets_create_V12 - admin */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_create_V12.admin,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_create_V10 - min_balance */;
+        case 2: /* assets_create_V12 - min_balance */;
             return _toStringBalance(
-                &m->nested.assets_create_V10.min_balance,
+                &m->nested.assets_create_V12.min_balance,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3440,24 +3564,24 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12801: /* module 50 call 1 */
         switch (itemIdx) {
-        case 0: /* assets_force_create_V10 - id */;
+        case 0: /* assets_force_create_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_force_create_V10.id,
+                &m->nested.assets_force_create_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_force_create_V10 - owner */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_force_create_V10.owner,
+        case 1: /* assets_force_create_V12 - owner */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_force_create_V12.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_force_create_V10 - is_sufficient */;
+        case 2: /* assets_force_create_V12 - is_sufficient */;
             return _toStringbool(
-                &m->nested.assets_force_create_V10.is_sufficient,
+                &m->nested.assets_force_create_V12.is_sufficient,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* assets_force_create_V10 - min_balance */;
+        case 3: /* assets_force_create_V12 - min_balance */;
             return _toStringCompactBalance(
-                &m->nested.assets_force_create_V10.min_balance,
+                &m->nested.assets_force_create_V12.min_balance,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3465,9 +3589,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12802: /* module 50 call 2 */
         switch (itemIdx) {
-        case 0: /* assets_start_destroy_V10 - id */;
+        case 0: /* assets_start_destroy_V12 - id */;
             return _toStringCompactu32(
-                &m->basic.assets_start_destroy_V10.id,
+                &m->basic.assets_start_destroy_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3475,9 +3599,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12803: /* module 50 call 3 */
         switch (itemIdx) {
-        case 0: /* assets_destroy_accounts_V10 - id */;
+        case 0: /* assets_destroy_accounts_V12 - id */;
             return _toStringCompactu32(
-                &m->basic.assets_destroy_accounts_V10.id,
+                &m->basic.assets_destroy_accounts_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3485,9 +3609,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12804: /* module 50 call 4 */
         switch (itemIdx) {
-        case 0: /* assets_destroy_approvals_V10 - id */;
+        case 0: /* assets_destroy_approvals_V12 - id */;
             return _toStringCompactu32(
-                &m->basic.assets_destroy_approvals_V10.id,
+                &m->basic.assets_destroy_approvals_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3495,9 +3619,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12805: /* module 50 call 5 */
         switch (itemIdx) {
-        case 0: /* assets_finish_destroy_V10 - id */;
+        case 0: /* assets_finish_destroy_V12 - id */;
             return _toStringCompactu32(
-                &m->basic.assets_finish_destroy_V10.id,
+                &m->basic.assets_finish_destroy_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3505,19 +3629,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12806: /* module 50 call 6 */
         switch (itemIdx) {
-        case 0: /* assets_mint_V10 - id */;
+        case 0: /* assets_mint_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_mint_V10.id,
+                &m->nested.assets_mint_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_mint_V10 - beneficiary */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_mint_V10.beneficiary,
+        case 1: /* assets_mint_V12 - beneficiary */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_mint_V12.beneficiary,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_mint_V10 - amount */;
+        case 2: /* assets_mint_V12 - amount */;
             return _toStringCompactBalance(
-                &m->nested.assets_mint_V10.amount,
+                &m->nested.assets_mint_V12.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3525,19 +3649,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12807: /* module 50 call 7 */
         switch (itemIdx) {
-        case 0: /* assets_burn_V10 - id */;
+        case 0: /* assets_burn_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_burn_V10.id,
+                &m->nested.assets_burn_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_burn_V10 - who */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_burn_V10.who,
+        case 1: /* assets_burn_V12 - who */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_burn_V12.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_burn_V10 - amount */;
+        case 2: /* assets_burn_V12 - amount */;
             return _toStringCompactBalance(
-                &m->nested.assets_burn_V10.amount,
+                &m->nested.assets_burn_V12.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3545,19 +3669,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12808: /* module 50 call 8 */
         switch (itemIdx) {
-        case 0: /* assets_transfer_V10 - id */;
+        case 0: /* assets_transfer_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_transfer_V10.id,
+                &m->nested.assets_transfer_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_transfer_V10 - target */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_transfer_V10.target,
+        case 1: /* assets_transfer_V12 - target */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_transfer_V12.target,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_transfer_V10 - amount */;
+        case 2: /* assets_transfer_V12 - amount */;
             return _toStringCompactBalance(
-                &m->nested.assets_transfer_V10.amount,
+                &m->nested.assets_transfer_V12.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3565,19 +3689,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12809: /* module 50 call 9 */
         switch (itemIdx) {
-        case 0: /* assets_transfer_keep_alive_V10 - id */;
+        case 0: /* assets_transfer_keep_alive_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_transfer_keep_alive_V10.id,
+                &m->nested.assets_transfer_keep_alive_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_transfer_keep_alive_V10 - target */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_transfer_keep_alive_V10.target,
+        case 1: /* assets_transfer_keep_alive_V12 - target */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_transfer_keep_alive_V12.target,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_transfer_keep_alive_V10 - amount */;
+        case 2: /* assets_transfer_keep_alive_V12 - amount */;
             return _toStringCompactBalance(
-                &m->nested.assets_transfer_keep_alive_V10.amount,
+                &m->nested.assets_transfer_keep_alive_V12.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3585,24 +3709,24 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12810: /* module 50 call 10 */
         switch (itemIdx) {
-        case 0: /* assets_force_transfer_V10 - id */;
+        case 0: /* assets_force_transfer_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_force_transfer_V10.id,
+                &m->nested.assets_force_transfer_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_force_transfer_V10 - source */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_force_transfer_V10.source,
+        case 1: /* assets_force_transfer_V12 - source */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_force_transfer_V12.source,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_force_transfer_V10 - dest */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_force_transfer_V10.dest,
+        case 2: /* assets_force_transfer_V12 - dest */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_force_transfer_V12.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* assets_force_transfer_V10 - amount */;
+        case 3: /* assets_force_transfer_V12 - amount */;
             return _toStringCompactBalance(
-                &m->nested.assets_force_transfer_V10.amount,
+                &m->nested.assets_force_transfer_V12.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3610,14 +3734,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12811: /* module 50 call 11 */
         switch (itemIdx) {
-        case 0: /* assets_freeze_V10 - id */;
+        case 0: /* assets_freeze_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_freeze_V10.id,
+                &m->nested.assets_freeze_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_freeze_V10 - who */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_freeze_V10.who,
+        case 1: /* assets_freeze_V12 - who */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_freeze_V12.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3625,14 +3749,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12812: /* module 50 call 12 */
         switch (itemIdx) {
-        case 0: /* assets_thaw_V10 - id */;
+        case 0: /* assets_thaw_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_thaw_V10.id,
+                &m->nested.assets_thaw_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_thaw_V10 - who */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_thaw_V10.who,
+        case 1: /* assets_thaw_V12 - who */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_thaw_V12.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3640,9 +3764,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12813: /* module 50 call 13 */
         switch (itemIdx) {
-        case 0: /* assets_freeze_asset_V10 - id */;
+        case 0: /* assets_freeze_asset_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_freeze_asset_V10.id,
+                &m->nested.assets_freeze_asset_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3650,9 +3774,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12814: /* module 50 call 14 */
         switch (itemIdx) {
-        case 0: /* assets_thaw_asset_V10 - id */;
+        case 0: /* assets_thaw_asset_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_thaw_asset_V10.id,
+                &m->nested.assets_thaw_asset_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3660,14 +3784,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12815: /* module 50 call 15 */
         switch (itemIdx) {
-        case 0: /* assets_transfer_ownership_V10 - id */;
+        case 0: /* assets_transfer_ownership_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_transfer_ownership_V10.id,
+                &m->nested.assets_transfer_ownership_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_transfer_ownership_V10 - owner */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_transfer_ownership_V10.owner,
+        case 1: /* assets_transfer_ownership_V12 - owner */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_transfer_ownership_V12.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3675,24 +3799,24 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12816: /* module 50 call 16 */
         switch (itemIdx) {
-        case 0: /* assets_set_team_V10 - id */;
+        case 0: /* assets_set_team_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_set_team_V10.id,
+                &m->nested.assets_set_team_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_set_team_V10 - issuer */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_set_team_V10.issuer,
+        case 1: /* assets_set_team_V12 - issuer */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_set_team_V12.issuer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_set_team_V10 - admin */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_set_team_V10.admin,
+        case 2: /* assets_set_team_V12 - admin */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_set_team_V12.admin,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* assets_set_team_V10 - freezer */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_set_team_V10.freezer,
+        case 3: /* assets_set_team_V12 - freezer */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_set_team_V12.freezer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3700,24 +3824,24 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12817: /* module 50 call 17 */
         switch (itemIdx) {
-        case 0: /* assets_set_metadata_V10 - id */;
+        case 0: /* assets_set_metadata_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_set_metadata_V10.id,
+                &m->nested.assets_set_metadata_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_set_metadata_V10 - name */;
+        case 1: /* assets_set_metadata_V12 - name */;
             return _toStringVecu8(
-                &m->nested.assets_set_metadata_V10.name,
+                &m->nested.assets_set_metadata_V12.name,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_set_metadata_V10 - symbol */;
+        case 2: /* assets_set_metadata_V12 - symbol */;
             return _toStringVecu8(
-                &m->nested.assets_set_metadata_V10.symbol,
+                &m->nested.assets_set_metadata_V12.symbol,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* assets_set_metadata_V10 - decimals */;
+        case 3: /* assets_set_metadata_V12 - decimals */;
             return _toStringu8(
-                &m->nested.assets_set_metadata_V10.decimals,
+                &m->nested.assets_set_metadata_V12.decimals,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3725,9 +3849,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12818: /* module 50 call 18 */
         switch (itemIdx) {
-        case 0: /* assets_clear_metadata_V10 - id */;
+        case 0: /* assets_clear_metadata_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_clear_metadata_V10.id,
+                &m->nested.assets_clear_metadata_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3735,29 +3859,29 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12819: /* module 50 call 19 */
         switch (itemIdx) {
-        case 0: /* assets_force_set_metadata_V10 - id */;
+        case 0: /* assets_force_set_metadata_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_force_set_metadata_V10.id,
+                &m->nested.assets_force_set_metadata_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_force_set_metadata_V10 - name */;
+        case 1: /* assets_force_set_metadata_V12 - name */;
             return _toStringVecu8(
-                &m->nested.assets_force_set_metadata_V10.name,
+                &m->nested.assets_force_set_metadata_V12.name,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_force_set_metadata_V10 - symbol */;
+        case 2: /* assets_force_set_metadata_V12 - symbol */;
             return _toStringVecu8(
-                &m->nested.assets_force_set_metadata_V10.symbol,
+                &m->nested.assets_force_set_metadata_V12.symbol,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* assets_force_set_metadata_V10 - decimals */;
+        case 3: /* assets_force_set_metadata_V12 - decimals */;
             return _toStringu8(
-                &m->nested.assets_force_set_metadata_V10.decimals,
+                &m->nested.assets_force_set_metadata_V12.decimals,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 4: /* assets_force_set_metadata_V10 - is_frozen */;
+        case 4: /* assets_force_set_metadata_V12 - is_frozen */;
             return _toStringbool(
-                &m->nested.assets_force_set_metadata_V10.is_frozen,
+                &m->nested.assets_force_set_metadata_V12.is_frozen,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3765,9 +3889,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12820: /* module 50 call 20 */
         switch (itemIdx) {
-        case 0: /* assets_force_clear_metadata_V10 - id */;
+        case 0: /* assets_force_clear_metadata_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_force_clear_metadata_V10.id,
+                &m->nested.assets_force_clear_metadata_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3775,44 +3899,44 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12821: /* module 50 call 21 */
         switch (itemIdx) {
-        case 0: /* assets_force_asset_status_V10 - id */;
+        case 0: /* assets_force_asset_status_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_force_asset_status_V10.id,
+                &m->nested.assets_force_asset_status_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_force_asset_status_V10 - owner */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_force_asset_status_V10.owner,
+        case 1: /* assets_force_asset_status_V12 - owner */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_force_asset_status_V12.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_force_asset_status_V10 - issuer */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_force_asset_status_V10.issuer,
+        case 2: /* assets_force_asset_status_V12 - issuer */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_force_asset_status_V12.issuer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* assets_force_asset_status_V10 - admin */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_force_asset_status_V10.admin,
+        case 3: /* assets_force_asset_status_V12 - admin */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_force_asset_status_V12.admin,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 4: /* assets_force_asset_status_V10 - freezer */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_force_asset_status_V10.freezer,
+        case 4: /* assets_force_asset_status_V12 - freezer */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_force_asset_status_V12.freezer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 5: /* assets_force_asset_status_V10 - min_balance */;
+        case 5: /* assets_force_asset_status_V12 - min_balance */;
             return _toStringCompactBalance(
-                &m->nested.assets_force_asset_status_V10.min_balance,
+                &m->nested.assets_force_asset_status_V12.min_balance,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 6: /* assets_force_asset_status_V10 - is_sufficient */;
+        case 6: /* assets_force_asset_status_V12 - is_sufficient */;
             return _toStringbool(
-                &m->nested.assets_force_asset_status_V10.is_sufficient,
+                &m->nested.assets_force_asset_status_V12.is_sufficient,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 7: /* assets_force_asset_status_V10 - is_frozen */;
+        case 7: /* assets_force_asset_status_V12 - is_frozen */;
             return _toStringbool(
-                &m->nested.assets_force_asset_status_V10.is_frozen,
+                &m->nested.assets_force_asset_status_V12.is_frozen,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3820,19 +3944,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12822: /* module 50 call 22 */
         switch (itemIdx) {
-        case 0: /* assets_approve_transfer_V10 - id */;
+        case 0: /* assets_approve_transfer_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_approve_transfer_V10.id,
+                &m->nested.assets_approve_transfer_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_approve_transfer_V10 - delegate */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_approve_transfer_V10.delegate,
+        case 1: /* assets_approve_transfer_V12 - delegate */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_approve_transfer_V12.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_approve_transfer_V10 - amount */;
+        case 2: /* assets_approve_transfer_V12 - amount */;
             return _toStringCompactBalance(
-                &m->nested.assets_approve_transfer_V10.amount,
+                &m->nested.assets_approve_transfer_V12.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3840,14 +3964,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12823: /* module 50 call 23 */
         switch (itemIdx) {
-        case 0: /* assets_cancel_approval_V10 - id */;
+        case 0: /* assets_cancel_approval_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_cancel_approval_V10.id,
+                &m->nested.assets_cancel_approval_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_cancel_approval_V10 - delegate */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_cancel_approval_V10.delegate,
+        case 1: /* assets_cancel_approval_V12 - delegate */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_cancel_approval_V12.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3855,19 +3979,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12824: /* module 50 call 24 */
         switch (itemIdx) {
-        case 0: /* assets_force_cancel_approval_V10 - id */;
+        case 0: /* assets_force_cancel_approval_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_force_cancel_approval_V10.id,
+                &m->nested.assets_force_cancel_approval_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_force_cancel_approval_V10 - owner */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_force_cancel_approval_V10.owner,
+        case 1: /* assets_force_cancel_approval_V12 - owner */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_force_cancel_approval_V12.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_force_cancel_approval_V10 - delegate */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_force_cancel_approval_V10.delegate,
+        case 2: /* assets_force_cancel_approval_V12 - delegate */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_force_cancel_approval_V12.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3875,24 +3999,24 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12825: /* module 50 call 25 */
         switch (itemIdx) {
-        case 0: /* assets_transfer_approved_V10 - id */;
+        case 0: /* assets_transfer_approved_V12 - id */;
             return _toStringCompactu32(
-                &m->nested.assets_transfer_approved_V10.id,
+                &m->nested.assets_transfer_approved_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_transfer_approved_V10 - owner */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_transfer_approved_V10.owner,
+        case 1: /* assets_transfer_approved_V12 - owner */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_transfer_approved_V12.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* assets_transfer_approved_V10 - destination */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->nested.assets_transfer_approved_V10.destination,
+        case 2: /* assets_transfer_approved_V12 - destination */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.assets_transfer_approved_V12.destination,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* assets_transfer_approved_V10 - amount */;
+        case 3: /* assets_transfer_approved_V12 - amount */;
             return _toStringCompactBalance(
-                &m->nested.assets_transfer_approved_V10.amount,
+                &m->nested.assets_transfer_approved_V12.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3900,9 +4024,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12826: /* module 50 call 26 */
         switch (itemIdx) {
-        case 0: /* assets_touch_V10 - id */;
+        case 0: /* assets_touch_V12 - id */;
             return _toStringCompactu32(
-                &m->basic.assets_touch_V10.id,
+                &m->basic.assets_touch_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3910,14 +4034,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 12827: /* module 50 call 27 */
         switch (itemIdx) {
-        case 0: /* assets_refund_V10 - id */;
+        case 0: /* assets_refund_V12 - id */;
             return _toStringCompactu32(
-                &m->basic.assets_refund_V10.id,
+                &m->basic.assets_refund_V12.id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* assets_refund_V10 - allow_burn */;
+        case 1: /* assets_refund_V12 - allow_burn */;
             return _toStringbool(
-                &m->basic.assets_refund_V10.allow_burn,
+                &m->basic.assets_refund_V12.allow_burn,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3925,14 +4049,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13056: /* module 51 call 0 */
         switch (itemIdx) {
-        case 0: /* uniques_create_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_create_V10.collection,
+        case 0: /* uniques_create_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_create_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_create_V10 - admin */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_create_V10.admin,
+        case 1: /* uniques_create_V12 - admin */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_create_V12.admin,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3940,19 +4064,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13057: /* module 51 call 1 */
         switch (itemIdx) {
-        case 0: /* uniques_force_create_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_force_create_V10.collection,
+        case 0: /* uniques_force_create_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_force_create_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_force_create_V10 - owner */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_force_create_V10.owner,
+        case 1: /* uniques_force_create_V12 - owner */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_force_create_V12.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_force_create_V10 - free_holding */;
+        case 2: /* uniques_force_create_V12 - free_holding */;
             return _toStringbool(
-                &m->basic.uniques_force_create_V10.free_holding,
+                &m->basic.uniques_force_create_V12.free_holding,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3960,14 +4084,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13058: /* module 51 call 2 */
         switch (itemIdx) {
-        case 0: /* uniques_destroy_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_destroy_V10.collection,
+        case 0: /* uniques_destroy_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_destroy_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_destroy_V10 - witness */;
-            return _toStringDestroyWitness_V10(
-                &m->basic.uniques_destroy_V10.witness,
+        case 1: /* uniques_destroy_V12 - witness */;
+            return _toStringDestroyWitness(
+                &m->basic.uniques_destroy_V12.witness,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3975,19 +4099,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13059: /* module 51 call 3 */
         switch (itemIdx) {
-        case 0: /* uniques_mint_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_mint_V10.collection,
+        case 0: /* uniques_mint_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_mint_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_mint_V10 - item */;
-            return _toStringItemId_V10(
-                &m->basic.uniques_mint_V10.item,
+        case 1: /* uniques_mint_V12 - item */;
+            return _toStringItemId(
+                &m->basic.uniques_mint_V12.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_mint_V10 - owner */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_mint_V10.owner,
+        case 2: /* uniques_mint_V12 - owner */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_mint_V12.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3995,19 +4119,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13060: /* module 51 call 4 */
         switch (itemIdx) {
-        case 0: /* uniques_burn_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_burn_V10.collection,
+        case 0: /* uniques_burn_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_burn_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_burn_V10 - item */;
-            return _toStringItemId_V10(
-                &m->basic.uniques_burn_V10.item,
+        case 1: /* uniques_burn_V12 - item */;
+            return _toStringItemId(
+                &m->basic.uniques_burn_V12.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_burn_V10 - check_owner */;
-            return _toStringOptionAccountIdLookupOfT_V10(
-                &m->basic.uniques_burn_V10.check_owner,
+        case 2: /* uniques_burn_V12 - check_owner */;
+            return _toStringOptionAccountIdLookupOfT(
+                &m->basic.uniques_burn_V12.check_owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4015,19 +4139,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13061: /* module 51 call 5 */
         switch (itemIdx) {
-        case 0: /* uniques_transfer_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_transfer_V10.collection,
+        case 0: /* uniques_transfer_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_transfer_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_transfer_V10 - item */;
-            return _toStringItemId_V10(
-                &m->basic.uniques_transfer_V10.item,
+        case 1: /* uniques_transfer_V12 - item */;
+            return _toStringItemId(
+                &m->basic.uniques_transfer_V12.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_transfer_V10 - dest */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_transfer_V10.dest,
+        case 2: /* uniques_transfer_V12 - dest */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_transfer_V12.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4035,14 +4159,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13062: /* module 51 call 6 */
         switch (itemIdx) {
-        case 0: /* uniques_redeposit_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_redeposit_V10.collection,
+        case 0: /* uniques_redeposit_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_redeposit_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_redeposit_V10 - items */;
-            return _toStringVecItemId_V10(
-                &m->basic.uniques_redeposit_V10.items,
+        case 1: /* uniques_redeposit_V12 - items */;
+            return _toStringVecItemId(
+                &m->basic.uniques_redeposit_V12.items,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4050,14 +4174,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13063: /* module 51 call 7 */
         switch (itemIdx) {
-        case 0: /* uniques_freeze_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_freeze_V10.collection,
+        case 0: /* uniques_freeze_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_freeze_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_freeze_V10 - item */;
-            return _toStringItemId_V10(
-                &m->basic.uniques_freeze_V10.item,
+        case 1: /* uniques_freeze_V12 - item */;
+            return _toStringItemId(
+                &m->basic.uniques_freeze_V12.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4065,14 +4189,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13064: /* module 51 call 8 */
         switch (itemIdx) {
-        case 0: /* uniques_thaw_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_thaw_V10.collection,
+        case 0: /* uniques_thaw_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_thaw_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_thaw_V10 - item */;
-            return _toStringItemId_V10(
-                &m->basic.uniques_thaw_V10.item,
+        case 1: /* uniques_thaw_V12 - item */;
+            return _toStringItemId(
+                &m->basic.uniques_thaw_V12.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4080,9 +4204,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13065: /* module 51 call 9 */
         switch (itemIdx) {
-        case 0: /* uniques_freeze_collection_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_freeze_collection_V10.collection,
+        case 0: /* uniques_freeze_collection_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_freeze_collection_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4090,9 +4214,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13066: /* module 51 call 10 */
         switch (itemIdx) {
-        case 0: /* uniques_thaw_collection_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_thaw_collection_V10.collection,
+        case 0: /* uniques_thaw_collection_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_thaw_collection_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4100,14 +4224,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13067: /* module 51 call 11 */
         switch (itemIdx) {
-        case 0: /* uniques_transfer_ownership_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_transfer_ownership_V10.collection,
+        case 0: /* uniques_transfer_ownership_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_transfer_ownership_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_transfer_ownership_V10 - owner */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_transfer_ownership_V10.owner,
+        case 1: /* uniques_transfer_ownership_V12 - owner */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_transfer_ownership_V12.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4115,24 +4239,24 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13068: /* module 51 call 12 */
         switch (itemIdx) {
-        case 0: /* uniques_set_team_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_set_team_V10.collection,
+        case 0: /* uniques_set_team_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_set_team_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_set_team_V10 - issuer */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_set_team_V10.issuer,
+        case 1: /* uniques_set_team_V12 - issuer */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_set_team_V12.issuer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_set_team_V10 - admin */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_set_team_V10.admin,
+        case 2: /* uniques_set_team_V12 - admin */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_set_team_V12.admin,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* uniques_set_team_V10 - freezer */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_set_team_V10.freezer,
+        case 3: /* uniques_set_team_V12 - freezer */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_set_team_V12.freezer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4140,19 +4264,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13069: /* module 51 call 13 */
         switch (itemIdx) {
-        case 0: /* uniques_approve_transfer_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_approve_transfer_V10.collection,
+        case 0: /* uniques_approve_transfer_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_approve_transfer_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_approve_transfer_V10 - item */;
-            return _toStringItemId_V10(
-                &m->basic.uniques_approve_transfer_V10.item,
+        case 1: /* uniques_approve_transfer_V12 - item */;
+            return _toStringItemId(
+                &m->basic.uniques_approve_transfer_V12.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_approve_transfer_V10 - delegate */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_approve_transfer_V10.delegate,
+        case 2: /* uniques_approve_transfer_V12 - delegate */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_approve_transfer_V12.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4160,19 +4284,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13070: /* module 51 call 14 */
         switch (itemIdx) {
-        case 0: /* uniques_cancel_approval_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_cancel_approval_V10.collection,
+        case 0: /* uniques_cancel_approval_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_cancel_approval_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_cancel_approval_V10 - item */;
-            return _toStringItemId_V10(
-                &m->basic.uniques_cancel_approval_V10.item,
+        case 1: /* uniques_cancel_approval_V12 - item */;
+            return _toStringItemId(
+                &m->basic.uniques_cancel_approval_V12.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_cancel_approval_V10 - maybe_check_delegate */;
-            return _toStringOptionAccountIdLookupOfT_V10(
-                &m->basic.uniques_cancel_approval_V10.maybe_check_delegate,
+        case 2: /* uniques_cancel_approval_V12 - maybe_check_delegate */;
+            return _toStringOptionAccountIdLookupOfT(
+                &m->basic.uniques_cancel_approval_V12.maybe_check_delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4180,39 +4304,39 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13071: /* module 51 call 15 */
         switch (itemIdx) {
-        case 0: /* uniques_force_item_status_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_force_item_status_V10.collection,
+        case 0: /* uniques_force_item_status_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_force_item_status_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_force_item_status_V10 - owner */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_force_item_status_V10.owner,
+        case 1: /* uniques_force_item_status_V12 - owner */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_force_item_status_V12.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_force_item_status_V10 - issuer */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_force_item_status_V10.issuer,
+        case 2: /* uniques_force_item_status_V12 - issuer */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_force_item_status_V12.issuer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* uniques_force_item_status_V10 - admin */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_force_item_status_V10.admin,
+        case 3: /* uniques_force_item_status_V12 - admin */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_force_item_status_V12.admin,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 4: /* uniques_force_item_status_V10 - freezer */;
-            return _toStringAccountIdLookupOfT_V10(
-                &m->basic.uniques_force_item_status_V10.freezer,
+        case 4: /* uniques_force_item_status_V12 - freezer */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.uniques_force_item_status_V12.freezer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 5: /* uniques_force_item_status_V10 - free_holding */;
+        case 5: /* uniques_force_item_status_V12 - free_holding */;
             return _toStringbool(
-                &m->basic.uniques_force_item_status_V10.free_holding,
+                &m->basic.uniques_force_item_status_V12.free_holding,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 6: /* uniques_force_item_status_V10 - is_frozen */;
+        case 6: /* uniques_force_item_status_V12 - is_frozen */;
             return _toStringbool(
-                &m->basic.uniques_force_item_status_V10.is_frozen,
+                &m->basic.uniques_force_item_status_V12.is_frozen,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4220,24 +4344,24 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13072: /* module 51 call 16 */
         switch (itemIdx) {
-        case 0: /* uniques_set_attribute_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_set_attribute_V10.collection,
+        case 0: /* uniques_set_attribute_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_set_attribute_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_set_attribute_V10 - maybe_item */;
-            return _toStringOptionItemId_V10(
-                &m->basic.uniques_set_attribute_V10.maybe_item,
+        case 1: /* uniques_set_attribute_V12 - maybe_item */;
+            return _toStringOptionItemId(
+                &m->basic.uniques_set_attribute_V12.maybe_item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_set_attribute_V10 - key */;
-            return _toStringBoundedVecu8_V10(
-                &m->basic.uniques_set_attribute_V10.key,
+        case 2: /* uniques_set_attribute_V12 - key */;
+            return _toStringBoundedVecu8(
+                &m->basic.uniques_set_attribute_V12.key,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* uniques_set_attribute_V10 - value */;
-            return _toStringBoundedVecu8_V10(
-                &m->basic.uniques_set_attribute_V10.value,
+        case 3: /* uniques_set_attribute_V12 - value */;
+            return _toStringBoundedVecu8(
+                &m->basic.uniques_set_attribute_V12.value,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4245,19 +4369,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13073: /* module 51 call 17 */
         switch (itemIdx) {
-        case 0: /* uniques_clear_attribute_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_clear_attribute_V10.collection,
+        case 0: /* uniques_clear_attribute_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_clear_attribute_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_clear_attribute_V10 - maybe_item */;
-            return _toStringOptionItemId_V10(
-                &m->basic.uniques_clear_attribute_V10.maybe_item,
+        case 1: /* uniques_clear_attribute_V12 - maybe_item */;
+            return _toStringOptionItemId(
+                &m->basic.uniques_clear_attribute_V12.maybe_item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_clear_attribute_V10 - key */;
-            return _toStringBoundedVecu8_V10(
-                &m->basic.uniques_clear_attribute_V10.key,
+        case 2: /* uniques_clear_attribute_V12 - key */;
+            return _toStringBoundedVecu8(
+                &m->basic.uniques_clear_attribute_V12.key,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4265,24 +4389,24 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13074: /* module 51 call 18 */
         switch (itemIdx) {
-        case 0: /* uniques_set_metadata_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_set_metadata_V10.collection,
+        case 0: /* uniques_set_metadata_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_set_metadata_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_set_metadata_V10 - item */;
-            return _toStringItemId_V10(
-                &m->basic.uniques_set_metadata_V10.item,
+        case 1: /* uniques_set_metadata_V12 - item */;
+            return _toStringItemId(
+                &m->basic.uniques_set_metadata_V12.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_set_metadata_V10 - data */;
-            return _toStringBoundedVecu8_V10(
-                &m->basic.uniques_set_metadata_V10.data,
+        case 2: /* uniques_set_metadata_V12 - data */;
+            return _toStringBoundedVecu8(
+                &m->basic.uniques_set_metadata_V12.data,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* uniques_set_metadata_V10 - is_frozen */;
+        case 3: /* uniques_set_metadata_V12 - is_frozen */;
             return _toStringbool(
-                &m->basic.uniques_set_metadata_V10.is_frozen,
+                &m->basic.uniques_set_metadata_V12.is_frozen,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4290,14 +4414,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13075: /* module 51 call 19 */
         switch (itemIdx) {
-        case 0: /* uniques_clear_metadata_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_clear_metadata_V10.collection,
+        case 0: /* uniques_clear_metadata_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_clear_metadata_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_clear_metadata_V10 - item */;
-            return _toStringItemId_V10(
-                &m->basic.uniques_clear_metadata_V10.item,
+        case 1: /* uniques_clear_metadata_V12 - item */;
+            return _toStringItemId(
+                &m->basic.uniques_clear_metadata_V12.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4305,19 +4429,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13076: /* module 51 call 20 */
         switch (itemIdx) {
-        case 0: /* uniques_set_collection_metadata_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_set_collection_metadata_V10.collection,
+        case 0: /* uniques_set_collection_metadata_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_set_collection_metadata_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_set_collection_metadata_V10 - data */;
-            return _toStringBoundedVecu8_V10(
-                &m->basic.uniques_set_collection_metadata_V10.data,
+        case 1: /* uniques_set_collection_metadata_V12 - data */;
+            return _toStringBoundedVecu8(
+                &m->basic.uniques_set_collection_metadata_V12.data,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_set_collection_metadata_V10 - is_frozen */;
+        case 2: /* uniques_set_collection_metadata_V12 - is_frozen */;
             return _toStringbool(
-                &m->basic.uniques_set_collection_metadata_V10.is_frozen,
+                &m->basic.uniques_set_collection_metadata_V12.is_frozen,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4325,9 +4449,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13077: /* module 51 call 21 */
         switch (itemIdx) {
-        case 0: /* uniques_clear_collection_metadata_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_clear_collection_metadata_V10.collection,
+        case 0: /* uniques_clear_collection_metadata_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_clear_collection_metadata_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4335,9 +4459,9 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13078: /* module 51 call 22 */
         switch (itemIdx) {
-        case 0: /* uniques_set_accept_ownership_V10 - maybe_collection */;
-            return _toStringOptionCollectionId_V10(
-                &m->basic.uniques_set_accept_ownership_V10.maybe_collection,
+        case 0: /* uniques_set_accept_ownership_V12 - maybe_collection */;
+            return _toStringOptionCollectionId(
+                &m->basic.uniques_set_accept_ownership_V12.maybe_collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4345,14 +4469,14 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13079: /* module 51 call 23 */
         switch (itemIdx) {
-        case 0: /* uniques_set_collection_max_supply_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_set_collection_max_supply_V10.collection,
+        case 0: /* uniques_set_collection_max_supply_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_set_collection_max_supply_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_set_collection_max_supply_V10 - max_supply */;
+        case 1: /* uniques_set_collection_max_supply_V12 - max_supply */;
             return _toStringu32(
-                &m->basic.uniques_set_collection_max_supply_V10.max_supply,
+                &m->basic.uniques_set_collection_max_supply_V12.max_supply,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4360,24 +4484,24 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13080: /* module 51 call 24 */
         switch (itemIdx) {
-        case 0: /* uniques_set_price_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_set_price_V10.collection,
+        case 0: /* uniques_set_price_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_set_price_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_set_price_V10 - item */;
-            return _toStringItemId_V10(
-                &m->basic.uniques_set_price_V10.item,
+        case 1: /* uniques_set_price_V12 - item */;
+            return _toStringItemId(
+                &m->basic.uniques_set_price_V12.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_set_price_V10 - price */;
-            return _toStringOptionItemPrice_V10(
-                &m->basic.uniques_set_price_V10.price,
+        case 2: /* uniques_set_price_V12 - price */;
+            return _toStringOptionItemPrice(
+                &m->basic.uniques_set_price_V12.price,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 3: /* uniques_set_price_V10 - whitelisted_buyer */;
-            return _toStringOptionAccountIdLookupOfT_V10(
-                &m->basic.uniques_set_price_V10.whitelisted_buyer,
+        case 3: /* uniques_set_price_V12 - whitelisted_buyer */;
+            return _toStringOptionAccountIdLookupOfT(
+                &m->basic.uniques_set_price_V12.whitelisted_buyer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4385,19 +4509,19 @@ parser_error_t _getMethod_ItemValue_V10(
         }
     case 13081: /* module 51 call 25 */
         switch (itemIdx) {
-        case 0: /* uniques_buy_item_V10 - collection */;
-            return _toStringCollectionId_V10(
-                &m->basic.uniques_buy_item_V10.collection,
+        case 0: /* uniques_buy_item_V12 - collection */;
+            return _toStringCollectionId(
+                &m->basic.uniques_buy_item_V12.collection,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* uniques_buy_item_V10 - item */;
-            return _toStringItemId_V10(
-                &m->basic.uniques_buy_item_V10.item,
+        case 1: /* uniques_buy_item_V12 - item */;
+            return _toStringItemId(
+                &m->basic.uniques_buy_item_V12.item,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 2: /* uniques_buy_item_V10 - bid_price */;
-            return _toStringItemPrice_V10(
-                &m->basic.uniques_buy_item_V10.bid_price,
+        case 2: /* uniques_buy_item_V12 - bid_price */;
+            return _toStringItemPrice(
+                &m->basic.uniques_buy_item_V12.bid_price,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4411,7 +4535,7 @@ parser_error_t _getMethod_ItemValue_V10(
     return parser_ok;
 }
 
-bool _getMethod_ItemIsExpert_V10(uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx)
+bool _getMethod_ItemIsExpert_V12(uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 
@@ -4422,7 +4546,7 @@ bool _getMethod_ItemIsExpert_V10(uint8_t moduleIdx, uint8_t callIdx, uint8_t ite
     }
 }
 
-bool _getMethod_IsNestingSupported_V10(uint8_t moduleIdx, uint8_t callIdx)
+bool _getMethod_IsNestingSupported_V12(uint8_t moduleIdx, uint8_t callIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 
@@ -4446,17 +4570,18 @@ bool _getMethod_IsNestingSupported_V10(uint8_t moduleIdx, uint8_t callIdx)
     case 7686: // XcmpQueue:Update threshold weight
     case 7687: // XcmpQueue:Update weight restrict decay
     case 7688: // XcmpQueue:Update xcmp max individual weight
+    case 7937: // PolkadotXcm:Teleport assets
     case 7938: // PolkadotXcm:Reserve transfer assets
     case 7944: // PolkadotXcm:Limited reserve transfer assets
+    case 7945: // PolkadotXcm:Limited teleport assets
     case 8448: // DmpQueue:Service overweight
     case 10240: // Utility:Batch
     case 10242: // Utility:Batch all
     case 10244: // Utility:Force batch
+    case 10245: // Utility:With weight
     case 10753: // Proxy:Add proxy
     case 10754: // Proxy:Remove proxy
     case 10755: // Proxy:Remove proxies
-    case 10756: // Proxy:Create pure
-    case 10757: // Proxy:Kill pure
     case 10758: // Proxy:Announce
     case 10759: // Proxy:Remove announcement
     case 10760: // Proxy:Reject announcement
