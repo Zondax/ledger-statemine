@@ -39,7 +39,7 @@ extern "C" {
 extern uint32_t hdPath[HDPATH_LEN_DEFAULT];
 
 uint8_t crypto_SS58EncodePubkey(uint8_t *buffer, uint16_t buffer_len,
-                                uint8_t addressType, const uint8_t *pubkey);
+                                uint16_t addressType, const uint8_t *pubkey);
 
 zxerr_t crypto_fillAddress(key_kind_e addressKind, uint8_t *buffer, uint16_t bufferLen, uint16_t *addrResponseLen);
 
@@ -48,7 +48,7 @@ zxerr_t crypto_sign_ed25519(uint8_t *signature, uint16_t signatureMaxlen, const 
 #ifdef SUPPORT_SR25519
 void zeroize_sr25519_signdata(void);
 
-void copy_sr25519_signdata(uint8_t *buffer);
+zxerr_t copy_sr25519_signdata(uint8_t *buffer, uint16_t bufferLen);
 
 zxerr_t crypto_sign_sr25519(const uint8_t *message, size_t messageLen);
 #endif
