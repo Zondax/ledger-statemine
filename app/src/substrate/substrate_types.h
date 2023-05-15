@@ -436,6 +436,10 @@ typedef struct {
 } pd_MultiLocationV3_t;
 
 typedef struct {
+    const uint8_t* _ptr;
+} pd_Balance_t;
+
+typedef struct {
     uint8_t value;
     union {
         pd_Compactu128_t fungible;
@@ -472,12 +476,13 @@ typedef struct {
 } pd_AccountId_t;
 
 typedef struct {
-    const uint8_t* _ptr;
-} pd_Balance_t;
-
-typedef struct {
     compactInt_t value;
 } pd_CompactAccountIndex_t;
+
+typedef struct {
+    uint8_t value;
+    uint32_t holderOf;
+} pd_MintType_t;
 
 typedef struct {
     pd_MultiAssetIdV2_t assetId;
@@ -488,6 +493,20 @@ typedef struct {
     pd_MultiAssetIdV3_t assetId;
     pd_FungibilityV3_t fungibility;
 } pd_MultiAssetV3_t;
+
+typedef struct {
+    uint8_t some;
+    pd_Balance_t contained;
+} pd_OptionBalance_t;
+
+typedef struct {
+    uint8_t some;
+    pd_u32_t contained;
+} pd_Optionu32_t;
+
+typedef struct {
+    uint8_t value;
+} pd_PriceDirection_t;
 
 typedef struct {
     uint8_t value;
@@ -514,12 +533,40 @@ typedef struct {
 } pd_CollectionId_t;
 
 typedef struct {
+    uint64_t value;
+} pd_CollectionSettings_t;
+
+typedef struct {
     uint32_t value;
 } pd_ItemId_t;
 
 typedef struct {
     pd_Balance_t value;
 } pd_ItemPrice_t;
+
+typedef struct {
+    uint32_t collection;
+    uint32_t item;
+    pd_AccountId_t receiver;
+    pd_Balance_t amount;
+} pd_ItemTipOfMaxTips_t;
+
+typedef struct {
+    pd_MintType_t mintType;
+    pd_OptionBalance_t price;
+    pd_Optionu32_t startBlock;
+    pd_Optionu32_t endBlock;
+    uint64_t defaultItemSettings;
+} pd_MintSettings_t;
+
+typedef struct {
+    uint32_t ownedItem;
+} pd_MintWitnessItemId_t;
+
+typedef struct {
+    pd_Balance_t amount;
+    pd_PriceDirection_t direction;
+} pd_PriceWithDirectionItemPrice_t;
 
 typedef struct {
     uint8_t value;
@@ -548,6 +595,15 @@ typedef struct {
 } pd_Weight_t;
 
 typedef struct {
+    pd_MultiLocationV3_t id;
+} pd_AssetIdParameter_t;
+
+typedef struct {
+    uint8_t value;
+    pd_AccountId_t account;
+} pd_AttributeNamespaceAccountId_t;
+
+typedef struct {
     uint8_t value;
     union {
         pd_VecMultiAssetV2_t vecMultiassetV2;
@@ -562,6 +618,12 @@ typedef struct {
         pd_MultiLocationV3_t multilocationV3;
     };
 } pd_BoxVersionedMultiLocation_t;
+
+typedef struct {
+    pd_CollectionSettings_t settings;
+    pd_Optionu32_t maxSupply;
+    pd_MintSettings_t mintSettings;
+} pd_CollectionConfigFor_t;
 
 typedef struct {
     pd_Compactu32_t accounts;
@@ -581,6 +643,11 @@ typedef struct {
 
 typedef struct {
     uint8_t some;
+    pd_PriceWithDirectionItemPrice_t contained;
+} pd_OptionPriceWithDirectionItemPrice_t;
+
+typedef struct {
+    uint8_t some;
     pd_Timepoint_t contained;
 } pd_OptionTimepoint_t;
 
@@ -590,6 +657,12 @@ typedef struct {
     uint64_t _lenBuffer;
     uint32_t callTxVersion;
 } pd_VecCall_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_VecItemTipOfMaxTips_t;
 
 typedef struct {
     uint8_t value;
@@ -607,6 +680,10 @@ typedef struct {
 } pd_CallHashOf_t;
 
 typedef struct {
+    uint32_t accountAttributes;
+} pd_CancelAttributesApprovalWitness_t;
+
+typedef struct {
     const uint8_t* _ptr;
 } pd_H256_t;
 
@@ -615,8 +692,17 @@ typedef struct {
 } pd_Hash_t;
 
 typedef struct {
+    uint64_t settings;
+} pd_ItemConfig_t;
+
+typedef struct {
     const uint8_t* _ptr;
 } pd_Keys_t;
+
+typedef struct {
+    uint8_t some;
+    pd_AccountId_t contained;
+} pd_OptionAccountId_t;
 
 typedef struct {
     uint8_t some;
@@ -632,6 +718,11 @@ typedef struct {
     uint8_t some;
     pd_ItemId_t contained;
 } pd_OptionItemId_t;
+
+typedef struct {
+    uint8_t some;
+    pd_MintWitnessItemId_t contained;
+} pd_OptionMintWitnessItemId_t;
 
 typedef struct {
     uint8_t some;

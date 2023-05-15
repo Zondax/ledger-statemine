@@ -79,42 +79,60 @@ parser_error_t _readAssetInstanceV2(parser_context_t* c, pd_AssetInstanceV2_t* v
 parser_error_t _readAssetInstanceV3(parser_context_t* c, pd_AssetInstanceV3_t* v);
 parser_error_t _readMultiLocationV2(parser_context_t* c, pd_MultiLocationV2_t* v);
 parser_error_t _readMultiLocationV3(parser_context_t* c, pd_MultiLocationV3_t* v);
+parser_error_t _readBalance(parser_context_t* c, pd_Balance_t* v);
 parser_error_t _readFungibilityV2(parser_context_t* c, pd_FungibilityV2_t* v);
 parser_error_t _readFungibilityV3(parser_context_t* c, pd_FungibilityV3_t* v);
 parser_error_t _readMultiAssetIdV2(parser_context_t* c, pd_MultiAssetIdV2_t* v);
 parser_error_t _readMultiAssetIdV3(parser_context_t* c, pd_MultiAssetIdV3_t* v);
 parser_error_t _readAccountId(parser_context_t* c, pd_AccountId_t* v);
-parser_error_t _readBalance(parser_context_t* c, pd_Balance_t* v);
 parser_error_t _readCompactAccountIndex(parser_context_t* c, pd_CompactAccountIndex_t* v);
+parser_error_t _readMintType(parser_context_t* c, pd_MintType_t* v);
 parser_error_t _readMultiAssetV2(parser_context_t* c, pd_MultiAssetV2_t* v);
 parser_error_t _readMultiAssetV3(parser_context_t* c, pd_MultiAssetV3_t* v);
+parser_error_t _readOptionBalance(parser_context_t* c, pd_OptionBalance_t* v);
+parser_error_t _readOptionu32(parser_context_t* c, pd_Optionu32_t* v);
+parser_error_t _readPriceDirection(parser_context_t* c, pd_PriceDirection_t* v);
 parser_error_t _readAccountIdLookupOfT(parser_context_t* c, pd_AccountIdLookupOfT_t* v);
 parser_error_t _readCall(parser_context_t* c, pd_Call_t* v);
 parser_error_t _readChargeAssetIdOf(parser_context_t* c, pd_ChargeAssetIdOf_t* v);
 parser_error_t _readCollectionId(parser_context_t* c, pd_CollectionId_t* v);
+parser_error_t _readCollectionSettings(parser_context_t* c, pd_CollectionSettings_t* v);
 parser_error_t _readItemId(parser_context_t* c, pd_ItemId_t* v);
 parser_error_t _readItemPrice(parser_context_t* c, pd_ItemPrice_t* v);
+parser_error_t _readItemTipOfMaxTips(parser_context_t* c, pd_ItemTipOfMaxTips_t* v);
+parser_error_t _readMintSettings(parser_context_t* c, pd_MintSettings_t* v);
+parser_error_t _readMintWitnessItemId(parser_context_t* c, pd_MintWitnessItemId_t* v);
+parser_error_t _readPriceWithDirectionItemPrice(parser_context_t* c, pd_PriceWithDirectionItemPrice_t* v);
 parser_error_t _readProxyType(parser_context_t* c, pd_ProxyType_t* v);
 parser_error_t _readTimepoint(parser_context_t* c, pd_Timepoint_t* v);
 parser_error_t _readVecMultiAssetV2(parser_context_t* c, pd_VecMultiAssetV2_t* v);
 parser_error_t _readVecMultiAssetV3(parser_context_t* c, pd_VecMultiAssetV3_t* v);
 parser_error_t _readWeight(parser_context_t* c, pd_Weight_t* v);
+parser_error_t _readAssetIdParameter(parser_context_t* c, pd_AssetIdParameter_t* v);
+parser_error_t _readAttributeNamespaceAccountId(parser_context_t* c, pd_AttributeNamespaceAccountId_t* v);
 parser_error_t _readBoxVersionedMultiAssets(parser_context_t* c, pd_BoxVersionedMultiAssets_t* v);
 parser_error_t _readBoxVersionedMultiLocation(parser_context_t* c, pd_BoxVersionedMultiLocation_t* v);
+parser_error_t _readCollectionConfigFor(parser_context_t* c, pd_CollectionConfigFor_t* v);
 parser_error_t _readDestroyWitness(parser_context_t* c, pd_DestroyWitness_t* v);
 parser_error_t _readOptionAccountIdLookupOfT(parser_context_t* c, pd_OptionAccountIdLookupOfT_t* v);
 parser_error_t _readOptionItemPrice(parser_context_t* c, pd_OptionItemPrice_t* v);
+parser_error_t _readOptionPriceWithDirectionItemPrice(parser_context_t* c, pd_OptionPriceWithDirectionItemPrice_t* v);
 parser_error_t _readOptionTimepoint(parser_context_t* c, pd_OptionTimepoint_t* v);
 parser_error_t _readVecCall(parser_context_t* c, pd_VecCall_t* v);
+parser_error_t _readVecItemTipOfMaxTips(parser_context_t* c, pd_VecItemTipOfMaxTips_t* v);
 parser_error_t _readWeightLimit(parser_context_t* c, pd_WeightLimit_t* v);
 parser_error_t _readBoundedVecu8(parser_context_t* c, pd_BoundedVecu8_t* v);
 parser_error_t _readCallHashOf(parser_context_t* c, pd_CallHashOf_t* v);
+parser_error_t _readCancelAttributesApprovalWitness(parser_context_t* c, pd_CancelAttributesApprovalWitness_t* v);
 parser_error_t _readH256(parser_context_t* c, pd_H256_t* v);
 parser_error_t _readHash(parser_context_t* c, pd_Hash_t* v);
+parser_error_t _readItemConfig(parser_context_t* c, pd_ItemConfig_t* v);
 parser_error_t _readKeys(parser_context_t* c, pd_Keys_t* v);
+parser_error_t _readOptionAccountId(parser_context_t* c, pd_OptionAccountId_t* v);
 parser_error_t _readOptionChargeAssetIdOf(parser_context_t* c, pd_OptionChargeAssetIdOf_t* v);
 parser_error_t _readOptionCollectionId(parser_context_t* c, pd_OptionCollectionId_t* v);
 parser_error_t _readOptionItemId(parser_context_t* c, pd_OptionItemId_t* v);
+parser_error_t _readOptionMintWitnessItemId(parser_context_t* c, pd_OptionMintWitnessItemId_t* v);
 parser_error_t _readOptionProxyType(parser_context_t* c, pd_OptionProxyType_t* v);
 parser_error_t _readOverweightIndex(parser_context_t* c, pd_OverweightIndex_t* v);
 parser_error_t _readVecAccountId(parser_context_t* c, pd_VecAccountId_t* v);
@@ -494,6 +512,13 @@ parser_error_t _toStringMultiLocationV3(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringBalance(
+    const pd_Balance_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringFungibilityV2(
     const pd_FungibilityV2_t* v,
     char* outValue,
@@ -529,15 +554,15 @@ parser_error_t _toStringAccountId(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringBalance(
-    const pd_Balance_t* v,
+parser_error_t _toStringCompactAccountIndex(
+    const pd_CompactAccountIndex_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringCompactAccountIndex(
-    const pd_CompactAccountIndex_t* v,
+parser_error_t _toStringMintType(
+    const pd_MintType_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -552,6 +577,27 @@ parser_error_t _toStringMultiAssetV2(
 
 parser_error_t _toStringMultiAssetV3(
     const pd_MultiAssetV3_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringOptionBalance(
+    const pd_OptionBalance_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringOptionu32(
+    const pd_Optionu32_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringPriceDirection(
+    const pd_PriceDirection_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -585,6 +631,13 @@ parser_error_t _toStringCollectionId(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringCollectionSettings(
+    const pd_CollectionSettings_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringItemId(
     const pd_ItemId_t* v,
     char* outValue,
@@ -594,6 +647,34 @@ parser_error_t _toStringItemId(
 
 parser_error_t _toStringItemPrice(
     const pd_ItemPrice_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringItemTipOfMaxTips(
+    const pd_ItemTipOfMaxTips_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringMintSettings(
+    const pd_MintSettings_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringMintWitnessItemId(
+    const pd_MintWitnessItemId_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringPriceWithDirectionItemPrice(
+    const pd_PriceWithDirectionItemPrice_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -634,6 +715,20 @@ parser_error_t _toStringWeight(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringAssetIdParameter(
+    const pd_AssetIdParameter_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringAttributeNamespaceAccountId(
+    const pd_AttributeNamespaceAccountId_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringBoxVersionedMultiAssets(
     const pd_BoxVersionedMultiAssets_t* v,
     char* outValue,
@@ -643,6 +738,13 @@ parser_error_t _toStringBoxVersionedMultiAssets(
 
 parser_error_t _toStringBoxVersionedMultiLocation(
     const pd_BoxVersionedMultiLocation_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringCollectionConfigFor(
+    const pd_CollectionConfigFor_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -669,6 +771,13 @@ parser_error_t _toStringOptionItemPrice(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringOptionPriceWithDirectionItemPrice(
+    const pd_OptionPriceWithDirectionItemPrice_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringOptionTimepoint(
     const pd_OptionTimepoint_t* v,
     char* outValue,
@@ -678,6 +787,13 @@ parser_error_t _toStringOptionTimepoint(
 
 parser_error_t _toStringVecCall(
     const pd_VecCall_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringVecItemTipOfMaxTips(
+    const pd_VecItemTipOfMaxTips_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -704,6 +820,13 @@ parser_error_t _toStringCallHashOf(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringCancelAttributesApprovalWitness(
+    const pd_CancelAttributesApprovalWitness_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringH256(
     const pd_H256_t* v,
     char* outValue,
@@ -718,8 +841,22 @@ parser_error_t _toStringHash(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringItemConfig(
+    const pd_ItemConfig_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringKeys(
     const pd_Keys_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringOptionAccountId(
+    const pd_OptionAccountId_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -741,6 +878,13 @@ parser_error_t _toStringOptionCollectionId(
 
 parser_error_t _toStringOptionItemId(
     const pd_OptionItemId_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringOptionMintWitnessItemId(
+    const pd_OptionMintWitnessItemId_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
