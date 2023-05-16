@@ -66,6 +66,8 @@ __Z_INLINE parser_error_t _readMethod_session_set_keys_V12(
 __Z_INLINE parser_error_t _readMethod_session_purge_keys_V12(
     parser_context_t* c, pd_session_purge_keys_V12_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -207,12 +209,16 @@ __Z_INLINE parser_error_t _readMethod_collatorselection_set_candidacy_bond_V12(
 __Z_INLINE parser_error_t _readMethod_collatorselection_register_as_candidate_V12(
     parser_context_t* c, pd_collatorselection_register_as_candidate_V12_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_collatorselection_leave_intent_V12(
     parser_context_t* c, pd_collatorselection_leave_intent_V12_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -227,12 +233,16 @@ __Z_INLINE parser_error_t _readMethod_xcmpqueue_service_overweight_V12(
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_suspend_xcm_execution_V12(
     parser_context_t* c, pd_xcmpqueue_suspend_xcm_execution_V12_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_resume_xcm_execution_V12(
     parser_context_t* c, pd_xcmpqueue_resume_xcm_execution_V12_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -371,6 +381,8 @@ __Z_INLINE parser_error_t _readMethod_proxy_remove_proxy_V12(
 __Z_INLINE parser_error_t _readMethod_proxy_remove_proxies_V12(
     parser_context_t* c, pd_proxy_remove_proxies_V12_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -4535,7 +4547,7 @@ parser_error_t _getMethod_ItemValue_V12(
     return parser_ok;
 }
 
-bool _getMethod_ItemIsExpert_V12(uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx)
+bool _getMethod_ItemIsExpert_V12(uint8_t moduleIdx, uint8_t callIdx, __Z_UNUSED uint8_t itemIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 

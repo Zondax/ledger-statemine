@@ -33,6 +33,8 @@ static const char* STR_MO_MULTISIG = "Multisig";
 static const char* STR_MO_PROXY = "Proxy";
 static const char* STR_MO_ASSETS = "Assets";
 static const char* STR_MO_UNIQUES = "Uniques";
+static const char* STR_MO_NFTS = "Nfts";
+static const char* STR_MO_FOREIGNASSETS = "Foreignassets";
 
 // Methods names
 static const char* STR_ME_REMARK = "Remark";
@@ -123,6 +125,27 @@ static const char* STR_ME_SET_ACCEPT_OWNERSHIP = "Set accept ownership";
 static const char* STR_ME_SET_COLLECTION_MAX_SUPPLY = "Set collection max supply";
 static const char* STR_ME_SET_PRICE = "Set price";
 static const char* STR_ME_BUY_ITEM = "Buy item";
+static const char* STR_ME_TRANSFER_ALLOW_DEATH = "Transfer allow death";
+static const char* STR_ME_SET_BALANCE_DEPRECATED = "Set balance deprecated";
+static const char* STR_ME_UPGRADE_ACCOUNTS = "Upgrade accounts";
+static const char* STR_ME_FORCE_SET_BALANCE = "Force set balance";
+static const char* STR_ME_SET_MIN_BALANCE = "Set min balance";
+static const char* STR_ME_FORCE_MINT = "Force mint";
+static const char* STR_ME_LOCK_ITEM_TRANSFER = "Lock item transfer";
+static const char* STR_ME_UNLOCK_ITEM_TRANSFER = "Unlock item transfer";
+static const char* STR_ME_LOCK_COLLECTION = "Lock collection";
+static const char* STR_ME_FORCE_COLLECTION_OWNER = "Force collection owner";
+static const char* STR_ME_FORCE_COLLECTION_CONFIG = "Force collection config";
+static const char* STR_ME_CLEAR_ALL_TRANSFER_APPROVALS = "Clear all transfer approvals";
+static const char* STR_ME_LOCK_ITEM_PROPERTIES = "Lock item properties";
+static const char* STR_ME_FORCE_SET_ATTRIBUTE = "Force set attribute";
+static const char* STR_ME_APPROVE_ITEM_ATTRIBUTES = "Approve item attributes";
+static const char* STR_ME_CANCEL_ITEM_ATTRIBUTES_APPROVAL = "Cancel item attributes approval";
+static const char* STR_ME_UPDATE_MINT_SETTINGS = "Update mint settings";
+static const char* STR_ME_PAY_TIPS = "Pay tips";
+static const char* STR_ME_CREATE_SWAP = "Create swap";
+static const char* STR_ME_CANCEL_SWAP = "Cancel swap";
+static const char* STR_ME_CLAIM_SWAP = "Claim swap";
 
 // Items names
 static const char* STR_IT_remark = "Remark";
@@ -200,6 +223,34 @@ static const char* STR_IT_max_supply = "Max supply";
 static const char* STR_IT_price = "Price";
 static const char* STR_IT_whitelisted_buyer = "Whitelisted buyer";
 static const char* STR_IT_bid_price = "Bid price";
+static const char* STR_IT_old_reserved = "Old reserved";
+static const char* STR_IT_suspended = "Suspended";
+static const char* STR_IT_config = "Config";
+static const char* STR_IT_mint_to = "Mint to";
+static const char* STR_IT_witness_data = "Witness data";
+static const char* STR_IT_item_config = "Item config";
+static const char* STR_IT_lock_settings = "Lock settings";
+static const char* STR_IT_maybe_deadline = "Maybe deadline";
+static const char* STR_IT_lock_metadata = "Lock metadata";
+static const char* STR_IT_lock_attributes = "Lock attributes";
+static const char* STR_IT_namespace_ = "namespace_";
+static const char* STR_IT_set_as = "Set as";
+static const char* STR_IT_mint_settings = "Mint settings";
+static const char* STR_IT_tips = "Tips";
+static const char* STR_IT_offered_collection = "Offered collection";
+static const char* STR_IT_offered_item = "Offered item";
+static const char* STR_IT_desired_collection = "Desired collection";
+static const char* STR_IT_maybe_desired_item = "Maybe desired item";
+static const char* STR_IT_maybe_price = "Maybe price";
+static const char* STR_IT_duration = "Duration";
+static const char* STR_IT_send_collection = "Send collection";
+static const char* STR_IT_send_item = "Send item";
+static const char* STR_IT_receive_collection = "Receive collection";
+static const char* STR_IT_receive_item = "Receive item";
+static const char* STR_IT_witness_price = "Witness price";
+static const char* STR_IT_mint_data = "Mint data";
+static const char* STR_IT_signature = "Signature";
+static const char* STR_IT_signer = "Signer";
 
 #ifdef __cplusplus
 }
