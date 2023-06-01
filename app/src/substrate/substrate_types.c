@@ -1200,6 +1200,7 @@ parser_error_t _readVecu8(parser_context_t* c, pd_Vecu8_t* v) {
 
 parser_error_t _readOptionNetworkIdV3(parser_context_t* c, pd_OptionNetworkIdV3_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readNetworkIdV3(c, &v->contained))
@@ -1209,6 +1210,7 @@ parser_error_t _readOptionNetworkIdV3(parser_context_t* c, pd_OptionNetworkIdV3_
 
 parser_error_t _readOptionBalance(parser_context_t* c, pd_OptionBalance_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readBalance(c, &v->contained))
@@ -1218,6 +1220,7 @@ parser_error_t _readOptionBalance(parser_context_t* c, pd_OptionBalance_t* v)
 
 parser_error_t _readOptionu32(parser_context_t* c, pd_Optionu32_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readu32(c, &v->contained))
@@ -1227,6 +1230,7 @@ parser_error_t _readOptionu32(parser_context_t* c, pd_Optionu32_t* v)
 
 parser_error_t _readOptionAccountIdLookupOfT(parser_context_t* c, pd_OptionAccountIdLookupOfT_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readAccountIdLookupOfT(c, &v->contained))
@@ -1236,6 +1240,7 @@ parser_error_t _readOptionAccountIdLookupOfT(parser_context_t* c, pd_OptionAccou
 
 parser_error_t _readOptionItemPrice(parser_context_t* c, pd_OptionItemPrice_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readItemPrice(c, &v->contained))
@@ -1245,6 +1250,7 @@ parser_error_t _readOptionItemPrice(parser_context_t* c, pd_OptionItemPrice_t* v
 
 parser_error_t _readOptionPriceWithDirectionItemPrice(parser_context_t* c, pd_OptionPriceWithDirectionItemPrice_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readPriceWithDirectionItemPrice(c, &v->contained))
@@ -1254,6 +1260,7 @@ parser_error_t _readOptionPriceWithDirectionItemPrice(parser_context_t* c, pd_Op
 
 parser_error_t _readOptionTimepoint(parser_context_t* c, pd_OptionTimepoint_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readTimepoint(c, &v->contained))
@@ -1263,6 +1270,7 @@ parser_error_t _readOptionTimepoint(parser_context_t* c, pd_OptionTimepoint_t* v
 
 parser_error_t _readOptionAccountId(parser_context_t* c, pd_OptionAccountId_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readAccountId(c, &v->contained))
@@ -1272,6 +1280,7 @@ parser_error_t _readOptionAccountId(parser_context_t* c, pd_OptionAccountId_t* v
 
 parser_error_t _readOptionChargeAssetIdOf(parser_context_t* c, pd_OptionChargeAssetIdOf_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readChargeAssetIdOf(c, &v->contained))
@@ -1281,6 +1290,7 @@ parser_error_t _readOptionChargeAssetIdOf(parser_context_t* c, pd_OptionChargeAs
 
 parser_error_t _readOptionCollectionId(parser_context_t* c, pd_OptionCollectionId_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readCollectionId(c, &v->contained))
@@ -1290,6 +1300,7 @@ parser_error_t _readOptionCollectionId(parser_context_t* c, pd_OptionCollectionI
 
 parser_error_t _readOptionItemId(parser_context_t* c, pd_OptionItemId_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readItemId(c, &v->contained))
@@ -1299,6 +1310,7 @@ parser_error_t _readOptionItemId(parser_context_t* c, pd_OptionItemId_t* v)
 
 parser_error_t _readOptionMintWitnessItemId(parser_context_t* c, pd_OptionMintWitnessItemId_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readMintWitnessItemId(c, &v->contained))
@@ -1308,6 +1320,7 @@ parser_error_t _readOptionMintWitnessItemId(parser_context_t* c, pd_OptionMintWi
 
 parser_error_t _readOptionProxyType(parser_context_t* c, pd_OptionProxyType_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readProxyType(c, &v->contained))
