@@ -266,6 +266,21 @@ typedef struct {
     pd_AssetIdParameter_t id;
     pd_Balance_t min_balance;
 } pd_foreignassets_set_min_balance_V13_t;
+#define PD_CALL_FOREIGNASSETS_TOUCH_OTHER_V13 29
+typedef struct {
+    pd_AssetIdParameter_t id;
+    pd_AccountIdLookupOfT_t who;
+} pd_foreignassets_touch_other_V13_t;
+#define PD_CALL_FOREIGNASSETS_REFUND_OTHER_V13 30
+typedef struct {
+    pd_AssetIdParameter_t id;
+    pd_AccountIdLookupOfT_t who;
+} pd_foreignassets_refund_other_V13_t;
+#define PD_CALL_FOREIGNASSETS_BLOCK_V13 31
+typedef struct {
+    pd_AssetIdParameter_t id;
+    pd_AccountIdLookupOfT_t who;
+} pd_foreignassets_block_V13_t;
 #endif
 
 #define PD_CALL_TIMESTAMP_SET_V13 0
@@ -440,6 +455,24 @@ typedef struct {
     pd_Compactu32_t id;
     pd_Balance_t min_balance;
 } pd_assets_set_min_balance_V13_t;
+
+#define PD_CALL_ASSETS_TOUCH_OTHER_V13 29
+typedef struct {
+    pd_Compactu32_t id;
+    pd_AccountIdLookupOfT_t who;
+} pd_assets_touch_other_V13_t;
+
+#define PD_CALL_ASSETS_REFUND_OTHER_V13 30
+typedef struct {
+    pd_Compactu32_t id;
+    pd_AccountIdLookupOfT_t who;
+} pd_assets_refund_other_V13_t;
+
+#define PD_CALL_ASSETS_BLOCK_V13 31
+typedef struct {
+    pd_Compactu32_t id;
+    pd_AccountIdLookupOfT_t who;
+} pd_assets_block_V13_t;
 
 #define PD_CALL_UNIQUES_CREATE_V13 0
 typedef struct {
@@ -912,6 +945,9 @@ typedef union {
     pd_foreignassets_touch_V13_t foreignassets_touch_V13;
     pd_foreignassets_refund_V13_t foreignassets_refund_V13;
     pd_foreignassets_set_min_balance_V13_t foreignassets_set_min_balance_V13;
+    pd_foreignassets_touch_other_V13_t foreignassets_touch_other_V13;
+    pd_foreignassets_refund_other_V13_t foreignassets_refund_other_V13;
+    pd_foreignassets_block_V13_t foreignassets_block_V13;
 #endif
     pd_timestamp_set_V13_t timestamp_set_V13;
     pd_balances_force_unreserve_V13_t balances_force_unreserve_V13;
@@ -946,6 +982,9 @@ typedef union {
     pd_assets_touch_V13_t assets_touch_V13;
     pd_assets_refund_V13_t assets_refund_V13;
     pd_assets_set_min_balance_V13_t assets_set_min_balance_V13;
+    pd_assets_touch_other_V13_t assets_touch_other_V13;
+    pd_assets_refund_other_V13_t assets_refund_other_V13;
+    pd_assets_block_V13_t assets_block_V13;
     pd_uniques_create_V13_t uniques_create_V13;
     pd_uniques_force_create_V13_t uniques_force_create_V13;
     pd_uniques_destroy_V13_t uniques_destroy_V13;

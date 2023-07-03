@@ -345,6 +345,27 @@ __Z_INLINE parser_error_t _readMethod_foreignassets_set_min_balance_V13(
     CHECK_ERROR(_readBalance(c, &m->min_balance))
     return parser_ok;
 }
+__Z_INLINE parser_error_t _readMethod_foreignassets_touch_other_V13(
+    parser_context_t* c, pd_foreignassets_touch_other_V13_t* m)
+{
+    CHECK_ERROR(_readAssetIdParameter(c, &m->id))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
+    return parser_ok;
+}
+__Z_INLINE parser_error_t _readMethod_foreignassets_refund_other_V13(
+    parser_context_t* c, pd_foreignassets_refund_other_V13_t* m)
+{
+    CHECK_ERROR(_readAssetIdParameter(c, &m->id))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
+    return parser_ok;
+}
+__Z_INLINE parser_error_t _readMethod_foreignassets_block_V13(
+    parser_context_t* c, pd_foreignassets_block_V13_t* m)
+{
+    CHECK_ERROR(_readAssetIdParameter(c, &m->id))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
+    return parser_ok;
+}
 #endif
 __Z_INLINE parser_error_t _readMethod_system_remark_V13(
     parser_context_t* c, pd_system_remark_V13_t* m)
@@ -929,6 +950,30 @@ __Z_INLINE parser_error_t _readMethod_assets_set_min_balance_V13(
 {
     CHECK_ERROR(_readCompactu32(c, &m->id))
     CHECK_ERROR(_readBalance(c, &m->min_balance))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_assets_touch_other_V13(
+    parser_context_t* c, pd_assets_touch_other_V13_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->id))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_assets_refund_other_V13(
+    parser_context_t* c, pd_assets_refund_other_V13_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->id))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_assets_block_V13(
+    parser_context_t* c, pd_assets_block_V13_t* m)
+{
+    CHECK_ERROR(_readCompactu32(c, &m->id))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     return parser_ok;
 }
 
@@ -1624,6 +1669,15 @@ parser_error_t _readMethod_V13(
     case 13596: /* module 53 call 28 */
         CHECK_ERROR(_readMethod_foreignassets_set_min_balance_V13(c, &method->basic.foreignassets_set_min_balance_V13))
         break;
+    case 13597: /* module 53 call 29 */
+        CHECK_ERROR(_readMethod_foreignassets_touch_other_V13(c, &method->basic.foreignassets_touch_other_V13))
+        break;
+    case 13598: /* module 53 call 30 */
+        CHECK_ERROR(_readMethod_foreignassets_refund_other_V13(c, &method->basic.foreignassets_refund_other_V13))
+        break;
+    case 13599: /* module 53 call 31 */
+        CHECK_ERROR(_readMethod_foreignassets_block_V13(c, &method->basic.foreignassets_block_V13))
+        break;
 #endif
     case 0: /* module 0 call 0 */
         CHECK_ERROR(_readMethod_system_remark_V13(c, &method->nested.system_remark_V13))
@@ -1837,6 +1891,15 @@ parser_error_t _readMethod_V13(
         break;
     case 12828: /* module 50 call 28 */
         CHECK_ERROR(_readMethod_assets_set_min_balance_V13(c, &method->basic.assets_set_min_balance_V13))
+        break;
+    case 12829: /* module 50 call 29 */
+        CHECK_ERROR(_readMethod_assets_touch_other_V13(c, &method->basic.assets_touch_other_V13))
+        break;
+    case 12830: /* module 50 call 30 */
+        CHECK_ERROR(_readMethod_assets_refund_other_V13(c, &method->basic.assets_refund_other_V13))
+        break;
+    case 12831: /* module 50 call 31 */
+        CHECK_ERROR(_readMethod_assets_block_V13(c, &method->basic.assets_block_V13))
         break;
     case 13056: /* module 51 call 0 */
         CHECK_ERROR(_readMethod_uniques_create_V13(c, &method->basic.uniques_create_V13))
@@ -2183,6 +2246,12 @@ const char* _getMethod_Name_V13_ParserFull(uint16_t callPrivIdx)
         return STR_ME_REFUND;
     case 13596: /* module 53 call 28 */
         return STR_ME_SET_MIN_BALANCE;
+    case 13597: /* module 53 call 29 */
+        return STR_ME_TOUCH_OTHER;
+    case 13598: /* module 53 call 30 */
+        return STR_ME_REFUND_OTHER;
+    case 13599: /* module 53 call 31 */
+        return STR_ME_BLOCK;
 #endif
     case 0: /* module 0 call 0 */
         return STR_ME_REMARK;
@@ -2326,6 +2395,12 @@ const char* _getMethod_Name_V13_ParserFull(uint16_t callPrivIdx)
         return STR_ME_REFUND;
     case 12828: /* module 50 call 28 */
         return STR_ME_SET_MIN_BALANCE;
+    case 12829: /* module 50 call 29 */
+        return STR_ME_TOUCH_OTHER;
+    case 12830: /* module 50 call 30 */
+        return STR_ME_REFUND_OTHER;
+    case 12831: /* module 50 call 31 */
+        return STR_ME_BLOCK;
     case 13056: /* module 51 call 0 */
         return STR_ME_CREATE;
     case 13057: /* module 51 call 1 */
@@ -2549,6 +2624,12 @@ uint8_t _getMethod_NumItems_V13(uint8_t moduleIdx, uint8_t callIdx)
         return 2;
     case 13596: /* module 53 call 28 */
         return 2;
+    case 13597: /* module 53 call 29 */
+        return 2;
+    case 13598: /* module 53 call 30 */
+        return 2;
+    case 13599: /* module 53 call 31 */
+        return 2;
 #endif
     case 0: /* module 0 call 0 */
         return 1;
@@ -2691,6 +2772,12 @@ uint8_t _getMethod_NumItems_V13(uint8_t moduleIdx, uint8_t callIdx)
     case 12827: /* module 50 call 27 */
         return 2;
     case 12828: /* module 50 call 28 */
+        return 2;
+    case 12829: /* module 50 call 29 */
+        return 2;
+    case 12830: /* module 50 call 30 */
+        return 2;
+    case 12831: /* module 50 call 31 */
         return 2;
     case 13056: /* module 51 call 0 */
         return 2;
@@ -3247,6 +3334,33 @@ const char* _getMethod_ItemName_V13(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
             return STR_IT_id;
         case 1:
             return STR_IT_min_balance;
+        default:
+            return NULL;
+        }
+    case 13597: /* module 53 call 29 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_id;
+        case 1:
+            return STR_IT_who;
+        default:
+            return NULL;
+        }
+    case 13598: /* module 53 call 30 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_id;
+        case 1:
+            return STR_IT_who;
+        default:
+            return NULL;
+        }
+    case 13599: /* module 53 call 31 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_id;
+        case 1:
+            return STR_IT_who;
         default:
             return NULL;
         }
@@ -3903,6 +4017,33 @@ const char* _getMethod_ItemName_V13(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
             return STR_IT_id;
         case 1:
             return STR_IT_min_balance;
+        default:
+            return NULL;
+        }
+    case 12829: /* module 50 call 29 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_id;
+        case 1:
+            return STR_IT_who;
+        default:
+            return NULL;
+        }
+    case 12830: /* module 50 call 30 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_id;
+        case 1:
+            return STR_IT_who;
+        default:
+            return NULL;
+        }
+    case 12831: /* module 50 call 31 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_id;
+        case 1:
+            return STR_IT_who;
         default:
             return NULL;
         }
@@ -5327,6 +5468,51 @@ parser_error_t _getMethod_ItemValue_V13(
         default:
             return parser_no_data;
         }
+    case 13597: /* module 53 call 29 */
+        switch (itemIdx) {
+        case 0: /* foreignassets_touch_other_V13 - id */;
+            return _toStringAssetIdParameter(
+                &m->basic.foreignassets_touch_other_V13.id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* foreignassets_touch_other_V13 - who */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.foreignassets_touch_other_V13.who,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13598: /* module 53 call 30 */
+        switch (itemIdx) {
+        case 0: /* foreignassets_refund_other_V13 - id */;
+            return _toStringAssetIdParameter(
+                &m->basic.foreignassets_refund_other_V13.id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* foreignassets_refund_other_V13 - who */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.foreignassets_refund_other_V13.who,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 13599: /* module 53 call 31 */
+        switch (itemIdx) {
+        case 0: /* foreignassets_block_V13 - id */;
+            return _toStringAssetIdParameter(
+                &m->basic.foreignassets_block_V13.id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* foreignassets_block_V13 - who */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.foreignassets_block_V13.who,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
 #endif
     case 0: /* module 0 call 0 */
         switch (itemIdx) {
@@ -6428,6 +6614,51 @@ parser_error_t _getMethod_ItemValue_V13(
         case 1: /* assets_set_min_balance_V13 - min_balance */;
             return _toStringBalance(
                 &m->basic.assets_set_min_balance_V13.min_balance,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 12829: /* module 50 call 29 */
+        switch (itemIdx) {
+        case 0: /* assets_touch_other_V13 - id */;
+            return _toStringCompactu32(
+                &m->basic.assets_touch_other_V13.id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* assets_touch_other_V13 - who */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.assets_touch_other_V13.who,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 12830: /* module 50 call 30 */
+        switch (itemIdx) {
+        case 0: /* assets_refund_other_V13 - id */;
+            return _toStringCompactu32(
+                &m->basic.assets_refund_other_V13.id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* assets_refund_other_V13 - who */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.assets_refund_other_V13.who,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 12831: /* module 50 call 31 */
+        switch (itemIdx) {
+        case 0: /* assets_block_V13 - id */;
+            return _toStringCompactu32(
+                &m->basic.assets_block_V13.id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* assets_block_V13 - who */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.assets_block_V13.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -7694,6 +7925,9 @@ bool _getMethod_IsNestingSupported_V13(uint8_t moduleIdx, uint8_t callIdx)
     case 12826: // Assets:Touch
     case 12827: // Assets:Refund
     case 12828: // Assets:Set min balance
+    case 12829: // Assets:Touch other
+    case 12830: // Assets:Refund other
+    case 12831: // Assets:Block
     case 13056: // Uniques:Create
     case 13057: // Uniques:Force create
     case 13058: // Uniques:Destroy
@@ -7786,6 +8020,9 @@ bool _getMethod_IsNestingSupported_V13(uint8_t moduleIdx, uint8_t callIdx)
     case 13594: // ForeignAssets:Touch
     case 13595: // ForeignAssets:Refund
     case 13596: // ForeignAssets:Set min balance
+    case 13597: // ForeignAssets:Touch other
+    case 13598: // ForeignAssets:Refund other
+    case 13599: // ForeignAssets:Block
         return false;
     default:
         return true;
