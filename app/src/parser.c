@@ -125,19 +125,20 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
         return parser_no_data;
     }
 
-    parser_error_t err = parser_ok;
+    parser_error_t err = parser_unexpected_error;
     if (displayIdx == FIELD_METHOD) {
         snprintf(outKey, outKeyLen, "%s", _getMethod_ModuleName(ctx->tx_obj->transactionVersion, ctx->tx_obj->callIndex.moduleIdx));
         snprintf(outVal, outValLen, "%s", _getMethod_Name(ctx->tx_obj->transactionVersion,
                                                           ctx->tx_obj->callIndex.moduleIdx,
                                                           ctx->tx_obj->callIndex.idx));
-        return err;
+        return parser_ok;
     }
 
     // VARIABLE ARGUMENTS
     uint8_t methodArgCount = _getMethod_NumItems(ctx->tx_obj->transactionVersion,
                                                  ctx->tx_obj->callIndex.moduleIdx,
                                                  ctx->tx_obj->callIndex.idx);
+    // Adjust offset when displayIdx > 0
     uint8_t argIdx = displayIdx - 1;
 
 
@@ -158,12 +159,11 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
                                      ctx->tx_obj->callIndex.idx,
                                      argIdx));
 
-        err = _getMethod_ItemValue(ctx->tx_obj->transactionVersion,
+        return _getMethod_ItemValue(ctx->tx_obj->transactionVersion,
                                    &ctx->tx_obj->method,
                                    ctx->tx_obj->callIndex.moduleIdx, ctx->tx_obj->callIndex.idx, argIdx,
                                    outVal, outValLen,
                                    pageIdx, pageCount);
-        return err;
     } else {
         // CONTINUE WITH FIXED ARGUMENTS
         displayIdx -= methodArgCount;
@@ -172,14 +172,13 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
                 if (parser_show_expert_fields()) {
                     snprintf(outKey, outKeyLen, "Chain");
                     snprintf(outVal, outValLen, COIN_NAME);
-                    return err;
+                    return parser_ok;
                 }
             } else {
                 snprintf(outKey, outKeyLen, "Genesis Hash");
-                _toStringHash(&ctx->tx_obj->genesisHash,
+                return _toStringHash(&ctx->tx_obj->genesisHash,
                               outVal, outValLen,
                               pageIdx, pageCount);
-                return err;
             }
         }
 
@@ -225,7 +224,7 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
         if (displayIdx == FIELD_ERA_PHASE && parser_show_expert_fields()) {
             snprintf(outKey, outKeyLen, "Era Phase");
             uint64_to_str(outVal, outValLen, ctx->tx_obj->era.phase);
-            return err;
+            return parser_ok;
         }
 
         if (!parser_show_expert_fields()) {
@@ -235,7 +234,7 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
         if (displayIdx == FIELD_ERA_PERIOD && parser_show_expert_fields()) {
             snprintf(outKey, outKeyLen, "Era Period");
             uint64_to_str(outVal, outValLen, ctx->tx_obj->era.period);
-            return err;
+            return parser_ok;
         }
 
         if (!parser_show_expert_fields()) {
@@ -244,10 +243,9 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
 
         if (displayIdx == FIELD_BLOCK_HASH && parser_show_expert_fields()) {
             snprintf(outKey, outKeyLen, "Block");
-            _toStringHash(&ctx->tx_obj->blockHash,
+            return _toStringHash(&ctx->tx_obj->blockHash,
                           outVal, outValLen,
                           pageIdx, pageCount);
-            return err;
         }
 
         return parser_no_data;
