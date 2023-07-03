@@ -28,11 +28,11 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Statemine 13.9420.x
+# Statemine 13.9430.x
 
 ## System
 
-| Name                    | Nano S | Nano S XL          | Nano SP/X          | Nesting            | Arguments                         |
+| Name                    | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                         |
 | ----------------------- | ------ | ------------------ | ------------------ | ------------------ | --------------------------------- |
 | Remark                  |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `Bytes`remark<br/>                |
 | Set heap pages          |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `u64`pages<br/>                   |
@@ -45,22 +45,22 @@ Please:
 
 ## ParachainSystem
 
-| Name                     | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                    |
-| ------------------------ | ------ | --------- | --------- | ------- | -------------------------------------------- |
-| Set validation data      |        |           |           |         | `ParachainInherentData`data<br/>             |
-| Sudo send upward message |        |           |           |         | `UpwardMessage`message<br/>                  |
-| Authorize upgrade        |        |           |           |         | `Hash`code_hash<br/>`bool`check_version<br/> |
-| Enact authorized upgrade |        |           |           |         | `Vecu8`code<br/>                             |
+| Name                     | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                    |
+| ------------------------ | ------ | --------- | ---------------- | ------- | -------------------------------------------- |
+| Set validation data      |        |           |                  |         | `ParachainInherentData`data<br/>             |
+| Sudo send upward message |        |           |                  |         | `UpwardMessage`message<br/>                  |
+| Authorize upgrade        |        |           |                  |         | `Hash`code_hash<br/>`bool`check_version<br/> |
+| Enact authorized upgrade |        |           |                  |         | `Vecu8`code<br/>                             |
 
 ## Timestamp
 
-| Name | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments            |
+| Name | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments            |
 | ---- | ------ | ------------------ | ------------------ | ------- | -------------------- |
 | Set  |        | :heavy_check_mark: | :heavy_check_mark: |         | `Compactu64`now<br/> |
 
 ## Balances
 
-| Name                   | Nano S             | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                  |
+| Name                   | Nano S             | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                  |
 | ---------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------------------------------------------------------------------------------ |
 | Transfer allow death   |                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`dest<br/>`CompactBalance`amount<br/>                                   |
 | Set balance deprecated |                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`who<br/>`CompactBalance`new_free<br/>`CompactBalance`old_reserved<br/> |
@@ -74,7 +74,7 @@ Please:
 
 ## CollatorSelection
 
-| Name                   | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                |
+| Name                   | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                |
 | ---------------------- | ------ | ------------------ | ------------------ | ------- | ------------------------ |
 | Set invulnerables      |        | :heavy_check_mark: | :heavy_check_mark: |         | `VecAccountId`new\_<br/> |
 | Set desired candidates |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`max<br/>            |
@@ -84,14 +84,14 @@ Please:
 
 ## Session
 
-| Name       | Nano S             | Nano S XL          | Nano SP/X          | Nesting | Arguments                        |
+| Name       | Nano S             | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                        |
 | ---------- | ------------------ | ------------------ | ------------------ | ------- | -------------------------------- |
 | Set keys   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         | `Keys`keys<br/>`Bytes`proof<br/> |
 | Purge keys | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         |                                  |
 
 ## XcmpQueue
 
-| Name                              | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                            |
+| Name                              | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                            |
 | --------------------------------- | ------ | ------------------ | ------------------ | ------- | ---------------------------------------------------- |
 | Service overweight                |        | :heavy_check_mark: | :heavy_check_mark: |         | `OverweightIndex`index<br/>`Weight`weight_limit<br/> |
 | Suspend xcm execution             |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                      |
@@ -105,7 +105,7 @@ Please:
 
 ## PolkadotXcm
 
-| Name                             | Nano S | Nano S XL | Nano SP/X          | Nesting | Arguments                                                                                                                                                                 |
+| Name                             | Nano S | Nano S XL | Nano SP/X - Stax   | Nesting | Arguments                                                                                                                                                                 |
 | -------------------------------- | ------ | --------- | ------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Send                             |        |           |                    |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedXcmTuple`message<br/>                                                                                                    |
 | Teleport assets                  |        |           | :heavy_check_mark: |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>                               |
@@ -121,13 +121,13 @@ Please:
 
 ## DmpQueue
 
-| Name               | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                            |
+| Name               | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                            |
 | ------------------ | ------ | ------------------ | ------------------ | ------- | ---------------------------------------------------- |
 | Service overweight |        | :heavy_check_mark: | :heavy_check_mark: |         | `OverweightIndex`index<br/>`Weight`weight_limit<br/> |
 
 ## Utility
 
-| Name          | Nano S             | Nano S XL          | Nano SP/X          | Nesting | Arguments                                       |
+| Name          | Nano S             | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                       |
 | ------------- | ------------------ | ------------------ | ------------------ | ------- | ----------------------------------------------- |
 | Batch         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         | `VecCall`calls<br/>                             |
 | As derivative |                    |                    |                    |         | `u16`index<br/>`Call`call<br/>                  |
@@ -138,7 +138,7 @@ Please:
 
 ## Multisig
 
-| Name                 | Nano S | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                                                               |
+| Name                 | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                                                               |
 | -------------------- | ------ | ------------------ | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
 | As multi threshold 1 |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `VecAccountId`other_signatories<br/>`Call`call<br/>                                                                                     |
 | As multi             |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `u16`threshold<br/>`VecAccountId`other_signatories<br/>`OptionTimepoint`maybe_timepoint<br/>`Call`call<br/>`Weight`max_weight<br/>      |
@@ -147,7 +147,7 @@ Please:
 
 ## Proxy
 
-| Name                | Nano S | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                                                  |
+| Name                | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                                                  |
 | ------------------- | ------ | ------------------ | ------------------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------- |
 | Proxy               |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`real<br/>`OptionProxyType`force_proxy_type<br/>`Call`call<br/>                                         |
 | Add proxy           |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`delegate<br/>`ProxyType`proxy_type<br/>`BlockNumber`delay<br/>                                         |
@@ -162,7 +162,7 @@ Please:
 
 ## Assets
 
-| Name                  | Nano S | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                                                                                                                                                  |
+| Name                  | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                                                                                                                                                  |
 | --------------------- | ------ | ------------------ | ------------------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Create                |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `Compactu32`id<br/>`AccountIdLookupOfT`admin<br/>`Balance`min_balance<br/>                                                                                                                                                 |
 | Force create          |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `Compactu32`id<br/>`AccountIdLookupOfT`owner<br/>`bool`is_sufficient<br/>`CompactBalance`min_balance<br/>                                                                                                                  |
@@ -193,10 +193,13 @@ Please:
 | Touch                 |        | :heavy_check_mark: | :heavy_check_mark: |                    | `Compactu32`id<br/>                                                                                                                                                                                                        |
 | Refund                |        | :heavy_check_mark: | :heavy_check_mark: |                    | `Compactu32`id<br/>`bool`allow_burn<br/>                                                                                                                                                                                   |
 | Set min balance       |        | :heavy_check_mark: | :heavy_check_mark: |                    | `Compactu32`id<br/>`Balance`min_balance<br/>                                                                                                                                                                               |
+| Touch other           |        | :heavy_check_mark: | :heavy_check_mark: |                    | `Compactu32`id<br/>`AccountIdLookupOfT`who<br/>                                                                                                                                                                            |
+| Refund other          |        | :heavy_check_mark: | :heavy_check_mark: |                    | `Compactu32`id<br/>`AccountIdLookupOfT`who<br/>                                                                                                                                                                            |
+| Block                 |        | :heavy_check_mark: | :heavy_check_mark: |                    | `Compactu32`id<br/>`AccountIdLookupOfT`who<br/>                                                                                                                                                                            |
 
 ## Uniques
 
-| Name                      | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                                                                                                                                                                           |
+| Name                      | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                                                                                                                                                                           |
 | ------------------------- | ------ | ------------------ | ------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Create                    |        | :heavy_check_mark: | :heavy_check_mark: |         | `CollectionId`collection<br/>`AccountIdLookupOfT`admin<br/>                                                                                                                                         |
 | Force create              |        | :heavy_check_mark: | :heavy_check_mark: |         | `CollectionId`collection<br/>`AccountIdLookupOfT`owner<br/>`bool`free_holding<br/>                                                                                                                  |
@@ -227,7 +230,7 @@ Please:
 
 ## Nfts
 
-| Name                            | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                                                                                                                                                                                             |
+| Name                            | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                                                                                                                                                                                             |
 | ------------------------------- | ------ | ------------------ | ------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Create                          |        | :heavy_check_mark: | :heavy_check_mark: |         | `AccountIdLookupOfT`admin<br/>`CollectionConfigFor`config<br/>                                                                                                                                                        |
 | Force create                    |        | :heavy_check_mark: | :heavy_check_mark: |         | `AccountIdLookupOfT`owner<br/>`CollectionConfigFor`config<br/>                                                                                                                                                        |
@@ -271,7 +274,7 @@ Please:
 
 ## ForeignAssets
 
-| Name                  | Nano S | Nano S XL | Nano SP/X          | Nesting | Arguments                                                                                                                                                                                                                        |
+| Name                  | Nano S | Nano S XL | Nano SP/X - Stax   | Nesting | Arguments                                                                                                                                                                                                                        |
 | --------------------- | ------ | --------- | ------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Create                |        |           | :heavy_check_mark: |         | `AssetIdParameter`id<br/>`AccountIdLookupOfT`admin<br/>`Balance`min_balance<br/>                                                                                                                                                 |
 | Force create          |        |           | :heavy_check_mark: |         | `AssetIdParameter`id<br/>`AccountIdLookupOfT`owner<br/>`bool`is_sufficient<br/>`CompactBalance`min_balance<br/>                                                                                                                  |
@@ -302,3 +305,6 @@ Please:
 | Touch                 |        |           | :heavy_check_mark: |         | `AssetIdParameter`id<br/>                                                                                                                                                                                                        |
 | Refund                |        |           | :heavy_check_mark: |         | `AssetIdParameter`id<br/>`bool`allow_burn<br/>                                                                                                                                                                                   |
 | Set min balance       |        |           | :heavy_check_mark: |         | `AssetIdParameter`id<br/>`Balance`min_balance<br/>                                                                                                                                                                               |
+| Touch other           |        |           | :heavy_check_mark: |         | `AssetIdParameter`id<br/>`AccountIdLookupOfT`who<br/>                                                                                                                                                                            |
+| Refund other          |        |           | :heavy_check_mark: |         | `AssetIdParameter`id<br/>`AccountIdLookupOfT`who<br/>                                                                                                                                                                            |
+| Block                 |        |           | :heavy_check_mark: |         | `AssetIdParameter`id<br/>`AccountIdLookupOfT`who<br/>                                                                                                                                                                            |
