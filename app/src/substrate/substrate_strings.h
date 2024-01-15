@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -35,6 +35,9 @@ static const char* STR_MO_ASSETS = "Assets";
 static const char* STR_MO_UNIQUES = "Uniques";
 static const char* STR_MO_NFTS = "Nfts";
 static const char* STR_MO_FOREIGNASSETS = "Foreignassets";
+static const char* STR_MO_NFTFRACTIONALIZATION = "Nftfractionalization";
+static const char* STR_MO_POOLASSETS = "Poolassets";
+static const char* STR_MO_ASSETCONVERSION = "Assetconversion";
 
 // Methods names
 static const char* STR_ME_REMARK = "Remark";
@@ -44,19 +47,19 @@ static const char* STR_ME_SET_CODE_WITHOUT_CHECKS = "Set code without checks";
 static const char* STR_ME_REMARK_WITH_EVENT = "Remark with event";
 static const char* STR_ME_SET = "Set";
 static const char* STR_ME_TRANSFER_ALLOW_DEATH = "Transfer allow death";
-static const char* STR_ME_SET_BALANCE_DEPRECATED = "Set balance deprecated";
 static const char* STR_ME_FORCE_TRANSFER = "Force transfer";
 static const char* STR_ME_TRANSFER_KEEP_ALIVE = "Transfer keep alive";
 static const char* STR_ME_TRANSFER_ALL = "Transfer all";
 static const char* STR_ME_FORCE_UNRESERVE = "Force unreserve";
 static const char* STR_ME_UPGRADE_ACCOUNTS = "Upgrade accounts";
-static const char* STR_ME_TRANSFER = "Transfer";
 static const char* STR_ME_FORCE_SET_BALANCE = "Force set balance";
 static const char* STR_ME_SET_INVULNERABLES = "Set invulnerables";
 static const char* STR_ME_SET_DESIRED_CANDIDATES = "Set desired candidates";
 static const char* STR_ME_SET_CANDIDACY_BOND = "Set candidacy bond";
 static const char* STR_ME_REGISTER_AS_CANDIDATE = "Register as candidate";
 static const char* STR_ME_LEAVE_INTENT = "Leave intent";
+static const char* STR_ME_ADD_INVULNERABLE = "Add invulnerable";
+static const char* STR_ME_REMOVE_INVULNERABLE = "Remove invulnerable";
 static const char* STR_ME_SET_KEYS = "Set keys";
 static const char* STR_ME_PURGE_KEYS = "Purge keys";
 static const char* STR_ME_SERVICE_OVERWEIGHT = "Service overweight";
@@ -98,6 +101,7 @@ static const char* STR_ME_DESTROY_APPROVALS = "Destroy approvals";
 static const char* STR_ME_FINISH_DESTROY = "Finish destroy";
 static const char* STR_ME_MINT = "Mint";
 static const char* STR_ME_BURN = "Burn";
+static const char* STR_ME_TRANSFER = "Transfer";
 static const char* STR_ME_FREEZE = "Freeze";
 static const char* STR_ME_THAW = "Thaw";
 static const char* STR_ME_FREEZE_ASSET = "Freeze asset";
@@ -148,6 +152,13 @@ static const char* STR_ME_PAY_TIPS = "Pay tips";
 static const char* STR_ME_CREATE_SWAP = "Create swap";
 static const char* STR_ME_CANCEL_SWAP = "Cancel swap";
 static const char* STR_ME_CLAIM_SWAP = "Claim swap";
+static const char* STR_ME_FRACTIONALIZE = "Fractionalize";
+static const char* STR_ME_UNIFY = "Unify";
+static const char* STR_ME_CREATE_POOL = "Create pool";
+static const char* STR_ME_ADD_LIQUIDITY = "Add liquidity";
+static const char* STR_ME_REMOVE_LIQUIDITY = "Remove liquidity";
+static const char* STR_ME_SWAP_EXACT_TOKENS_FOR_TOKENS = "Swap exact tokens for tokens";
+static const char* STR_ME_SWAP_TOKENS_FOR_EXACT_TOKENS = "Swap tokens for exact tokens";
 
 // Items names
 static const char* STR_IT_remark = "Remark";
@@ -160,11 +171,10 @@ static const char* STR_IT_subkeys = "Subkeys";
 static const char* STR_IT_now = "Now";
 static const char* STR_IT_dest = "Dest";
 static const char* STR_IT_amount = "Amount";
-static const char* STR_IT_who = "Who";
-static const char* STR_IT_new_free = "New free";
-static const char* STR_IT_old_reserved = "Old reserved";
 static const char* STR_IT_source = "Source";
 static const char* STR_IT_keep_alive = "Keep alive";
+static const char* STR_IT_who = "Who";
+static const char* STR_IT_new_free = "New free";
 static const char* STR_IT_new_ = "New";
 static const char* STR_IT_max = "Max";
 static const char* STR_IT_bond = "Bond";
@@ -177,7 +187,7 @@ static const char* STR_IT_assets = "Assets";
 static const char* STR_IT_fee_asset_item = "Fee asset item";
 static const char* STR_IT_max_weight = "Max weight";
 static const char* STR_IT_location = "Location";
-static const char* STR_IT_xcm_version = "Xcm version";
+static const char* STR_IT_version = "Version";
 static const char* STR_IT_maybe_xcm_version = "Maybe xcm version";
 static const char* STR_IT_suspended = "Suspended";
 static const char* STR_IT_calls = "Calls";
@@ -252,6 +262,26 @@ static const char* STR_IT_witness_price = "Witness price";
 static const char* STR_IT_mint_data = "Mint data";
 static const char* STR_IT_signature = "Signature";
 static const char* STR_IT_signer = "Signer";
+static const char* STR_IT_nft_collection_id = "Nft collection id";
+static const char* STR_IT_nft_id = "Nft id";
+static const char* STR_IT_asset_id = "Asset id";
+static const char* STR_IT_fractions = "Fractions";
+static const char* STR_IT_asset1 = "Asset1";
+static const char* STR_IT_asset2 = "Asset2";
+static const char* STR_IT_amount1_desired = "Amount1 desired";
+static const char* STR_IT_amount2_desired = "Amount2 desired";
+static const char* STR_IT_amount1_min = "Amount1 min";
+static const char* STR_IT_amount2_min = "Amount2 min";
+static const char* STR_IT_lp_token_burn = "Lp token burn";
+static const char* STR_IT_amount1_min_receive = "Amount1 min receive";
+static const char* STR_IT_amount2_min_receive = "Amount2 min receive";
+static const char* STR_IT_withdraw_to = "Withdraw to";
+static const char* STR_IT_path = "Path";
+static const char* STR_IT_amount_in = "Amount in";
+static const char* STR_IT_amount_out_min = "Amount out min";
+static const char* STR_IT_send_to = "Send to";
+static const char* STR_IT_amount_out = "Amount out";
+static const char* STR_IT_amount_in_max = "Amount in max";
 
 #ifdef __cplusplus
 }

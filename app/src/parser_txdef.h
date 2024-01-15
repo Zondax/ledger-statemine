@@ -38,7 +38,10 @@ typedef struct {
     pd_ExtrinsicEra_t era;
     pd_CompactIndex_t nonce;
     pd_CompactBalance_t tip;
-    pd_OptionChargeAssetIdOf_t assetId;
+    uint8_t hasAssetId;
+#if !defined(TARGET_NANOS)
+    pd_MultiLocationV3_t assetId;
+#endif
     uint32_t specVersion;
     uint32_t transactionVersion;
 

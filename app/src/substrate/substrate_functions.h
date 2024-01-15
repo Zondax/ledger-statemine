@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -84,24 +84,26 @@ parser_error_t _readFungibilityV2(parser_context_t* c, pd_FungibilityV2_t* v);
 parser_error_t _readFungibilityV3(parser_context_t* c, pd_FungibilityV3_t* v);
 parser_error_t _readMultiAssetIdV2(parser_context_t* c, pd_MultiAssetIdV2_t* v);
 parser_error_t _readMultiAssetIdV3(parser_context_t* c, pd_MultiAssetIdV3_t* v);
+parser_error_t _readu128(parser_context_t* c, pd_u128_t* v);
 parser_error_t _readAccountId(parser_context_t* c, pd_AccountId_t* v);
 parser_error_t _readCompactAccountIndex(parser_context_t* c, pd_CompactAccountIndex_t* v);
 parser_error_t _readMintType(parser_context_t* c, pd_MintType_t* v);
 parser_error_t _readMultiAssetV2(parser_context_t* c, pd_MultiAssetV2_t* v);
 parser_error_t _readMultiAssetV3(parser_context_t* c, pd_MultiAssetV3_t* v);
 parser_error_t _readOptionBalance(parser_context_t* c, pd_OptionBalance_t* v);
+parser_error_t _readOptionu128(parser_context_t* c, pd_Optionu128_t* v);
 parser_error_t _readOptionu32(parser_context_t* c, pd_Optionu32_t* v);
 parser_error_t _readPriceDirection(parser_context_t* c, pd_PriceDirection_t* v);
 parser_error_t _readAccountIdLookupOfT(parser_context_t* c, pd_AccountIdLookupOfT_t* v);
 parser_error_t _readCall(parser_context_t* c, pd_Call_t* v);
-parser_error_t _readChargeAssetIdOf(parser_context_t* c, pd_ChargeAssetIdOf_t* v);
 parser_error_t _readCollectionId(parser_context_t* c, pd_CollectionId_t* v);
 parser_error_t _readCollectionSettings(parser_context_t* c, pd_CollectionSettings_t* v);
 parser_error_t _readItemId(parser_context_t* c, pd_ItemId_t* v);
 parser_error_t _readItemPrice(parser_context_t* c, pd_ItemPrice_t* v);
 parser_error_t _readItemTipOfMaxTips(parser_context_t* c, pd_ItemTipOfMaxTips_t* v);
 parser_error_t _readMintSettings(parser_context_t* c, pd_MintSettings_t* v);
-parser_error_t _readMintWitnessItemId(parser_context_t* c, pd_MintWitnessItemId_t* v);
+parser_error_t _readMintWitnessItemIdDepositBalanceOf(parser_context_t* c, pd_MintWitnessItemIdDepositBalanceOf_t* v);
+parser_error_t _readMultiAssetId(parser_context_t* c, pd_MultiAssetId_t* v);
 parser_error_t _readPriceWithDirectionItemPrice(parser_context_t* c, pd_PriceWithDirectionItemPrice_t* v);
 parser_error_t _readProxyType(parser_context_t* c, pd_ProxyType_t* v);
 parser_error_t _readTimepoint(parser_context_t* c, pd_Timepoint_t* v);
@@ -116,10 +118,12 @@ parser_error_t _readCollectionConfigFor(parser_context_t* c, pd_CollectionConfig
 parser_error_t _readDestroyWitness(parser_context_t* c, pd_DestroyWitness_t* v);
 parser_error_t _readOptionAccountIdLookupOfT(parser_context_t* c, pd_OptionAccountIdLookupOfT_t* v);
 parser_error_t _readOptionItemPrice(parser_context_t* c, pd_OptionItemPrice_t* v);
+parser_error_t _readOptionMintWitnessItemIdDepositBalanceOf(parser_context_t* c, pd_OptionMintWitnessItemIdDepositBalanceOf_t* v);
 parser_error_t _readOptionPriceWithDirectionItemPrice(parser_context_t* c, pd_OptionPriceWithDirectionItemPrice_t* v);
 parser_error_t _readOptionTimepoint(parser_context_t* c, pd_OptionTimepoint_t* v);
 parser_error_t _readVecCall(parser_context_t* c, pd_VecCall_t* v);
 parser_error_t _readVecItemTipOfMaxTips(parser_context_t* c, pd_VecItemTipOfMaxTips_t* v);
+parser_error_t _readVecMultiAssetId(parser_context_t* c, pd_VecMultiAssetId_t* v);
 parser_error_t _readWeightLimit(parser_context_t* c, pd_WeightLimit_t* v);
 parser_error_t _readBoundedVecu8(parser_context_t* c, pd_BoundedVecu8_t* v);
 parser_error_t _readCallHashOf(parser_context_t* c, pd_CallHashOf_t* v);
@@ -129,10 +133,9 @@ parser_error_t _readHash(parser_context_t* c, pd_Hash_t* v);
 parser_error_t _readItemConfig(parser_context_t* c, pd_ItemConfig_t* v);
 parser_error_t _readKeys(parser_context_t* c, pd_Keys_t* v);
 parser_error_t _readOptionAccountId(parser_context_t* c, pd_OptionAccountId_t* v);
-parser_error_t _readOptionChargeAssetIdOf(parser_context_t* c, pd_OptionChargeAssetIdOf_t* v);
+parser_error_t _readOptionBlockNumber(parser_context_t* c, pd_OptionBlockNumber_t* v);
 parser_error_t _readOptionCollectionId(parser_context_t* c, pd_OptionCollectionId_t* v);
 parser_error_t _readOptionItemId(parser_context_t* c, pd_OptionItemId_t* v);
-parser_error_t _readOptionMintWitnessItemId(parser_context_t* c, pd_OptionMintWitnessItemId_t* v);
 parser_error_t _readOptionProxyType(parser_context_t* c, pd_OptionProxyType_t* v);
 parser_error_t _readOverweightIndex(parser_context_t* c, pd_OverweightIndex_t* v);
 parser_error_t _readVecAccountId(parser_context_t* c, pd_VecAccountId_t* v);
@@ -547,6 +550,13 @@ parser_error_t _toStringMultiAssetIdV3(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringu128(
+    const pd_u128_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringAccountId(
     const pd_AccountId_t* v,
     char* outValue,
@@ -589,6 +599,13 @@ parser_error_t _toStringOptionBalance(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringOptionu128(
+    const pd_Optionu128_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringOptionu32(
     const pd_Optionu32_t* v,
     char* outValue,
@@ -612,13 +629,6 @@ parser_error_t _toStringAccountIdLookupOfT(
 
 parser_error_t _toStringCall(
     const pd_Call_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringChargeAssetIdOf(
-    const pd_ChargeAssetIdOf_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -666,8 +676,15 @@ parser_error_t _toStringMintSettings(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringMintWitnessItemId(
-    const pd_MintWitnessItemId_t* v,
+parser_error_t _toStringMintWitnessItemIdDepositBalanceOf(
+    const pd_MintWitnessItemIdDepositBalanceOf_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringMultiAssetId(
+    const pd_MultiAssetId_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -771,6 +788,13 @@ parser_error_t _toStringOptionItemPrice(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringOptionMintWitnessItemIdDepositBalanceOf(
+    const pd_OptionMintWitnessItemIdDepositBalanceOf_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringOptionPriceWithDirectionItemPrice(
     const pd_OptionPriceWithDirectionItemPrice_t* v,
     char* outValue,
@@ -794,6 +818,13 @@ parser_error_t _toStringVecCall(
 
 parser_error_t _toStringVecItemTipOfMaxTips(
     const pd_VecItemTipOfMaxTips_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringVecMultiAssetId(
+    const pd_VecMultiAssetId_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -862,8 +893,8 @@ parser_error_t _toStringOptionAccountId(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringOptionChargeAssetIdOf(
-    const pd_OptionChargeAssetIdOf_t* v,
+parser_error_t _toStringOptionBlockNumber(
+    const pd_OptionBlockNumber_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -878,13 +909,6 @@ parser_error_t _toStringOptionCollectionId(
 
 parser_error_t _toStringOptionItemId(
     const pd_OptionItemId_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringOptionMintWitnessItemId(
-    const pd_OptionMintWitnessItemId_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

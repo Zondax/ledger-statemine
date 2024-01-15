@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -473,6 +473,10 @@ typedef struct {
 
 typedef struct {
     const uint8_t* _ptr;
+} pd_u128_t;
+
+typedef struct {
+    const uint8_t* _ptr;
 } pd_AccountId_t;
 
 typedef struct {
@@ -501,6 +505,11 @@ typedef struct {
 
 typedef struct {
     uint8_t some;
+    pd_u128_t contained;
+} pd_Optionu128_t;
+
+typedef struct {
+    uint8_t some;
     pd_u32_t contained;
 } pd_Optionu32_t;
 
@@ -523,10 +532,6 @@ typedef struct {
     const uint32_t* _txVerPtr;
     pd_NestCallIdx_t nestCallIdx;
 } pd_Call_t;
-
-typedef struct {
-    uint32_t value;
-} pd_ChargeAssetIdOf_t;
 
 typedef struct {
     uint32_t value;
@@ -560,8 +565,14 @@ typedef struct {
 } pd_MintSettings_t;
 
 typedef struct {
-    uint32_t ownedItem;
-} pd_MintWitnessItemId_t;
+    pd_Optionu32_t ownedItem;
+    pd_Optionu128_t mintPrice;
+} pd_MintWitnessItemIdDepositBalanceOf_t;
+
+typedef struct {
+    uint8_t parents;
+    pd_JunctionsV3_t interior;
+} pd_MultiAssetId_t;
 
 typedef struct {
     pd_Balance_t amount;
@@ -643,6 +654,11 @@ typedef struct {
 
 typedef struct {
     uint8_t some;
+    pd_MintWitnessItemIdDepositBalanceOf_t contained;
+} pd_OptionMintWitnessItemIdDepositBalanceOf_t;
+
+typedef struct {
+    uint8_t some;
     pd_PriceWithDirectionItemPrice_t contained;
 } pd_OptionPriceWithDirectionItemPrice_t;
 
@@ -663,6 +679,12 @@ typedef struct {
     const uint8_t* _ptr;
     uint64_t _lenBuffer;
 } pd_VecItemTipOfMaxTips_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_VecMultiAssetId_t;
 
 typedef struct {
     uint8_t value;
@@ -706,8 +728,8 @@ typedef struct {
 
 typedef struct {
     uint8_t some;
-    pd_ChargeAssetIdOf_t contained;
-} pd_OptionChargeAssetIdOf_t;
+    pd_BlockNumber_t contained;
+} pd_OptionBlockNumber_t;
 
 typedef struct {
     uint8_t some;
@@ -718,11 +740,6 @@ typedef struct {
     uint8_t some;
     pd_ItemId_t contained;
 } pd_OptionItemId_t;
-
-typedef struct {
-    uint8_t some;
-    pd_MintWitnessItemId_t contained;
-} pd_OptionMintWitnessItemId_t;
 
 typedef struct {
     uint8_t some;
