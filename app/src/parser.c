@@ -213,8 +213,17 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
 
         if (displayIdx == FIELD_ASSET_ID) {
             snprintf(outKey, outKeyLen, "Fee paying asset");
-            err = _toStringOptionChargeAssetIdOf(&ctx->tx_obj->assetId, outVal, outValLen, pageIdx, pageCount);
-            return err;
+            if (!ctx->tx_obj->hasAssetId) {
+                snprintf(outVal, outValLen, "None");
+                return parser_ok;
+            } else {
+#if defined(TARGET_NANOS)
+                return parser_not_allowed; // we can't print multilocation in nanos
+#else
+                err = _toStringMultiLocationV3(&ctx->tx_obj->assetId, outVal, outValLen, pageIdx, pageCount);
+                return err;
+#endif
+            }
         }
 
         if (!parser_show_expert_fields()) {
